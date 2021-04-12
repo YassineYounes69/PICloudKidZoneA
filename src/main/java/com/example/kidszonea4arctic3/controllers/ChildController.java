@@ -1,12 +1,18 @@
 package com.example.kidszonea4arctic3.controllers;
 
+import com.example.kidszonea4arctic3.models.Child;
 import com.example.kidszonea4arctic3.repositories.ChildRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+@RestController
 public class ChildController {
     private final ChildRepository childRepository;
 
@@ -15,10 +21,17 @@ public class ChildController {
     }
 
     @RequestMapping(value = "/childrenlist", method = RequestMethod.GET)
-    public String getChildren(Model model){
+    public Set<Child> getChildren(){
+        Child newChild = new Child();
+        List<Child> getChildrenFromDb=childRepository.findAll();
+        Set<Child> newChildList = new HashSet<>();
 
-        model.addAttribute("children",childRepository.findAll());
+        getChildrenFromDb.forEach(
+                child -> newChildList.add(new Child(child.getId(),child.getfName(),child.getlName(),child.getAge()))
+        );
+        return newChildList;
+        //model.addAttribute("children",childRepository.findAll());
 
-        return "childrenlist";
+        //return "childrenlist";
     }
 }

@@ -35,6 +35,13 @@ public class Child {
         this.parent = parent;
     }
 
+    public Child(Long id, String fName, String lName, int age) {
+        this.id = id;
+        this.fName = fName;
+        this.lName = lName;
+        this.age = age;
+    }
+
     public Long getId() {
         return id;
     }
