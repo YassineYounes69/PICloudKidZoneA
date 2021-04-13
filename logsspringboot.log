@@ -409,3 +409,29 @@ Identify and stop the process that's listening on port 8000 or configure this ap
 2021-04-13 18:24:17.933  INFO 9888 --- [RMI TCP Connection(8)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2021-04-13 18:24:17.935  INFO 9888 --- [RMI TCP Connection(8)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2021-04-13 18:24:17.938  INFO 9888 --- [RMI TCP Connection(8)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-04-13 19:04:29.645  INFO 1964 --- [restartedMain] c.e.k.KidsZoneA4arctic3Application       : Starting KidsZoneA4arctic3Application using Java 15 on DESKTOP-63FMP1U with PID 1964 (C:\products\PICloudKidZoneA-4ArcTic3--master\target\classes started by Amal in C:\products\PICloudKidZoneA-4ArcTic3--master)
+2021-04-13 19:04:29.647  INFO 1964 --- [restartedMain] c.e.k.KidsZoneA4arctic3Application       : No active profile set, falling back to default profiles: default
+2021-04-13 19:04:29.680  INFO 1964 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-04-13 19:04:29.680  INFO 1964 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-04-13 19:04:30.098  INFO 1964 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-04-13 19:04:30.138  INFO 1964 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 34 ms. Found 5 JPA repository interfaces.
+2021-04-13 19:04:30.510  INFO 1964 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8000 (http)
+2021-04-13 19:04:30.517  INFO 1964 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-13 19:04:30.517  INFO 1964 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-04-13 19:04:30.591  INFO 1964 --- [restartedMain] o.a.c.c.C.[.[localhost].[/SpringMVC]     : Initializing Spring embedded WebApplicationContext
+2021-04-13 19:04:30.592  INFO 1964 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 912 ms
+2021-04-13 19:04:30.621  INFO 1964 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-04-13 19:04:30.871  INFO 1964 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-04-13 19:04:30.875  INFO 1964 --- [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3306/kidszone?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC'
+2021-04-13 19:04:30.965  INFO 1964 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-04-13 19:04:30.998  INFO 1964 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.29.Final
+2021-04-13 19:04:31.099  INFO 1964 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-04-13 19:04:31.180  INFO 1964 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2021-04-13 19:04:31.517  INFO 1964 --- [restartedMain] org.hibernate.tuple.PojoInstantiator     : HHH000182: No default (no-argument) constructor for class: com.example.kidszonea4arctic3.models.Views (class must be instantiated by Interceptor)
+2021-04-13 19:04:31.991  INFO 1964 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-04-13 19:04:31.998  INFO 1964 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-04-13 19:04:32.021  INFO 1964 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-04-13 19:04:32.225  WARN 1964 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-04-13 19:04:32.296  INFO 1964 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-13 19:04:32.476  INFO 1964 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8000 (http) with context path '/SpringMVC'
+2021-04-13 19:04:32.482  INFO 1964 --- [restartedMain] c.e.k.KidsZoneA4arctic3Application       : Started KidsZoneA4arctic3Application in 3.086 seconds (JVM running for 3.645)
