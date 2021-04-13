@@ -99,13 +99,13 @@ public class Parent {
         this.parentPic = parentPic;
     }
 
-    public Set<Child> getChildren() {
+   /* public Set<Child> getChildren() {
         return children;
-    }
+    }*/
 
-    public void setChildren(Set<Child> children) {
+  /*  public void setChildren(Set<Child> children) {
         this.children = children;
-    }
+    }*/
 
     @Override
     public String toString() {

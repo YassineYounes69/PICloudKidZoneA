@@ -21,15 +21,15 @@ public class ChildController {
     }
 
     @RequestMapping(value = "/childrenlist", method = RequestMethod.GET)
-    public Set<Child> getChildren(){
-        Child newChild = new Child();
+    public List<Child> getChildren(){
+        /*Child newChild = new Child();
         List<Child> getChildrenFromDb=childRepository.findAll();
         Set<Child> newChildList = new HashSet<>();
 
         getChildrenFromDb.forEach(
                 child -> newChildList.add(new Child(child.getId(),child.getfName(),child.getlName(),child.getAge()))
-        );
-        return newChildList;
+        );*/
+        return childRepository.findAll();
         //model.addAttribute("children",childRepository.findAll());
 
         //return "childrenlist";
