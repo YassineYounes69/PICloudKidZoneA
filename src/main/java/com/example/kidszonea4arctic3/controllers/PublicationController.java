@@ -1,5 +1,6 @@
 package com.example.kidszonea4arctic3.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,17 @@ import com.example.kidszonea4arctic3.models.Publication;
 public class PublicationController {
 	@Autowired
 	IPublicationService ps;
+	private Date date_pub;
+	
+	
+
+	public Date getDate_pub() {
+		return date_pub;
+	}
+
+	public void setDate_pub(Date date_pub) {
+		this.date_pub = date_pub;
+	}
 
 	//http://localhost:8000/SpringMVC/servlet/readAllPublication
 	@GetMapping("/readAllPublication")
@@ -43,7 +55,7 @@ public class PublicationController {
 		ps.deletePublication(id);
 	}
 	
-	// http://localhost:8081/SpringMVC/servlet/modify-pub
+	// http://localhost:8000/SpringMVC/servlet/modify-pub
 	@PutMapping("/modify-pub")
 	@ResponseBody
 	public Publication updatePublication (@RequestBody Publication p) {

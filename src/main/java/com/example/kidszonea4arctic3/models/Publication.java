@@ -2,8 +2,6 @@ package com.example.kidszonea4arctic3.models;
 
 
 import java.io.Serializable;
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,8 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import java.util.Date;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.TemporalType;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 
 @Entity
@@ -31,12 +33,13 @@ public class Publication implements Serializable{
 	@Column(name="ID")
 	private long idpub; 
 	
-
-	 @Column(name="type_pub")
-	 private String typ_epub ;
-	 
+	@Enumerated(EnumType.ORDINAL)  
+	 @Column(name="TypePub")
+	 private TypePub type_pub ;
+	
+	 @Temporal (TemporalType.DATE)
 	 @Column(name="date_pub")
-	 private String date_epub ;
+	 private Date date_pub ;
 	 
 	 @Column(name="titre_pub")
 	 private String titre_pub ;
@@ -58,20 +61,7 @@ public class Publication implements Serializable{
 		super();
 	}
 
-	public Publication(long idpub, String typ_epub, String date_epub, String titre_pub, int is_visible, int views,
-			int likes, Employee employe, Parent parent) {
-		super();
-		this.idpub = idpub;
-		this.typ_epub = typ_epub;
-		this.date_epub = date_epub;
-		this.titre_pub = titre_pub;
-		this.is_visible = is_visible;
-		this.views = views;
-		this.likes = likes;
-		this.employe = employe;
-		this.parent = parent;
-	}
-
+	
 	public Employee getEmploye() {
 		return employe;
 	}
@@ -96,21 +86,8 @@ public class Publication implements Serializable{
 		this.idpub = idpub;
 	}
 
-	public String getTyp_epub() {
-		return typ_epub;
-	}
 
-	public void setTyp_epub(String typ_epub) {
-		this.typ_epub = typ_epub;
-	}
 
-	public String getDate_epub() {
-		return date_epub;
-	}
-
-	public void setDate_epub(String date_epub) {
-		this.date_epub = date_epub;
-	}
 
 	public String getTitre_pub() {
 		return titre_pub;
@@ -143,6 +120,62 @@ public class Publication implements Serializable{
 	public void setLikes(int likes) {
 		this.likes = likes;
 	}
+	
+
+
+	public TypePub getType_pub() {
+		return type_pub;
+	}
+
+
+	public void setType_pub(TypePub type_pub) {
+		this.type_pub = type_pub;
+	}
+
+
+	public Date getDate_epub() {
+		return date_pub;
+	}
+
+
+	public void setDate_epub(Date date_epub) {
+		this.date_pub = date_epub;
+	}
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
+	public Publication(long idpub, TypePub type_pub, Date date_epub, String titre_pub, int is_visible, int views,
+			int likes, Employee employe, Parent parent) {
+		super();
+		this.idpub = idpub;
+		this.type_pub = type_pub;
+		this.date_pub = date_epub;
+		this.titre_pub = titre_pub;
+		this.is_visible = is_visible;
+		this.views = views;
+		this.likes = likes;
+		this.employe = employe;
+		this.parent = parent;
+	}
+
+	public Publication(long idpub, TypePub type_pub, String titre_pub, int is_visible, int views,
+			int likes, Employee employe, Parent parent) {
+		super();
+		this.idpub = idpub;
+		this.type_pub = type_pub;
+	    //this.date_epub = date_epub;
+		this.titre_pub = titre_pub;
+		this.is_visible = is_visible;
+		this.views = views;
+		this.likes = likes;
+		this.employe = employe;
+		this.parent = parent;
+	}
+
 
 
 	 

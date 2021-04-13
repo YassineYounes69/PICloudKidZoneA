@@ -37,6 +37,14 @@ public class Employee {
         this.role = role;
         this.ccc = ccc;
     }
+    public Employee(String email, String pw, String fName, String lName, Role role) {
+        this.email = email;
+        this.pw = pw;
+        this.fName = fName;
+        this.lName = lName;
+        this.role = role;
+        
+    }
 
     public Employee(String email, String pw, String fName, String lName, Role role, boolean availability, ChildCareCenter ccc) {
         this.email = email;

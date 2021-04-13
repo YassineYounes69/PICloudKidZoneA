@@ -35,6 +35,16 @@ public class Parent {
         this.accStatus = accStatus;
     }
 
+    public Parent(String email, String pw, String fName, String lName, int pTel) {
+        this.email = email;
+        this.pw = pw;
+        this.fName = fName;
+        this.lName = lName;
+        this.pTel = pTel;
+       // this.accStatus = accStatus;
+    }
+
+
     public Long getId() {
         return id;
     }
