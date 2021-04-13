@@ -19,6 +19,14 @@ public class Employee {
     private ChildCareCenter ccc; //the childcare center that the employee works at
 
     private boolean availability; //specific attribute to Doctor role
+
+    public Employee(String email, String pw, String fName, String lName) {
+        this.email = email;
+        this.pw = pw;
+        this.fName = fName;
+        this.lName = lName;
+    }
+
     public enum Role {
         Director,  //This type of user can manage the childcare center and its employees
         ERResponsible, //This type of user can take appointments with parents and message them

@@ -14,7 +14,7 @@ public class ChildCareCenter {
 
     private String descr; //CCC description
     private String logo; //logo of the CCC, to be implemented in the future releases
-    private Date creationDate;
+    //private Date creationDate;
     private int cccPNumber; //Childcare Center phone number
     private String adr; //CCC address
     private float cost; //CCC services cost
@@ -26,13 +26,12 @@ public class ChildCareCenter {
     public ChildCareCenter() {
     }
 
-    public ChildCareCenter(String desc, String logo, int cccPNumber, String adr, float cost, Set<Employee> employees) {
+    public ChildCareCenter(String desc, String logo, int cccPNumber, String adr, float cost) {
         this.descr = desc;
         this.logo = logo;
         this.cccPNumber = cccPNumber;
         this.adr = adr;
         this.cost = cost;
-        this.employees = employees;
     }
 
     public Long getId() {
@@ -43,9 +42,7 @@ public class ChildCareCenter {
         this.id = id;
     }
 
-    public String getDescr() {
-        return descr;
-    }
+    public String getDescr() { return descr; }
 
     public void setDescr(String desc) {
         this.descr = desc;
@@ -57,14 +54,6 @@ public class ChildCareCenter {
 
     public void setLogo(String logo) {
         this.logo = logo;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
     }
 
     public int getCccPNumber() {
@@ -91,11 +80,4 @@ public class ChildCareCenter {
         this.cost = cost;
     }
 
-    public Set<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
-    }
 }
