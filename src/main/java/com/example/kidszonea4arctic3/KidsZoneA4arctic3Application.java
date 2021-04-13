@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class KidsZoneA4arctic3Application {
 
     public static void main(String[] args) {
+    	System.out.print("Test amal");
         SpringApplication.run(KidsZoneA4arctic3Application.class, args);
     }
 
