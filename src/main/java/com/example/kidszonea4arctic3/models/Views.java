@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class Views implements Serializable {
 
 
-	private static final long serialVersionUID = 2221704042876473324L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)

@@ -7,6 +7,8 @@ import java.util.Set;
 @Entity
 public class Parent {
 
+//	private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
