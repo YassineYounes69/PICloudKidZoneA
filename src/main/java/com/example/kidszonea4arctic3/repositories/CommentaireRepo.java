@@ -12,18 +12,21 @@ import org.springframework.data.repository.query.Param;
 
 
 public interface CommentaireRepo extends CrudRepository<Commentaire, Long>{
-	/*
-	@Modifying (clearAutomatically = true)
-	@Query (value= "Delete from Commentaire c where c.idcom= :idcom")
-	public void deleteById(@Param("idcom") int idcom);
 	
-	@Query("SELECT c FROM Comment c WHERE c.commentContent LIKE %?1%") 
+	
+	@Modifying (clearAutomatically = true)
+	@Query (value= "Delete from Commentaire c where c.id= :id")
+	public void deleteById(@Param("id") long id);
+	
+	@Query("SELECT c FROM Commentaire c WHERE c.commentContent LIKE %?1%") 
 	public List<Commentaire> findCommentsByTextContaining(String pattern);
 	
-	@Query("SELECT c FROM Comment c WHERE c.user.id =:id")
-	public List<Commentaire> getCommentsByUserId(@Param("id")int id);
+	@Query("SELECT c FROM Commentaire c WHERE c.parent.id =:id")
+	public List<Commentaire> getCommentsByUserId(@Param("id")long id);
 	
-	@Query("SELECT c FROM Comment c WHERE c.post.id =:id")
-	public List<Commentaire> getCommentsByPostId(@Param("id")int id);*/
+	@Query("SELECT c FROM Commentaire c WHERE c.publication.id =:id")
+	public List<Commentaire> getCommentsByPostId(@Param("id")long id);
+	
+	
 
 }

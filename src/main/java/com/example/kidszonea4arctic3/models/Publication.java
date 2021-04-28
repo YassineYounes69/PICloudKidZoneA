@@ -40,7 +40,8 @@ public class Publication implements Serializable{
 	@Enumerated(EnumType.ORDINAL)  
 	 @Column(name="TypePub")
 	 private TypePub type_pub ;
-	
+	@Column(name= "pubContent")
+	private String pubContent;
 	 @Column(name="date_pub")
 	 private LocalDateTime date_pub ;
 	 
@@ -56,12 +57,12 @@ public class Publication implements Serializable{
 	 
 	 @Column(name="src_pub")
 	 private String src_pub ;
-		@JsonIgnore
+	 @JsonIgnore
 	 @ManyToOne private Employee employe;
-		@JsonIgnore
+	 @JsonIgnore
 	 @ManyToOne private Parent parent ;
-	@JsonIgnore
-  @OneToMany(mappedBy="publication",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	 @JsonIgnore
+    @OneToMany(mappedBy="publication",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@OrderBy("desc")
 	 private List<Commentaire> comm = new ArrayList<Commentaire>();
 	 
@@ -69,7 +70,9 @@ public class Publication implements Serializable{
 	 @JsonIgnore
 	 @OneToMany(cascade = CascadeType.ALL, mappedBy = "publication", fetch= FetchType.EAGER)	
      private Set<Likes> likes = new HashSet<Likes>() ;
-
+	 @JsonIgnore
+		@OneToMany(cascade=CascadeType.ALL, mappedBy="publication")
+		private Set<Report> reports;
 		
 	
 
@@ -211,7 +214,7 @@ public class Publication implements Serializable{
 
 
 
-
+/*
 
 	public Publication(long idpub, TypePub type_pub, LocalDateTime date_pub, String titre_pub, int is_visible,
 			int views, String src_pub, Employee employe, Parent parent) {
@@ -245,6 +248,95 @@ public class Publication implements Serializable{
 		this.parent = parent;
 		this.comm = comm;
 		this.likes = likes;
+	}
+
+
+*/
+
+	public String getPubContent() {
+		return pubContent;
+	}
+
+
+
+
+	public void setPubContent(String pubContent) {
+		this.pubContent = pubContent;
+	}
+
+
+
+
+	public List<Commentaire> getComm() {
+		return comm;
+	}
+
+
+
+
+	public void setComm(List<Commentaire> comm) {
+		this.comm = comm;
+	}
+
+
+
+
+	public Set<Likes> getLikes() {
+		return likes;
+	}
+
+
+
+
+	public void setLikes(Set<Likes> likes) {
+		this.likes = likes;
+	}
+
+
+
+
+	public Set<Report> getReports() {
+		return reports;
+	}
+
+
+
+
+	public void setReports(Set<Report> reports) {
+		this.reports = reports;
+	}
+
+
+
+
+	@Override
+	public String toString() {
+		return "Publication [idpub=" + idpub + ", type_pub=" + type_pub + ", pubContent=" + pubContent + ", date_pub="
+				+ date_pub + ", titre_pub=" + titre_pub + ", is_visible=" + is_visible + ", views=" + views
+				+ ", src_pub=" + src_pub + ", employe=" + employe + ", parent=" + parent + ", comm=" + comm + ", likes="
+				+ likes + ", reports=" + reports + "]";
+	}
+
+
+
+
+	public Publication(long idpub, TypePub type_pub, String pubContent, LocalDateTime date_pub, String titre_pub,
+			int is_visible, int views, String src_pub, Employee employe, Parent parent, List<Commentaire> comm,
+			Set<Likes> likes, Set<Report> reports) {
+		super();
+		this.idpub = idpub;
+		this.type_pub = type_pub;
+		this.pubContent = pubContent;
+		this.date_pub = date_pub;
+		this.titre_pub = titre_pub;
+		this.is_visible = is_visible;
+		this.views = views;
+		this.src_pub = src_pub;
+		this.employe = employe;
+		this.parent = parent;
+		this.comm = comm;
+		this.likes = likes;
+		this.reports = reports;
 	}
 
 

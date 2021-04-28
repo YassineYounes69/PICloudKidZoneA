@@ -1,8 +1,14 @@
 package com.example.kidszonea4arctic3.models;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
+@Table( name = "employee")
 public class Employee {
 
     @Id
@@ -14,6 +20,22 @@ public class Employee {
     private String fName; //first name
     private String lName; //Last name
     private Role role;
+    @OneToMany
+    @JoinColumn(name = "parent_id" )
+    private Set<Child> children = new HashSet<>();
+    
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.EAGER)
+	private Set<Report> reports;
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userSend", fetch = FetchType.EAGER)
+	private Set<NotificationMsg> notifSend;
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userReceive", fetch = FetchType.EAGER)
+	private Set<NotificationMsg> notifReceive;
+	
+	//@JsonIgnore
+	//@OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
+	//private Set<Publication> publication;
 
     @ManyToOne
     private ChildCareCenter ccc; //the childcare center that the employee works at
@@ -45,8 +67,91 @@ public class Employee {
         this.role = role;
         
     }
+    
 
-    public Employee(String email, String pw, String fName, String lName, Role role, boolean availability, ChildCareCenter ccc) {
+
+    
+
+	
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", email=" + email + ", pw=" + pw + ", fName=" + fName + ", lName=" + lName
+				+ ", role=" + role + ", children=" + children + ", reports=" + reports + ", notifSend=" + notifSend
+				+ ", notifReceive=" + notifReceive + ", ccc=" + ccc + ", availability=" + availability + "]";
+	}
+
+	public Employee(Long id, String email, String pw, String fName, String lName, Role role, Set<Child> children,
+			Set<Report> reports, Set<NotificationMsg> notifSend, Set<NotificationMsg> notifReceive, ChildCareCenter ccc,
+			boolean availability) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.pw = pw;
+		this.fName = fName;
+		this.lName = lName;
+		this.role = role;
+		this.children = children;
+		this.reports = reports;
+		this.notifSend = notifSend;
+		this.notifReceive = notifReceive;
+		this.ccc = ccc;
+		this.availability = availability;
+	}
+
+	public Set<NotificationMsg> getNotifSend() {
+		return notifSend;
+	}
+
+	public void setNotifSend(Set<NotificationMsg> notifSend) {
+		this.notifSend = notifSend;
+	}
+
+	public Set<NotificationMsg> getNotifReceive() {
+		return notifReceive;
+	}
+
+	public void setNotifReceive(Set<NotificationMsg> notifReceive) {
+		this.notifReceive = notifReceive;
+	}
+
+	public ChildCareCenter getCcc() {
+		return ccc;
+	}
+
+	public void setCcc(ChildCareCenter ccc) {
+		this.ccc = ccc;
+	}
+
+	public boolean isAvailability() {
+		return availability;
+	}
+
+	public Set<Child> getChildren() {
+		return children;
+	}
+
+	public void setChildren(Set<Child> children) {
+		this.children = children;
+	}
+
+	public Set<Report> getReports() {
+		return reports;
+	}
+
+	public void setReports(Set<Report> reports) {
+		this.reports = reports;
+	}
+	/*
+
+	public Set<Publication> getPosts() {
+		return publication;
+	}
+
+	public void setPosts(Set<Publication> posts) {
+		this.publication = posts;
+	}*/
+
+	public Employee(String email, String pw, String fName, String lName, Role role, boolean availability, ChildCareCenter ccc) {
         this.email = email;
         this.pw = pw;
         this.fName = fName;
@@ -111,4 +216,6 @@ public class Employee {
     public void setAvailability(boolean availability) {
         this.availability = availability;
     }
+    
+    
 }

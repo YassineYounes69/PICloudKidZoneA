@@ -1,6 +1,7 @@
 package com.example.kidszonea4arctic3.models;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +21,8 @@ public class Likes implements Serializable {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Column(name="ID")
 	private long id_likes; 
-	
+	@Column(name= "likeDate")
+	private LocalDateTime likeDate;
     @ManyToOne private Employee employe;
     @ManyToOne private Publication publication;
     @ManyToOne private Parent parent ;
@@ -48,16 +50,24 @@ public class Likes implements Serializable {
 	public void setParent(Parent parent) {
 		this.parent = parent;
 	}
-	public Likes(long id_likes, Employee employe, Publication publication, Parent parent) {
-		super();
-		this.id_likes = id_likes;
-		this.employe = employe;
-		this.publication = publication;
-		this.parent = parent;
-	}
+
 	public Likes() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public LocalDateTime getLikeDate() {
+		return likeDate;
+	}
+	public void setLikeDate(LocalDateTime likeDate) {
+		this.likeDate = likeDate;
+	}
+	public Likes(long id_likes, LocalDateTime likeDate, Employee employe, Publication publication, Parent parent) {
+		super();
+		this.id_likes = id_likes;
+		this.likeDate = likeDate;
+		this.employe = employe;
+		this.publication = publication;
+		this.parent = parent;
 	}
     
     

@@ -1,10 +1,14 @@
 package com.example.kidszonea4arctic3.models;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table( name = "parent")
 public class Parent {
 
 //	private static final long serialVersionUID = 1L;
@@ -24,10 +28,27 @@ public class Parent {
     @OneToMany
     @JoinColumn(name = "parent_id" )
     private Set<Child> children = new HashSet<>();
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "parent", fetch = FetchType.EAGER)
+	private Set<Report> reports;
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "parent", fetch = FetchType.EAGER)
+	private Set<Child> kids;
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
+	private Set<Publication> posts;
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userSend", fetch = FetchType.EAGER)
+	private Set<NotificationMsg> notifSend;
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userReceive", fetch = FetchType.EAGER)
+	private Set<NotificationMsg> notifReceive;
+	
 
     public Parent() {
     }
 
+    
     public Parent(String email, String pw, String fName, String lName, int pTel, boolean accStatus) {
         this.email = email;
         this.pw = pw;
@@ -45,9 +66,59 @@ public class Parent {
         this.pTel = pTel;
        // this.accStatus = accStatus;
     }
+    
+    
 
 
-    public Long getId() {
+    public Parent(Long id, String email, String pw, String fName, String lName, int pTel, boolean accStatus,
+			String parentPic, Set<Child> children, Set<Report> reports, Set<Child> kids, Set<Publication> posts) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.pw = pw;
+		this.fName = fName;
+		this.lName = lName;
+		this.pTel = pTel;
+		this.accStatus = accStatus;
+		this.parentPic = parentPic;
+		this.children = children;
+		this.reports = reports;
+		this.kids = kids;
+		this.posts = posts;
+	}
+
+
+	public Set<Report> getReports() {
+		return reports;
+	}
+
+
+	public void setReports(Set<Report> reports) {
+		this.reports = reports;
+	}
+
+
+	public Set<Child> getKids() {
+		return kids;
+	}
+
+
+	public void setKids(Set<Child> kids) {
+		this.kids = kids;
+	}
+
+
+	public Set<Publication> getPosts() {
+		return posts;
+	}
+
+
+	public void setPosts(Set<Publication> posts) {
+		this.posts = posts;
+	}
+
+
+	public Long getId() {
         return id;
     }
 
@@ -119,35 +190,153 @@ public class Parent {
         this.children = children;
     }
 
-    @Override
-    public String toString() {
-       // final String[] listOfChildren = {""};
-        //this.getChildren().forEach(child -> listOfChildren[0] +=child.getfName()+"/" );
 
-        return "Parent{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", pw='" + pw + '\'' +
-                ", fName='" + fName + '\'' +
-                ", lName='" + lName + '\'' +
-                ", pTel=" + pTel +
-                ", accStatus=" + accStatus +
-                //", books=" + listOfChildren[0] +
-                '}';
-    }
+    
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public String toString() {
+		return "Parent [id=" + id + ", email=" + email + ", pw=" + pw + ", fName=" + fName + ", lName=" + lName
+				+ ", pTel=" + pTel + ", accStatus=" + accStatus + ", parentPic=" + parentPic + ", children=" + children
+				+ ", reports=" + reports + ", kids=" + kids + ", posts=" + posts + ", notifSend=" + notifSend
+				+ ", notifReceive=" + notifReceive + "]";
+	}
 
-        Parent parent = (Parent) o;
 
-        return id != null ? id.equals(parent.id) : parent.id == null;
-    }
+	public Parent(Long id, String email, String pw, String fName, String lName, int pTel, boolean accStatus,
+			String parentPic, Set<Child> children, Set<Report> reports, Set<Child> kids, Set<Publication> posts,
+			Set<NotificationMsg> notifSend, Set<NotificationMsg> notifReceive) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.pw = pw;
+		this.fName = fName;
+		this.lName = lName;
+		this.pTel = pTel;
+		this.accStatus = accStatus;
+		this.parentPic = parentPic;
+		this.children = children;
+		this.reports = reports;
+		this.kids = kids;
+		this.posts = posts;
+		this.notifSend = notifSend;
+		this.notifReceive = notifReceive;
+	}
+
+
+	public Set<NotificationMsg> getNotifSend() {
+		return notifSend;
+	}
+
+
+	public void setNotifSend(Set<NotificationMsg> notifSend) {
+		this.notifSend = notifSend;
+	}
+
+
+	public Set<NotificationMsg> getNotifReceive() {
+		return notifReceive;
+	}
+
+
+	public void setNotifReceive(Set<NotificationMsg> notifReceive) {
+		this.notifReceive = notifReceive;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Parent other = (Parent) obj;
+		if (accStatus != other.accStatus)
+			return false;
+		if (children == null) {
+			if (other.children != null)
+				return false;
+		} else if (!children.equals(other.children))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (fName == null) {
+			if (other.fName != null)
+				return false;
+		} else if (!fName.equals(other.fName))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (kids == null) {
+			if (other.kids != null)
+				return false;
+		} else if (!kids.equals(other.kids))
+			return false;
+		if (lName == null) {
+			if (other.lName != null)
+				return false;
+		} else if (!lName.equals(other.lName))
+			return false;
+		if (notifReceive == null) {
+			if (other.notifReceive != null)
+				return false;
+		} else if (!notifReceive.equals(other.notifReceive))
+			return false;
+		if (notifSend == null) {
+			if (other.notifSend != null)
+				return false;
+		} else if (!notifSend.equals(other.notifSend))
+			return false;
+		if (pTel != other.pTel)
+			return false;
+		if (parentPic == null) {
+			if (other.parentPic != null)
+				return false;
+		} else if (!parentPic.equals(other.parentPic))
+			return false;
+		if (posts == null) {
+			if (other.posts != null)
+				return false;
+		} else if (!posts.equals(other.posts))
+			return false;
+		if (pw == null) {
+			if (other.pw != null)
+				return false;
+		} else if (!pw.equals(other.pw))
+			return false;
+		if (reports == null) {
+			if (other.reports != null)
+				return false;
+		} else if (!reports.equals(other.reports))
+			return false;
+		return true;
+	}
 
     @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (accStatus ? 1231 : 1237);
+		result = prime * result + ((children == null) ? 0 : children.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((fName == null) ? 0 : fName.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((kids == null) ? 0 : kids.hashCode());
+		result = prime * result + ((lName == null) ? 0 : lName.hashCode());
+		result = prime * result + ((notifReceive == null) ? 0 : notifReceive.hashCode());
+		result = prime * result + ((notifSend == null) ? 0 : notifSend.hashCode());
+		result = prime * result + pTel;
+		result = prime * result + ((parentPic == null) ? 0 : parentPic.hashCode());
+		result = prime * result + ((posts == null) ? 0 : posts.hashCode());
+		result = prime * result + ((pw == null) ? 0 : pw.hashCode());
+		result = prime * result + ((reports == null) ? 0 : reports.hashCode());
+		return result;
+	}
 }

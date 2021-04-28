@@ -27,25 +27,19 @@ public class Commentaire  implements Serializable{
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Column(name="ID")
-	private long id_com; 
+	private long id; 
 	 @JsonIgnore
 	 @ManyToOne private Employee employe;
 	 @JsonIgnore
 	 @ManyToOne private Parent parent ;
 	 @JsonIgnore
 	 @ManyToOne private Publication publication;
-	 
+	@Column(name="commentContent")
+	private String commentContent;
+	
 	 @Column(name="date_com")
 	 private LocalDateTime date_com ;
 
-	public long getIdcom() {
-		return id_com;
-	}
-
-	public void setIdcom(long idcom) {
-		this.id_com = idcom;
-	}
-	
 
 	public Employee getEmploye() {
 		return employe;
@@ -80,9 +74,9 @@ public class Commentaire  implements Serializable{
 		this.date_com = date_com;
 	}
 
-	public Commentaire(long idcom, Employee employe, Parent parent, Publication publication, LocalDateTime date_com) {
+	public Commentaire(long id, Employee employe, Parent parent, Publication publication, LocalDateTime date_com) {
 		super();
-		this.id_com = idcom;
+		this.id = id;
 		this.employe = employe;
 		this.parent = parent;
 		this.publication = publication;
@@ -91,6 +85,47 @@ public class Commentaire  implements Serializable{
 
 	public Commentaire() {
 		super();
+	}
+
+	public long getId_com() {
+		return id;
+	}
+
+	public void setId_com(long id_com) {
+		this.id = id_com;
+	}
+
+	public String getCommentContent() {
+		return commentContent;
+	}
+
+	public void setCommentContent(String commentContent) {
+		this.commentContent = commentContent;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Commentaire(long id, Employee employe, Parent parent, Publication publication, String commentContent,
+			LocalDateTime date_com) {
+		super();
+		this.id= id;
+		this.employe = employe;
+		this.parent = parent;
+		this.publication = publication;
+		this.commentContent = commentContent;
+		this.date_com = date_com;
+	}
+
+	@Override
+	public String toString() {
+		return "Commentaire [id_com=" + id+ ", employe=" + employe + ", parent=" + parent + ", publication="
+				+ publication + ", commentContent=" + commentContent + ", date_com=" + date_com + "]";
 	}
 	 
 	
