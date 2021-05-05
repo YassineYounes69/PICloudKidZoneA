@@ -9,6 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table( name = "parent")
+
 public class Parent {
 
 //	private static final long serialVersionUID = 1L;
@@ -37,12 +38,7 @@ public class Parent {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
 	private Set<Publication> posts;
 	
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userSend", fetch = FetchType.EAGER)
-	private Set<NotificationMsg> notifSend;
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userReceive", fetch = FetchType.EAGER)
-	private Set<NotificationMsg> notifReceive;
+
 	
 
     public Parent() {
@@ -193,56 +189,10 @@ public class Parent {
 
     
 
-    @Override
-	public String toString() {
-		return "Parent [id=" + id + ", email=" + email + ", pw=" + pw + ", fName=" + fName + ", lName=" + lName
-				+ ", pTel=" + pTel + ", accStatus=" + accStatus + ", parentPic=" + parentPic + ", children=" + children
-				+ ", reports=" + reports + ", kids=" + kids + ", posts=" + posts + ", notifSend=" + notifSend
-				+ ", notifReceive=" + notifReceive + "]";
-	}
+	
 
 
-	public Parent(Long id, String email, String pw, String fName, String lName, int pTel, boolean accStatus,
-			String parentPic, Set<Child> children, Set<Report> reports, Set<Child> kids, Set<Publication> posts,
-			Set<NotificationMsg> notifSend, Set<NotificationMsg> notifReceive) {
-		super();
-		this.id = id;
-		this.email = email;
-		this.pw = pw;
-		this.fName = fName;
-		this.lName = lName;
-		this.pTel = pTel;
-		this.accStatus = accStatus;
-		this.parentPic = parentPic;
-		this.children = children;
-		this.reports = reports;
-		this.kids = kids;
-		this.posts = posts;
-		this.notifSend = notifSend;
-		this.notifReceive = notifReceive;
-	}
-
-
-	public Set<NotificationMsg> getNotifSend() {
-		return notifSend;
-	}
-
-
-	public void setNotifSend(Set<NotificationMsg> notifSend) {
-		this.notifSend = notifSend;
-	}
-
-
-	public Set<NotificationMsg> getNotifReceive() {
-		return notifReceive;
-	}
-
-
-	public void setNotifReceive(Set<NotificationMsg> notifReceive) {
-		this.notifReceive = notifReceive;
-	}
-
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -284,16 +234,7 @@ public class Parent {
 				return false;
 		} else if (!lName.equals(other.lName))
 			return false;
-		if (notifReceive == null) {
-			if (other.notifReceive != null)
-				return false;
-		} else if (!notifReceive.equals(other.notifReceive))
-			return false;
-		if (notifSend == null) {
-			if (other.notifSend != null)
-				return false;
-		} else if (!notifSend.equals(other.notifSend))
-			return false;
+		
 		if (pTel != other.pTel)
 			return false;
 		if (parentPic == null) {
@@ -330,8 +271,6 @@ public class Parent {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((kids == null) ? 0 : kids.hashCode());
 		result = prime * result + ((lName == null) ? 0 : lName.hashCode());
-		result = prime * result + ((notifReceive == null) ? 0 : notifReceive.hashCode());
-		result = prime * result + ((notifSend == null) ? 0 : notifSend.hashCode());
 		result = prime * result + pTel;
 		result = prime * result + ((parentPic == null) ? 0 : parentPic.hashCode());
 		result = prime * result + ((posts == null) ? 0 : posts.hashCode());
@@ -339,4 +278,8 @@ public class Parent {
 		result = prime * result + ((reports == null) ? 0 : reports.hashCode());
 		return result;
 	}
+
+
+
+    
 }

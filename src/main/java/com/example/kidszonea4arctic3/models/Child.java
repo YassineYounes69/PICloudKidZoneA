@@ -83,16 +83,6 @@ public class Child {
         this.parent = parent;
     }
 
-    @Override
-    public String toString() {
-        return "Child{" +
-                "id=" + id +
-                ", fName='" + fName + '\'' +
-                ", lName='" + lName + '\'' +
-                ", age=" + age +
-
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -108,4 +98,6 @@ public class Child {
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
     }
+    
+    
 }

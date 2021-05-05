@@ -21,6 +21,7 @@ import com.amazonaws.services.rekognition.model.ModerationLabel;
 import com.amazonaws.services.rekognition.model.TextDetection;
 import com.amazonaws.util.IOUtils;
 import com.example.kidszonea4arctic3.models.Commentaire;
+import com.example.kidszonea4arctic3.models.Employee;
 import com.example.kidszonea4arctic3.models.Likes;
 import com.example.kidszonea4arctic3.models.Parent;
 import com.example.kidszonea4arctic3.models.Publication;
@@ -100,7 +101,15 @@ public class PublicationService implements IPublicationService {
 	}
 
 
-
+	
+	
+	@Override
+	public long addorupdatepost(Publication pp)
+	{
+		PublicationRepository.save(pp);
+		return pp.getIdpub(); 
+		
+	}
 
 	@Override
 	public String addPublicationMsg(Publication p) throws Exception {
@@ -109,6 +118,7 @@ public class PublicationService implements IPublicationService {
 		long id = 5 ; 
 		//p.setParent(currentParent());
 		Parent ppp = pr.findById(id).get() ;
+
 	//	Optional<Parent> current = pr.findById((long) 5) ; 
 
 		p.setParent(ppp);
@@ -124,7 +134,7 @@ public class PublicationService implements IPublicationService {
 	
 			}
 			
-			if(p.getType_pub().toString().equals("image") && detectText(p.getSrc_pub()).toLowerCase().contains(uwd.getWord()))
+			if(p.getSrc_pub().toString().equals("image") && detectText(p.getSrc_pub()).toLowerCase().contains(uwd.getWord()))
 			{
 				approved=false;
 				msg+=" You can't upload images that contains hate speech or bad words on Keedo.";

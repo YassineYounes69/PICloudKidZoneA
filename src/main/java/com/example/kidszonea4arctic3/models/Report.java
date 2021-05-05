@@ -158,15 +158,6 @@ public class Report implements Serializable{
 
 
 
-	@Override
-	public String toString() {
-		return "Report [reportPK=" + reportPK + ", reportDate=" + reportDate + ", parent=" + parent + ", employee="
-				+ employee + ", publication=" + publication + "]";
-	}
-
-
-
-
 
 
 	

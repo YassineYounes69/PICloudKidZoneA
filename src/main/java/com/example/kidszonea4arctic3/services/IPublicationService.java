@@ -2,6 +2,7 @@ package com.example.kidszonea4arctic3.services;
 
 import java.util.List;
 
+import com.example.kidszonea4arctic3.models.Parent;
 import com.example.kidszonea4arctic3.models.Publication;
 
 public interface IPublicationService {
@@ -34,6 +35,7 @@ public interface IPublicationService {
 	public Publication mostLikedPublication() throws Exception;
 	public Publication mostCommentedPublication() throws Exception;
 	public Publication advancedSearsh(String motif) ;
+	long addorupdatepost(Publication pp);
 
 
 

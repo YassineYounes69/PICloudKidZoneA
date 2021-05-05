@@ -2,19 +2,28 @@ package com.example.kidszonea4arctic3.models;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Data;
+import lombok.ToString;
+
 
 @Entity
 @Table( name = "Commentaire")
+@Data
+@ToString(exclude = "Commentaire")
 public class Commentaire  implements Serializable{
 
 
@@ -29,11 +38,14 @@ public class Commentaire  implements Serializable{
 	@Column(name="ID")
 	private long id; 
 	 @JsonIgnore
-	 @ManyToOne private Employee employe;
+	 @ManyToOne
+	 private Employee employe;
 	 @JsonIgnore
-	 @ManyToOne private Parent parent ;
+	 @ManyToOne
+	 private Parent parent ; 
 	 @JsonIgnore
-	 @ManyToOne private Publication publication;
+	 @ManyToOne
+	 private Publication publication;
 	@Column(name="commentContent")
 	private String commentContent;
 	
@@ -124,10 +136,10 @@ public class Commentaire  implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Commentaire [id_com=" + id+ ", employe=" + employe + ", parent=" + parent + ", publication="
-				+ publication + ", commentContent=" + commentContent + ", date_com=" + date_com + "]";
+		return "Commentaire [id=" + id + ", employe=" + employe + ", parent=" + parent + ", publication=" + publication
+				+ ", commentContent=" + commentContent + ", date_com=" + date_com + "]";
 	}
-	 
+
 	
 	 
 	

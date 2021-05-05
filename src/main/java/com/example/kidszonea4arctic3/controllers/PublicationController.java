@@ -1,8 +1,13 @@
 package com.example.kidszonea4arctic3.controllers;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+
+import org.ocpsoft.rewrite.annotation.Join;
+import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,22 +18,49 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.kidszonea4arctic3.services.ICommentaireService;
 import com.example.kidszonea4arctic3.services.IPublicationService;
+import com.example.kidszonea4arctic3.models.Parent;
 import com.example.kidszonea4arctic3.models.Publication;
-@Controller
+import com.example.kidszonea4arctic3.models.TypePub;
+
+@Scope(value = "session")
+@Controller(value = "PublicationController") // Name of the bean in Spring IoC
+@ELBeanName(value = "PublicationController") // Name of the bean used by JSF
+@Join(path = "/", to = "/DetailPost.jsf")
 public class PublicationController {
+	
 	@Autowired
 	IPublicationService ps;
 
+	@Autowired
+	ICommentaireService cs;
 	
-
+	//@Transactional
 	//http://localhost:8000/SpringMVC/servlet/readAllPublication
 	@GetMapping("/readAllPublication")
 	@ResponseBody
 	public List<Publication> getPublications() {
+		//traja3 liste des pub sorted by nbr comntaire
 		List<Publication> l = ps.readAllPublication();
+		l.stream().sorted( (Publication p1,Publication p2) -> cs.CountCommentairesByPost(p1.getIdpub())-cs.CountCommentairesByPost(p2.getIdpub()));
+				
 		return l;
 	}
+	private long idpubselected;//PubController.idpubselected
+	
+	private Publication selectedpub;
+	 public String listcomentofpost(int idpub) {
+		 this.setIdpubselected(idpub);
+		 
+		 this.setSelectedpub(this.getPost(idpub));
+		 return "/DetailPost.xhtml?faces-redirect=true";
+		 
+		 
+	 }
+
+	
+
 	
 	 //Ajouter publication : http://localhost:8000/SpringMVC/servlet/addPublication
 	@PostMapping("/addPublication")
@@ -201,15 +233,172 @@ public class PublicationController {
 	 public Publication advancedSearsh(@PathVariable() String m){ 
 		 return ps.advancedSearsh(m) ;
 	 }
-	
-	
-	
-
-	
-	
-	
 
 
+
+
+	public long getIdpubselected() {
+		return idpubselected;
+	}
+
+
+
+
+	public void setIdpubselected(long idpubselected) {
+		this.idpubselected = idpubselected;
+	}
+
+
+
+
+	public Publication getSelectedpub() {
+		return selectedpub;
+	}
+
+
+
+
+	public void setSelectedpub(Publication selectedpub) {
+		this.selectedpub = selectedpub;
+	}
+	
+	
+private TypePub type_pub ;
+private String  pubContent;
+private LocalDateTime date_pub ;
+private String  titre_pub ;
+private String  src_pub;
+private Parent parent = new Parent() ;
+
+
+
+
+
+
+public void addpostt()
+{
+	System.err.println("3eussssssssssseummaaaaaaaaaaaaaaaaa !!!!!!!!!!!!!!");
+	parent.setId(Long.valueOf(5));
+    ps.addorupdatepost(new Publication(parent ,type_pub, pubContent, date_pub, titre_pub, src_pub));
+       
+
+}
+
+public void addpostmsg() throws Exception   
+{  	parent.setId(Long.valueOf(5));
+	  ps.addPublicationMsg(new Publication(parent ,type_pub, pubContent, date_pub, titre_pub, src_pub)) ;  
+} 
+
+public void updatePost () {
+	parent.setId(Long.valueOf(5));
+    ps.addorupdatepost(new Publication(idpubselected , parent ,type_pub, pubContent, date_pub, titre_pub, src_pub));
+   
+}
+
+public void setinput (Publication p)
+{
+this.setDate_pub(p.getDate_pub());
+this.setPubContent(p.getPubContent());
+this.setSrc_pub(p.getSrc_pub());
+this.setIdpubselected(p.getIdpub());
+this.setParent(p.getParent());
+
+}
+
+
+
+public TypePub getType_pub() {
+	return type_pub;
+}
+
+
+
+
+public void setType_pub(TypePub type_pub) {
+	this.type_pub = type_pub;
+}
+
+
+
+
+public String getPubContent() {
+	return pubContent;
+}
+
+
+
+
+public void setPubContent(String pubContent) {
+	this.pubContent = pubContent;
+}
+
+
+
+
+public LocalDateTime getDate_pub() {
+	return date_pub;
+}
+
+
+
+
+public void setDate_pub(LocalDateTime date_pub) {
+	this.date_pub = date_pub;
+}
+
+
+
+
+public String getTitre_pub() {
+	return titre_pub;
+}
+
+
+
+
+public void setTitre_pub(String titre_pub) {
+	this.titre_pub = titre_pub;
+}
+
+
+
+
+public String getSrc_pub() {
+	return src_pub;
+}
+
+
+
+
+public void setSrc_pub(String src_pub) {
+	this.src_pub = src_pub;
+}
+
+
+
+
+public Parent getParent() {
+	return parent;
+}
+
+
+
+
+public void setParent(Parent parent) {
+	this.parent = parent;
+}
+	
+	
+public void deletePost(long id) {
+	ps.deletePublication(id);
+}
+
+	
+
+public Publication advanced(String m){ 
+	System.err.println("seaaaaaaaaaaaaaaaarchhhhhhhhhhh !!!!!!!!!!!!");
+	 return ps.advancedSearsh(m) ;
+}
 
 	
 

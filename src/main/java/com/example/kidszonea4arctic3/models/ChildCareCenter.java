@@ -98,4 +98,12 @@ public class ChildCareCenter {
     public void setEmployees(Set<Employee> employees) {
         this.employees = employees;
     }
+
+	@Override
+	public String toString() {
+		return "ChildCareCenter [id=" + id + ", descr=" + descr + ", logo=" + logo + ", creationDate=" + creationDate
+				+ ", cccPNumber=" + cccPNumber + ", adr=" + adr + ", cost=" + cost + ", employees=" + employees + "]";
+	}
+    
+    
 }

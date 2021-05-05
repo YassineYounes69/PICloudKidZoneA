@@ -2,7 +2,10 @@ package com.example.kidszonea4arctic3.controllers;
 
 import java.util.List;
 
+import org.ocpsoft.rewrite.annotation.Join;
+import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +20,10 @@ import com.example.kidszonea4arctic3.models.Commentaire;
 import com.example.kidszonea4arctic3.services.ICommentaireService;
 import com.example.kidszonea4arctic3.services.IPublicationService;
 
-@Controller
+
+@Scope(value = "session")
+@Controller(value = "CommentaireController") // Name of the bean in Spring IoC
+@ELBeanName(value = "CommentaireController") // Name of the bean used by JSF
 public class CommentaireController {
 	
 	@Autowired

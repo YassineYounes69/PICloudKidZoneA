@@ -26,12 +26,7 @@ public class Employee {
     
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.EAGER)
 	private Set<Report> reports;
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userSend", fetch = FetchType.EAGER)
-	private Set<NotificationMsg> notifSend;
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userReceive", fetch = FetchType.EAGER)
-	private Set<NotificationMsg> notifReceive;
+
 	
 	//@JsonIgnore
 	//@OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
@@ -73,15 +68,10 @@ public class Employee {
     
 
 	
-	@Override
-	public String toString() {
-		return "Employee [id=" + id + ", email=" + email + ", pw=" + pw + ", fName=" + fName + ", lName=" + lName
-				+ ", role=" + role + ", children=" + children + ", reports=" + reports + ", notifSend=" + notifSend
-				+ ", notifReceive=" + notifReceive + ", ccc=" + ccc + ", availability=" + availability + "]";
-	}
+
 
 	public Employee(Long id, String email, String pw, String fName, String lName, Role role, Set<Child> children,
-			Set<Report> reports, Set<NotificationMsg> notifSend, Set<NotificationMsg> notifReceive, ChildCareCenter ccc,
+			Set<Report> reports,  ChildCareCenter ccc,
 			boolean availability) {
 		super();
 		this.id = id;
@@ -92,27 +82,14 @@ public class Employee {
 		this.role = role;
 		this.children = children;
 		this.reports = reports;
-		this.notifSend = notifSend;
-		this.notifReceive = notifReceive;
+		
 		this.ccc = ccc;
 		this.availability = availability;
 	}
 
-	public Set<NotificationMsg> getNotifSend() {
-		return notifSend;
-	}
+	
 
-	public void setNotifSend(Set<NotificationMsg> notifSend) {
-		this.notifSend = notifSend;
-	}
-
-	public Set<NotificationMsg> getNotifReceive() {
-		return notifReceive;
-	}
-
-	public void setNotifReceive(Set<NotificationMsg> notifReceive) {
-		this.notifReceive = notifReceive;
-	}
+	
 
 	public ChildCareCenter getCcc() {
 		return ccc;
@@ -216,6 +193,7 @@ public class Employee {
     public void setAvailability(boolean availability) {
         this.availability = availability;
     }
-    
+
+
     
 }
