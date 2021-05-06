@@ -118,7 +118,6 @@
     </dependencies>
 
     <build>
-    <finalName>jsf2-file-upload</finalName> 
     <outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
     <resources>          
                         <resource>
