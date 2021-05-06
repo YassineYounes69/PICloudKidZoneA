@@ -134,6 +134,16 @@ public class Commentaire  implements Serializable{
 		this.date_com = date_com;
 	}
 
+	public Commentaire( Parent parent, Publication publication, String commentContent,
+			LocalDateTime date_com) {
+		super();
+		this.parent = parent;
+		this.publication = publication;
+		this.commentContent = commentContent;
+		this.date_com = date_com;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "Commentaire [id=" + id + ", employe=" + employe + ", parent=" + parent + ", publication=" + publication

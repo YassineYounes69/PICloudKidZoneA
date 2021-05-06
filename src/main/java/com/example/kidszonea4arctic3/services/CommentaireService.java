@@ -165,7 +165,14 @@ public class CommentaireService implements ICommentaireService{
 	}
 	
 	
-	
+	@Override
+	public Commentaire addC(Commentaire c) throws Exception {
+	long id=5;
+	Parent parent = pr.findById(id).get() ;
+	c.setParent(parent);
+    return commentaireRepo.save(c);
+
+	}
 
 
 	

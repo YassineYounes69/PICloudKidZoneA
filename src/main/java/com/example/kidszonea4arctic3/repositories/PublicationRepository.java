@@ -33,13 +33,13 @@ public interface PublicationRepository extends CrudRepository<Publication, Long>
 	List<Publication> findPostsByTextContaining(String pattern);
 	
 ///////// Partie recherche avanceé//////////
-   @Query("SELECT  u FROM Publication u WHERE u.titre_pub LIKE %?1%")
+   @Query("SELECT  u FROM Publication u WHERE u.titre_pub = ?1")
    public Publication advancedSearchByTitrePub(String motif);
    
-   @Query("SELECT u FROM Publication u WHERE u.pubContent LIKE %?1%")
+   @Query("SELECT u FROM Publication u WHERE u.pubContent = ?1")
    public Publication advancedSearchBypubContent(String motif);
    
-   @Query("SELECT u FROM Publication u WHERE u.type_pub LIKE %?1%")
+   @Query("SELECT u FROM Publication u WHERE u.type_pub = ?1")
    public Publication advancedSearchBytype_pub(String motif);
    //////////// end recherche //////////////////////////////////////////////////////
 	

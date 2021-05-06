@@ -465,11 +465,8 @@ public class PublicationService implements IPublicationService {
     	}else if(PublicationRepository.advancedSearchByTitrePub(motif)!=null){
     		
     		return PublicationRepository.advancedSearchByTitrePub(motif);
-    	}else if (PublicationRepository.advancedSearchBytype_pub(motif)!=null){
-    		
-    		return PublicationRepository.advancedSearchBytype_pub(motif);
     	}
-   
+    	
     	
     	return u;
     }

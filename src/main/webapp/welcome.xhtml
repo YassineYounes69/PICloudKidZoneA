@@ -1,0 +1,102 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/template.xhtml" encoding="UTF-8">
+	<!-- xmlns:jsf="http://xmlns.jcp.org/jsf"
+ -->
+	<ui:param name="page_name" value="Accueil" />
+	<ui:define name="welcome">
+		<!-- BEGIN : TP1 JSF Introduction Login -->
+
+
+		<h:body class="is-preload"
+			value="#{PublicationController.getPublications()}" var="Publication">
+			<meta charset="utf-8" />
+			<meta name="viewport"
+				content="width=device-width, initial-scale=1, user-scalable=no" />
+			<link rel="stylesheet" href="assets/css/main.css" />
+
+
+			<!-- Wrapper -->
+			<div id="wrapperr">
+
+				<div id="main">
+
+					<ui:repeat value="#{PublicationController.getPublications()}"
+						var="Publication">
+						<article class="post">
+							<div>
+								<div class="title">
+									<h2>
+
+
+										<h:outputLabel value="#{Publication.titre_pub}"></h:outputLabel>
+									</h2>
+								</div>
+								<div class="meta">
+									<time class="published" datetime="2015-11-01">
+										<h:outputLabel value="#{Publication.date_pub}" />
+									</time>
+									<a href="#" class="author"><span class="name"> <h:outputLabel
+												value="#{Publication.parent.fName}"></h:outputLabel>
+
+									</span><img src="images/avatar.jpg" alt="" /></a>
+								</div>
+							</div>
+							<a href="single.html" class="image featured"><img
+								src="images/pic01.jpg" alt="" /></a>
+							<p>
+								<h:outputLabel value="#{Publication.pubContent}"></h:outputLabel>
+							</p>
+							<footer>
+								
+								<ul class="stats" >
+									<li><a   href="#" class="icon solid fa-heart"> <h:outputLabel
+												value="#{CommentaireController.getpostcommentscount(Publication.idpub)}"></h:outputLabel>
+									</a></li>
+
+									<li><h:link  href="/SpringMVC/DetailPost.jsf" class="icon solid fa-comment"  action="#{PublicationController.listcomentofpost(Publication.idpub)}"> 
+												<h:outputLabel
+													value="#{CommentaireController.getpostcommentscount(Publication.idpub)}">
+												</h:outputLabel>
+							
+									</h:link></li>
+								</ul>
+						
+						
+							</footer>
+							<hr></hr>
+							<ul class="actions">
+							<li>
+						    <h:inputText class="btn bg-theme mt-4 w3_pvt-link-bnr scroll bg-theme3 text-white"  action="#{CommentaireController.getCommentsByPost(5)}"  required="Ajouter une commentaire ..................................."></h:inputText>					</li>
+							</ul>
+							<hr></hr>
+							<div class="team-text bg-theme1">
+						<ui:repeat var="Commentaire" value="#{CommentaireController.getCommentsByPost(5)}">
+						<h4 class="text-theme1" >
+						<h:outputLabel
+						 value="#{Commentaire.commentContent}">
+						</h:outputLabel></h4>
+						
+						</ui:repeat>
+						</div>
+						</article>
+					
+						
+						
+					</ui:repeat>
+					
+
+					<!-- Pagination -->
+					<ul class="actions pagination">
+						<li><a href="" class="disabled button large previous">Previous
+								Page</a></li>
+						<li><a href="#" class="button large next">Next Page</a></li>
+					</ul>
+
+				</div>
+			</div>
+		</h:body>
+	</ui:define>
+</ui:composition>

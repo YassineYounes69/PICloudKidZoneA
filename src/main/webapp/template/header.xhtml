@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+    <title>ChildCare Center</title>
+    <link href="template/css/bootstrap.css" type="text/css"
+		rel="stylesheet" media="all" />
+	<link href="template/css/gallery.css" type="text/css" rel="stylesheet"
+		media="all" />
+	<link href="template/css/testimonials.css" type="text/css"
+		rel="stylesheet" media="all" />
+	<link href="template/css/style.css" type="text/css" rel="stylesheet"
+		media="all" />
+	<link href="template/css/font-awesome.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="keywords" content="Alphabet Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+	SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    
+     <script src="template/js/jquery-2.2.3.min.js"></script>
+    <!-- //js -->
+    <!-- script for password match -->
+    <script>
+        window.onload = function () {
+            document.getElementById("password1").onchange = validatePassword;
+            document.getElementById("password2").onchange = validatePassword;
+        }
+
+        function validatePassword() {
+            var pass2 = document.getElementById("password2").value;
+            var pass1 = document.getElementById("password1").value;
+            if (pass1 != pass2)
+                document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+            else
+                document.getElementById("password2").setCustomValidity('');
+            //empty string means no validation error
+        }
+    </script>
+    <!-- script for password match -->
+    <!-- Banner  Responsiveslides -->
+    <script src="template/js/responsiveslides.min.js"></script>
+    <script>
+        // You can also use"$(window).load(function() {"
+        $(function () {
+            // Slideshow 4
+            $("#slider3").responsiveSlides({
+                auto: true,
+                pager: true,
+                nav: false,
+                speed: 500,
+                namespace: "callbacks",
+                before: function () {
+                    $('.events').append("<li>before event fired.</li>");
+                },
+                after: function () {
+                    $('.events').append("<li>after event fired.</li>");
+                }
+            });
+
+        });
+    </script>
+    <!-- //Banner  Responsiveslides -->
+    <!-- gallery -->
+    <script src="template/js/jquery.picEyes.js"></script>
+    <script>
+        $(function () {
+            //picturesEyes($('.demo li'));
+            $('.demo li').picEyes();
+        });
+    </script>
+    <!-- //gallery -->
+    <!-- stats -->
+    <script src="template/js/counter.js"></script>
+    <!-- //stats -->
+    <!-- start-smooth-scrolling -->
+    <script src="template/js/move-top.js"></script>
+    <script src="template/js/easing.js"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 1000);
+            });
+        });
+    </script>
+    <!-- //end-smooth-scrolling -->
+    <!-- smooth-scrolling-of-move-up -->
+    <script>
+        $(document).ready(function () {
+            /*
+            var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear' 
+            };
+            */
+            $().UItoTop({
+                easingType: 'easeOutQuart'
+            });
+
+        });
+    </script>
+    <script src="template/js/SmoothScroll.min.js"></script>
+    <!-- //smooth-scrolling-of-move-up -->
+    <!-- Bootstrap core JavaScript
+================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="template/js/bootstrap.js"></script>
+    
+    
+ 
+</h:head>
+<h:body>
+<header>
+       <!-- <ui:composition> -->
+    <!-- banner -->
+    <div id="home" class="position-relative">
+        <div class="header-main">
+            <div class="d-sm-flex justify-content-between">
+                <h1>
+                    <a class="navbar-brand" href="index.html">
+                        Al<span>p</span>h<span>a</span>b<span>e</span>t
+                    </a>
+                </h1>
+                <div class="hearder-right-w3_pvt d-flex justify-content-sm-end align-items-center  mt-sm-0 mt-4">
+                    <ul class="d-flex header-w3_pvt">
+                        <li><button type="button" class="btn w3ls-btn d-block" data-toggle="modal" aria-pressed="false" data-target="#exampleModal1">
+                                <span class="fa fa-sign-in"></span>Register
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="btn w3ls-btn btn-2  d-block" data-toggle="modal" aria-pressed="false"
+                                data-target="#exampleModal">
+                                <span class="fa fa-lock"></span> Sign in
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="callbacks_container">
+        <ul class="rslides" id="slider3">
+            <li class="slider-img">
+                <div class="container-fluid px-0">
+                    <div class="row">
+                        <div class="col-3 col-sm-6 px-0 bg-theme1 banner-left-grid">
+                            <div class="banner-text h-100">
+                            </div>
+                        </div>
+                        <div class="col-9 col-sm-6 banner banner1 banner-text">
+                        </div>
+                        <div class="slider-info">
+                            <span class="line">ChildCare Centers..</span>
+                            <h3>KidZone <span>improve</span> <span> Your</span> mind </h3>
+                            <p class="text-white">The future of childcare is now, be the first to boost!
+your business to 
+new heights 
+                            </p>
+                            <a class="btn bg-theme mt-4 w3_pvt-link-bnr scroll" href="#about" role="button">View
+                                More</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="slider-img">
+                <div class="container-fluid px-0">
+                    <div class="row">
+                        <div class="col-3 col-sm-6 px-0 bg-theme2 banner-left-grid">
+                            <div class="banner-text h-100">
+                            </div>
+                        </div>
+                        <div class="col-9 col-sm-6 banner banner2 banner-text">
+                        </div>
+                        <div class="slider-info">
+                            <span class="line">ChildCare Centers..</span>
+                            <h3>KidZone <span>improve</span><span> your</span> mind</h3>
+                            <p class="text-white">The future of childcare is now, be the first to boost!
+your business to 
+new heights 
+                            </p>
+                            <a class="btn bg-theme mt-4 w3_pvt-link-bnr scroll" href="#about" role="button">View
+                                More</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="slider-img">
+                <div class="container-fluid px-0">
+                    <div class="row">
+                        <div class="col-3 col-sm-6 px-0 bg-theme3 banner-left-grid">
+                            <div class="banner-text h-100">
+                            </div>
+                        </div>
+                        <div class="col-9 col-sm-6 banner banner3 banner-text">
+                        </div>
+                        <div class="slider-info">
+                            <span class="line">ChildCare Centers..</span>
+                            <h3>KidZone <span>improve</span><span> your</span> mind</h3>
+                            <p class="text-white">The future of childcare is now, be the first to boost!
+your business to 
+new heights 
+                            </p>
+                            <a class="btn bg-theme mt-4 w3_pvt-link-bnr scroll" href="#about" role="button">View
+                                More</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <head>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav  text-center">
+                        <li class="nav-item active  mr-lg-3 mt-lg-0 mt-3">
+                            <a class="nav-link" href="index.html">Home
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item  mr-lg-3 mt-lg-0 mt-3">
+                            <a class="nav-link scroll" href="#about">about us </a>
+                        </li>
+                        <li class="nav-item dropdown mr-lg-3 mt-lg-0 mt-3">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item scroll" href="#services">services</a>
+                                <a class="dropdown-item scroll" href="#team">team</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item scroll" href="#portfolio">gallery</a>
+                                <a class="dropdown-item scroll" href="#posts">latest posts</a>
+                            </div>
+                        </li>
+                        <li class="nav-item  mt-lg-0 mt-3">
+                            <a class="nav-link scroll" href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+</head></header></h:body></ui:composition>

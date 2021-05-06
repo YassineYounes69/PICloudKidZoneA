@@ -24,6 +24,7 @@ public interface ICommentaireService {
 	//public Employee currentEmployee() throws Exception;
 
 	public List<Commentaire> getMyCommentaires() throws Exception;
+	public Commentaire addC(Commentaire c) throws Exception;
 	
 
 }

@@ -1,8 +1,12 @@
 package com.example.kidszonea4arctic3.controllers;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.List;
 
 import org.ocpsoft.rewrite.annotation.Join;
 import org.ocpsoft.rewrite.el.ELBeanName;
@@ -15,19 +19,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.kidszonea4arctic3.services.ICommentaireService;
 import com.example.kidszonea4arctic3.services.IPublicationService;
+
+
+import com.example.kidszonea4arctic3.models.FileUploadUtil;
 import com.example.kidszonea4arctic3.models.Parent;
 import com.example.kidszonea4arctic3.models.Publication;
 import com.example.kidszonea4arctic3.models.TypePub;
+import com.example.kidszonea4arctic3.repositories.PublicationRepository;
 
 @Scope(value = "session")
 @Controller(value = "PublicationController") // Name of the bean in Spring IoC
 @ELBeanName(value = "PublicationController") // Name of the bean used by JSF
-@Join(path = "/", to = "/DetailPost.jsf")
+@RequestMapping("/APIpub")
+@RestController
+//@Join(path = "/", to = "/DetailPost.jsf")
 public class PublicationController {
 	
 	@Autowired
@@ -35,6 +46,8 @@ public class PublicationController {
 
 	@Autowired
 	ICommentaireService cs;
+	@Autowired
+	PublicationRepository pr ; 
 	
 	//@Transactional
 	//http://localhost:8000/SpringMVC/servlet/readAllPublication
@@ -60,18 +73,22 @@ public class PublicationController {
 	 }
 
 	
-
+/*
 	
 	 //Ajouter publication : http://localhost:8000/SpringMVC/servlet/addPublication
 	@PostMapping("/addPublication")
 	@ResponseBody	
-	public Publication addPublication(@RequestBody Publication p) {
 	
+	public Publication addPublication(@RequestBody Publication p, @RequestParam("src_pub") MultipartFile multipartFile ) {
+		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+		String uploadDir = "event-photos/" + p.getPubContent()   ;
+		 p = new Publication(pubContent,date_pub,fileName,parent) ;
+	     FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 		return ps.addPublication(p);
 		
 		
 	}
-	
+	*/
 	//http://localhost:8080/SpringMVC/servlet/deletePublication/{id}
 		@DeleteMapping("/deletePublication/{id}")
 		@ResponseBody
@@ -137,13 +154,6 @@ public class PublicationController {
 		return ps.getPublicationById(Postid);  
 	}  		
 
-	//http://localhost:8000/SpringMVC/servlet/Post/search-by-admin?pattern=...
-	@GetMapping("/Post/search-by-admin")
-	@ResponseBody
-	public List<Publication> postSearchByAdmin(@RequestParam("pattern")String pattern){
-		return ps.searchPublications(pattern) ;
-	}
-	
 	
 	//http://localhost:8000/SpringMVC/servlet/Post/share-post/{idP}
 	@PostMapping("/Post/share-post/{idP}")  
@@ -227,13 +237,23 @@ public class PublicationController {
 	}
 
 	
-    //http://localhost:8000/SpringMVC/servlet/Post/searsh/?m=
+    
+    //http://localhost:8000/APIpub/Post/searsh/?m=
     @GetMapping("/Post/searsh/{m}")
 	 @ResponseBody
 	 public Publication advancedSearsh(@PathVariable() String m){ 
 		 return ps.advancedSearsh(m) ;
 	 }
-
+    
+/*
+	//http://localhost:8000/SpringMVC/servlet/Post/search-by-admin?pattern=...
+	@GetMapping("/Post/search-by-admin")
+	@ResponseBody
+	public List<Publication> postSearchByAdmin(@RequestParam("pattern")String pattern){
+		return ps.searchPublications(pattern) ;
+	}
+	
+*/
 
 
 
@@ -394,16 +414,62 @@ public void deletePost(long id) {
 }
 
 	
+private String pattern ; 
 
-public Publication advanced(String m){ 
-	System.err.println("seaaaaaaaaaaaaaaaarchhhhhhhhhhh !!!!!!!!!!!!");
-	 return ps.advancedSearsh(m) ;
+public String getPattern() {
+	return pattern;
 }
 
-	
 
 
+
+public void setPattern(String pattern) {
+	this.pattern = pattern;
+}
+
+
+
+
+public String advanced(String m){ 
 	
+	System.err.println("seaaaaaaaaaaaaaaaarchhhhhhhhhhh !!!!!!!!!!!!");
+//	 return ps.advancedSearsh(m) ;
+	System.err.println(ps.advancedSearsh(m).getIdpub());
+	
+	 return "null";
+	 
+	 
+}
+
+
+
+public String postSearch(String m){
+	System.err.println("seaaaaaaaaaaaaaaaarchhhhhhhhhhh !!!!!!!!!!!!");
+	List<Publication> ll ; 
+	
+    System.err.println(ps.searchPublications(m));
+	System.err.println("seaaaaaaaaaaaaaaaarchhhhhhhhhhh");
+
+    return "null" ; 
+	
+}
+
+/*	
+@PostMapping("/users/save")
+public RedirectView saveUser(Publication user,
+        @RequestParam("image") MultipartFile multipartFile) throws IOException {
+     
+    String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+    user.setSrc_pub(fileName);
+     
+    Publication savedpub = pr.save(user);
+
+    String uploadDir = "user-photos/" + savedpub.getIdpub() ;
+
+    FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+     
+    return new RedirectView("/users", true);
+}*/
 		
 	
 

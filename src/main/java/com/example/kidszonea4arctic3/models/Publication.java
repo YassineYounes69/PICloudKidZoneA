@@ -79,9 +79,19 @@ public class Publication implements Serializable{
 		private Set<Report> reports;
 		
 	
+public Publication()
+{
+	
+}
 
-	public Publication() {
+
+
+	public Publication(String pubContent, LocalDateTime date_pub, String src_pub, Parent parent) {
 		super();
+		this.pubContent = pubContent;
+		this.date_pub = date_pub;
+		this.src_pub = src_pub;
+		this.parent = parent;
 	}
 
 
