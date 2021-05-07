@@ -8,8 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table( name = "parent")
-
 public class Parent {
 
 //	private static final long serialVersionUID = 1L;
@@ -38,7 +36,14 @@ public class Parent {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
 	private Set<Publication> posts;
 	
-
+	  //@JsonManagedReference
+    @OneToMany(mappedBy="parent",cascade = CascadeType.PERSIST)
+    private Set<Meeting>meetings=new HashSet<>(); //parent meetings
+   
+    
+    //@JsonManagedReference
+    @OneToMany(mappedBy="parent",cascade = CascadeType.PERSIST)
+    private Set<Feedback>feedbacks=new HashSet<>(); //parent feedbacks
 	
 
     public Parent() {
@@ -193,6 +198,26 @@ public class Parent {
 
 
 	
+	public Set<Meeting> getMeetings() {
+		return meetings;
+	}
+
+
+	public void setMeetings(Set<Meeting> meetings) {
+		this.meetings = meetings;
+	}
+
+
+	public Set<Feedback> getFeedbacks() {
+		return feedbacks;
+	}
+
+
+	public void setFeedbacks(Set<Feedback> feedbacks) {
+		this.feedbacks = feedbacks;
+	}
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

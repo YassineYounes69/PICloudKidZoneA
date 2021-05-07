@@ -8,7 +8,6 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table( name = "employee")
 public class Employee {
 
     @Id
@@ -42,8 +41,21 @@ public class Employee {
         CommunityManager, //This type of user can manage posts
         Doctor, //This type of user can manage his appointments with templates.templates
     }
+    
+    //@JsonManagedReference
+    @OneToMany(mappedBy="employee",cascade = CascadeType.PERSIST)
+    private Set<Meeting>meetings=new HashSet<>(); //employee meetings
+    
 
-    public Employee() {
+    public Set<Meeting> getMeetings() {
+		return meetings;
+	}
+
+	public void setMeetings(Set<Meeting> meetings) {
+		this.meetings = meetings;
+	}
+
+	public Employee() {
     }
 
     public Employee(String email, String pw, String fName, String lName, Role role, ChildCareCenter ccc) {

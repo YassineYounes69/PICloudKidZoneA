@@ -22,8 +22,19 @@ public class ChildCareCenter {
     @OneToMany
     @JoinColumn(name = "ccc_id" )
     private Set<Employee> employees = new HashSet<>();
+    
+    @OneToMany(mappedBy="childCareCenter",cascade = CascadeType.PERSIST)
+    private Set<Feedback>feedbacks=new HashSet<>(); //parent feedbacks
 
-    public ChildCareCenter() {
+    public Set<Feedback> getFeedbacks() {
+		return feedbacks;
+	}
+
+	public void setFeedbacks(Set<Feedback> feedbacks) {
+		this.feedbacks = feedbacks;
+	}
+
+	public ChildCareCenter() {
     }
 
     public ChildCareCenter(String desc, String logo, int cccPNumber, String adr, float cost, Set<Employee> employees) {

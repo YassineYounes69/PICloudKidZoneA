@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+template="/template/template.xhtml">
+<ui:param name="page_name" value="Accueil" />
+<ui:define name="add Meeting">
+<h:form id="form">
+<h:panelGroup columns="2"><h:form><table>
+<tr><td><h:outputText value="reason"></h:outputText></td><td><h:inputText
+value="#{meetingController.reason}"></h:inputText></td></tr>
+<tr><td><h:outputText value="date"></h:outputText></td>
+<td><h:inputSecret value="#{meetingController.date}"></h:inputSecret></td></tr>
+<tr><td><h:outputText value="Actif / Inactif"></h:outputText></td>
+<td><h:selectBooleanCheckbox
+value="#{meetingController.state}"></h:selectBooleanCheckbox></td></tr>
+<tr>
+<td><h:outputText value="type"></h:outputText></td>
+<td><h:selectOneMenu value="#{meetingController.type}">
+<f:selectItem itemLabel="Choisir le Type" itemValue="#{null}" />
+<f:selectItems value="#{meetingController.type}" />
+</h:selectOneMenu></td>
+</tr>
+<tr>
+<td><h:outputText value="Parent"></h:outputText></td>
+<td><h:selectOneMenu value="#{meetingController.parent}">
+<f:selectItem itemLabel="Choisir le Parent" itemValue="#{null}" />
+<f:selectItems value="#{meetingController.parent}" />
+</h:selectOneMenu></td>
+</tr>
+
+<tr><td colspan="2"> <h:commandButton value="Ajouter Meeting"
+action="#{meetingController.addMeeting()}" /></td></tr>
+</table></h:form></h:panelGroup>
+</h:form>
+</ui:define>
+</ui:composition>
