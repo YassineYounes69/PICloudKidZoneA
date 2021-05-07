@@ -1,11 +1,16 @@
 package com.example.kidszonea4arctic3.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Parent {
+public class Parent implements Serializable {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5741785252220644855L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -99,13 +104,13 @@ public class Parent {
         this.parentPic = parentPic;
     }
 
-   /* public Set<Child> getChildren() {
+    public Set<Child> getChildren() {
         return children;
-    }*/
+    }
 
-  /*  public void setChildren(Set<Child> children) {
+    public void setChildren(Set<Child> children) {
         this.children = children;
-    }*/
+    }
 
     @Override
     public String toString() {

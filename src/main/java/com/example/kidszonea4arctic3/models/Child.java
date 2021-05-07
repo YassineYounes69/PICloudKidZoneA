@@ -28,18 +28,18 @@ public class Child {
         this.age = age;
     }
 
+    public Child(String fName, String lName, int age, String childPic) {
+        this.fName = fName;
+        this.lName = lName;
+        this.age = age;
+        this.childPic = childPic;
+    }
+
     public Child(String fName, String lName, int age, Parent parent) {
         this.fName = fName;
         this.lName = lName;
         this.age = age;
         this.parent = parent;
-    }
-
-    public Child(Long id, String fName, String lName, int age) {
-        this.id = id;
-        this.fName = fName;
-        this.lName = lName;
-        this.age = age;
     }
 
     public Long getId() {
