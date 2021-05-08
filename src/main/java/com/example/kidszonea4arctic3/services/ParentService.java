@@ -20,5 +20,7 @@ public class ParentService {
         return parentRepository.getAllParents();
     }
 
-
+    public Parent authenticate(String login, String password) {
+        return parentRepository.getParentByLoginPw(login,password);
+    }
 }

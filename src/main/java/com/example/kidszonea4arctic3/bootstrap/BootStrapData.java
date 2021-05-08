@@ -1,8 +1,10 @@
 package com.example.kidszonea4arctic3.bootstrap;
 
+import com.example.kidszonea4arctic3.models.Parent;
 import com.example.kidszonea4arctic3.repositories.ChildRepository;
 import com.example.kidszonea4arctic3.repositories.ParentRepository;
 
+import com.example.kidszonea4arctic3.services.ParentService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -11,10 +13,12 @@ public class BootStrapData implements CommandLineRunner {
 
     private final ParentRepository parentRepository;
     private final ChildRepository childRepository;
-
-    public BootStrapData(ParentRepository parentRepository, ChildRepository childRepository) {
+    private final ParentService parentService;
+    Parent parent;
+    public BootStrapData(ParentRepository parentRepository, ChildRepository childRepository, ParentService parentService) {
         this.parentRepository = parentRepository;
         this.childRepository = childRepository;
+        this.parentService = parentService;
     }
 
     @Override
@@ -40,7 +44,8 @@ public class BootStrapData implements CommandLineRunner {
 
 
         System.out.println("started bootstrap");
-       // System.out.println(parent1.toString());
+
+        // System.out.println(parent1.toString());
        // System.out.println(child1.toString());
         //System.out.println(child2.toString());
         //System.out.println(parent1.toString());

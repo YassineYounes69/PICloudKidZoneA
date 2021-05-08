@@ -4,47 +4,82 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
     <title>Theme Template for BootsFaces</title>
     <meta name="author" content="Riccardo Massera"></meta>
 </h:head>
 <h:body style="padding-top: 60px">
     <h:outputScript library="holder" name="holder.js" />
-    <b:navBar brand="Kidzone" brandHref="#" fixed="top" inverse="true">
+    <c:if test="#{sessionController.status == true}">
+        <b:navBar brand="Kidzone" brandHref="#" fixed="top" inverse="true">
+            <b:navbarLinks>
+                <b:navLink value="Home" href="#"></b:navLink>
+                <b:form>
+                <b:navCommandLink action="#{sessionController.logOut}" value="Log Out"></b:navCommandLink>
+                </b:form>
+            </b:navbarLinks>
+        </b:navBar>
+    </c:if>
+    <c:if test="#{sessionController.status == false}">
+        <b:navBar brand="Kidzone" brandHref="#" fixed="top" inverse="true">
         <b:navbarLinks>
             <b:navLink value="Home" href="#"></b:navLink>
             <b:dropMenu value="Register">
-                <h:form>
+                <h:form >
                     <h:commandLink value="Parent" action="/pages/parentRegister.xhtml?faces-redirect=true" />
                 </h:form>
                 <b:navLink value="Childcare Center" href="#"></b:navLink>
             </b:dropMenu>
-            <b:navLink value="Register" href="#about"></b:navLink>
-            <b:navLink value="About" href="#about"></b:navLink>
-            <b:navLink value="Contact" href="#contact"></b:navLink>
+            <b:button onclick="$('.formValidationModalClass').modal('show')" value="Login" styleClass="BlackButton"/>
+
         </b:navbarLinks>
     </b:navBar>
+    </c:if>
     <b:container>
+        <br></br>
+        <c:if test="#{sessionController.status == true}">
+            Online as #{sessionController.parent.fName} #{sessionController.parent.lName}
+        </c:if>
+        <c:if test="#{sessionController.status == false}">
+            Not Online <br></br>
+        </c:if>
+        <c:if test="#{sessionController.status == true}">
+        <p:commandButton icon="bars" type="button" onclick="PF('sidebar1').show()" styleClass="p-mr-2" />
+        </c:if>
+        <b:modal title="Login" styleClass="formValidationModalClass"
+                 closable="false"
+                 closeOnEscape="true">
         <h:form styleClass="form-signin" prependId="false">
             <h2 class="form-signin-heading">Please sign in</h2>
-            <b:inputText id="email" placeholder="Email address" >
+            <b:inputText id="email" placeholder="Email address" value="#{sessionController.login}">
                 <f:facet name="prepend">
                     <b:icon name="glyphicon-ok" />
                 </f:facet>
             </b:inputText>
-            <b:inputText id="password" placeholder="Password" type="password">
+            <b:inputText id="password" placeholder="Password" type="password" value="#{sessionController.pw}">
                 <f:facet name="prepend">
                     <b:iconAwesome name="key" />
                 </f:facet>
             </b:inputText>
-            <b:selectBooleanCheckbox value="true" caption="remember me"/>
-            <b:commandButton look="primary btn-block" value="Sign In" icon="log-in" size="lg"/>
+            <b:commandButton look="primary btn-block" value="Sign In" icon="log-in" size="lg" action="#{sessionController.logIn}"/>
         </h:form>
+        </b:modal>
     </b:container>
 
     <b:container>
+        <p:sidebar widgetVar="sidebar1" baseZIndex="10000">
+            <h3>User Menu</h3>
+            <h4>Manage Account</h4>
+            <h4>Manage Children</h4>
+            <h4>Search for Childcare Centers</h4>
+            <h4>Messages</h4>
+            <h4>Item 1</h4>
 
+
+        </p:sidebar>
         <b:jumbotron>
             <h1>BootsFaces Theme example</h1>
             <p>This is a template showcasing the components included in BootsFaces as they appear using current theme. Use it as a starting point to create something more unique by building on or modifying it.</p>
@@ -228,7 +263,7 @@
         <b:row>
             <b:column col-md="3">
                 <b:thumbnail>
-                    <img data-src="holder.js/200x200" alt="Generic placeholder thumbnail"/>
+                    <img src="holder.js/200x200" alt="Generic placeholder thumbnail"/>
                 </b:thumbnail>
             </b:column>
         </b:row>
