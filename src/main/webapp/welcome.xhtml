@@ -10,16 +10,15 @@
 <h:head>
     <title>Theme Template for BootsFaces</title>
     <meta name="author" content="Riccardo Massera"></meta>
+
 </h:head>
 <h:body style="padding-top: 60px">
+
     <h:outputScript library="holder" name="holder.js" />
     <c:if test="#{sessionController.status == true}">
         <b:navBar brand="Kidzone" brandHref="#" fixed="top" inverse="true">
             <b:navbarLinks>
                 <b:navLink value="Home" href="#"></b:navLink>
-                <b:form>
-                <b:navCommandLink action="#{sessionController.logOut}" value="Log Out"></b:navCommandLink>
-                </b:form>
             </b:navbarLinks>
         </b:navBar>
     </c:if>
@@ -33,13 +32,17 @@
                 </h:form>
                 <b:navLink value="Childcare Center" href="#"></b:navLink>
             </b:dropMenu>
-            <b:button onclick="$('.formValidationModalClass').modal('show')" value="Login" styleClass="BlackButton"/>
-
+            <b:navLink>
+            <b:form>
+                <b:commandLink onclick="$('.formValidationModalClass').modal('show')"><h4>Login</h4></b:commandLink>
+            </b:form>
+            </b:navLink>
         </b:navbarLinks>
     </b:navBar>
     </c:if>
     <b:container>
         <br></br>
+
         <c:if test="#{sessionController.status == true}">
             Online as #{sessionController.parent.fName} #{sessionController.parent.lName}
         </c:if>
@@ -68,17 +71,25 @@
         </h:form>
         </b:modal>
     </b:container>
-
+    <b:inputText id="pwd1" value="#{sessionController.parent.pw}" label="Password:" />
     <b:container>
         <p:sidebar widgetVar="sidebar1" baseZIndex="10000">
             <h3>User Menu</h3>
-            <h4>Manage Account</h4>
-            <h4>Manage Children</h4>
-            <h4>Search for Childcare Centers</h4>
-            <h4>Messages</h4>
-            <h4>Item 1</h4>
-
-
+            <b:form>
+                <b:commandLink action="#{parentController.loadParent(sessionController.parent.id)}"><h4>Manage Account</h4></b:commandLink>
+            </b:form>
+            <b:form>
+                <b:commandLink action="#{sessionController.logOut}"><h4>Manage Children</h4></b:commandLink>
+            </b:form>
+            <b:form>
+                <b:commandLink action="#{sessionController.logOut}"><h4>Search for Childcare Centers</h4></b:commandLink>
+            </b:form>
+            <b:form>
+                <b:commandLink action="#{sessionController.logOut}"><h4>Messages</h4></b:commandLink>
+            </b:form>
+            <b:form>
+            <b:commandLink action="#{sessionController.logOut}"><h4>Log Out</h4></b:commandLink>
+            </b:form>
         </p:sidebar>
         <b:jumbotron>
             <h1>BootsFaces Theme example</h1>

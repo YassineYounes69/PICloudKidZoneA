@@ -3,20 +3,18 @@ package com.example.kidszonea4arctic3.controllers;
 import com.example.kidszonea4arctic3.models.Parent;
 import com.example.kidszonea4arctic3.repositories.ParentRepository;
 import com.example.kidszonea4arctic3.services.ParentService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
-@Scope(value = "session")
+@SessionScoped
 @Controller(value = "parentController")
 @ELBeanName(value = "parentController")
 public class ParentController {
@@ -28,10 +26,15 @@ public class ParentController {
 
     private Parent parent = new Parent();
 
+    @Autowired
     private final ParentRepository parentRepository;
 
-    public ParentController(ParentRepository parentRepository) {
+    @Autowired
+    private final SessionController sessionController;
+
+    public ParentController(ParentRepository parentRepository, SessionController sessionController) {
         this.parentRepository = parentRepository;
+        this.sessionController = sessionController;
     }
 
     @RequestMapping(value = "/Parents", method = RequestMethod.GET)
@@ -67,6 +70,18 @@ public class ParentController {
         }
     }
 
+    public String updateParentFName(Long id, String fName){
+        System.out.println("updating parent :"+fName);
+        try {
+            parentRepository.updateParentFullName(id,fName);
+            sessionController.refresh();
+        } catch (Exception exc) {
+            System.out.println(exc);
+            return null;
+        }
+
+        return "/index.xhtml?faces-redirect=true";
+    }
     /*@RequestMapping(value = "/ParentUpdateById}", method = RequestMethod.GET)
     public List<Object> updateParentById(@RequestParam(value = "parentDTO") String parentDTO) throws JsonProcessingException {
         final Parent parent = new ObjectMapper().readValue(parentDTO,Parent.class);
@@ -86,12 +101,31 @@ public class ParentController {
         }*//*
     }*/
 
-    @RequestMapping(value = "/ParentUpdateLastNameById/{id}/{LastName}", method = RequestMethod.GET)
-    public Parent updateLastNameById(@PathVariable Long id,@PathVariable String LastName){
+    public String loadParent (Long parentId){
+        System.out.println("loading parent with id : "+parentId);
+        try{
+            Parent theParent = parentRepository.findById(parentId).get();
+            System.out.println("got parent : "+theParent.toString());
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            Map<String, Object> requestMap = externalContext.getRequestMap();
+            requestMap.put("parent",theParent);
+            System.out.println("printing request map :");
+            System.out.println(requestMap.get("parent").toString());
+        } catch (Exception exc) {
+            System.out.println("error");
+            System.out.println(exc);
+            return null;
+        }
+        return "/pages/modifyParent.xhtml";
+    }
+
+    @RequestMapping(value = "/ParentUpdateLastNameById/{id}/{LastName}/{FirstName}", method = RequestMethod.GET)
+    public Parent updateFullNameById(@PathVariable Long id,@PathVariable String LastName,@PathVariable String FirstName){
         Parent parent = new Parent();
         if (parentRepository.findById(id).isPresent()){
             parent = parentRepository.findById(id).get();
             parent.setlName(LastName);
+            parent.setfName(FirstName);
             return parentRepository.save(parent);
         }
         else

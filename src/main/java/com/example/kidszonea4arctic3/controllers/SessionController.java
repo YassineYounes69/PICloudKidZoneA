@@ -1,6 +1,7 @@
 package com.example.kidszonea4arctic3.controllers;
 
 import com.example.kidszonea4arctic3.models.Parent;
+import com.example.kidszonea4arctic3.repositories.ParentRepository;
 import com.example.kidszonea4arctic3.services.ParentService;
 import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class SessionController {
 
     @Autowired
     private ParentService parentService;
+
+    @Autowired
+    private ParentRepository parentRepository;
 
     public SessionController() {
     }
@@ -92,5 +96,11 @@ public class SessionController {
         this.setLogin(null);
         this.setPw(null);
         return navigateTo;
+    }
+
+    public void refresh(){
+        Long idUser=this.parent.getId();
+        Parent refreshedParent = parentRepository.findById(idUser).get();
+        this.setParent(refreshedParent);
     }
 }
