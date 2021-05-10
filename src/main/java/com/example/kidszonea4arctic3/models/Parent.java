@@ -1,6 +1,9 @@
 package com.example.kidszonea4arctic3.models;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,6 +30,14 @@ public class Parent implements Serializable {
     @OneToMany
     @JoinColumn(name = "parent_id" )
     private Set<Child> children = new HashSet<>();
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "parent", fetch = FetchType.EAGER)
+	private Set<Report> reports;
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "parent", fetch = FetchType.EAGER)
+	private Set<Child> kids;
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
+	private Set<Publication> posts;
 
     public Parent() {
     }
