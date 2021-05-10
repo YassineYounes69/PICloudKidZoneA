@@ -1,11 +1,16 @@
 package com.example.kidszonea4arctic3.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Parent {
+public class Parent implements Serializable {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5741785252220644855L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
