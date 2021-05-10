@@ -57,6 +57,7 @@
   box-sizing: border-box;
 }
 
+/* Chrome hack, this fixes a visual glitch when quickly toggling a video */
 .strp-window { transform: translateZ(0px); }
 
 /* some properties on the window are used to toggle things

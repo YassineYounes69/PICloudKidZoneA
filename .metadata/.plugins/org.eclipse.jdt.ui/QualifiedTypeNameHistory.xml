@@ -1,2 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.springframework.web.servlet.view.RedirectView"/>
+<fullyQualifiedTypeName name="org.springframework.web.multipart.MultipartFile"/>
+<fullyQualifiedTypeName name="antlr.StringUtils"/>
+<fullyQualifiedTypeName name="com.amazonaws.util.StringUtils"/>
+<fullyQualifiedTypeName name="org.apache.myfaces.shared.util.StringUtils"/>
+<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+<fullyQualifiedTypeName name="com.example.kidszonea4arctic3.repositories.PublicationRepository"/>
+<fullyQualifiedTypeName name="com.example.kidszonea4arctic3.models.Publication"/>
+<fullyQualifiedTypeName name="com.example.kidszonea4arctic3.models.FileUploadUtil"/>
+<fullyQualifiedTypeName name="UploadHelper.UploadHelper"/>
+<fullyQualifiedTypeName name="javax.servlet.http.Part"/>
+<fullyQualifiedTypeName name="javax.persistence.Column"/>
+<fullyQualifiedTypeName name="javax.faces.bean.SessionScoped"/>
+<fullyQualifiedTypeName name="javax.annotation.ManagedBean"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="java.io.OutputStream"/>
+<fullyQualifiedTypeName name="javax.faces.context.FacesContext"/>
+<fullyQualifiedTypeName name="javax.servlet.ServletContext"/>
+<fullyQualifiedTypeName name="com.jayway.jsonpath.internal.Utils"/>
+<fullyQualifiedTypeName name="org.h2.util.Utils"/>
+</qualifiedTypeNameHistroy>

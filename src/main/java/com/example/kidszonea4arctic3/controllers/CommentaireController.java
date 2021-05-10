@@ -3,7 +3,6 @@ package com.example.kidszonea4arctic3.controllers;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.ocpsoft.rewrite.annotation.Join;
 import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -20,12 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.kidszonea4arctic3.models.Commentaire;
 import com.example.kidszonea4arctic3.models.Parent;
 import com.example.kidszonea4arctic3.models.Publication;
-import com.example.kidszonea4arctic3.repositories.PublicationRepository;
 import com.example.kidszonea4arctic3.services.ICommentaireService;
-import com.example.kidszonea4arctic3.services.IPublicationService;
 import com.example.kidszonea4arctic3.services.PublicationService;
 
-import software.amazon.ion.impl.PrivateByteTransferReader;
 
 
 @Scope(value = "session")
@@ -169,6 +165,11 @@ public class CommentaireController {
 
  
 	}
+	public String deleteCommentt ( long Commentid ) throws Exception
+	{
+		return cs.deleteCommentaire(Commentid);
+		
+	}
 
 
 	public long getIdpubselected() {
@@ -224,9 +225,14 @@ public class CommentaireController {
 	} 
 	
 	
+	public int getpostcommentcount() {
+		return cs.CountCommentaires();
+	}
 	
 
-	
+	public int getpostcommcount(long idP) {
+		return cs.CountCommentairesByPost(idP);
+	}
 	
 
 }

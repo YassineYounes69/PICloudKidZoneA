@@ -126,6 +126,9 @@ public class CommentaireService implements ICommentaireService{
 		List<Commentaire> comments = (List<Commentaire>) commentaireRepo.findAll() ;
 	    return comments.size();
 	}
+	
+
+
 
 	@Override
 	public List<Commentaire> getCommentairesByUserId(long id) {

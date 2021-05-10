@@ -19,7 +19,6 @@
 	<meta name="keywords"
 		content="Alphabet Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
 	             SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
-	<meta charset="utf-8" />
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="assets/css/main.css" />
@@ -29,9 +28,14 @@
 		rel="stylesheet" />
 </h:head>
 <h:body>
-	<ui:include src="/template/header.xhtml" />
-	<ui:insert name="welcome" />
-	<ui:insert name="content" />
+	<ui:include src="/template/header.xhtml" /> 
+	    <ui:insert name="welcome" />
+		<ui:insert name="content" />
+		<ui:insert name="post" />
+	   <ui:insert name="detail" />
+			
+		
+	
 	<ui:include src="/template/footer.xhtml" />
 </h:body>
 </html>

@@ -1,14 +1,11 @@
 package com.example.kidszonea4arctic3.controllers;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.view.RedirectView;
-
 import java.util.List;
+import java.util.Map;
 
-import org.ocpsoft.rewrite.annotation.Join;
+import javax.faces.context.FacesContext;
+
 import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -19,24 +16,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.kidszonea4arctic3.services.ICommentaireService;
 import com.example.kidszonea4arctic3.services.IPublicationService;
-
-
-import com.example.kidszonea4arctic3.models.FileUploadUtil;
 import com.example.kidszonea4arctic3.models.Parent;
 import com.example.kidszonea4arctic3.models.Publication;
 import com.example.kidszonea4arctic3.models.TypePub;
-import com.example.kidszonea4arctic3.repositories.PublicationRepository;
 
 @Scope(value = "session")
 @Controller(value = "PublicationController") // Name of the bean in Spring IoC
 @ELBeanName(value = "PublicationController") // Name of the bean used by JSF
-@RequestMapping("/APIpub")
+//@RequestMapping("/APIpub")
 @RestController
 //@Join(path = "/", to = "/DetailPost.jsf")
 public class PublicationController {
@@ -46,8 +39,6 @@ public class PublicationController {
 
 	@Autowired
 	ICommentaireService cs;
-	@Autowired
-	PublicationRepository pr ; 
 	
 	//@Transactional
 	//http://localhost:8000/SpringMVC/servlet/readAllPublication
@@ -63,6 +54,7 @@ public class PublicationController {
 	private long idpubselected;//PubController.idpubselected
 	
 	private Publication selectedpub;
+	
 	 public String listcomentofpost(int idpub) {
 		 this.setIdpubselected(idpub);
 		 
@@ -71,24 +63,30 @@ public class PublicationController {
 		 
 		 
 	 }
+	 
+	 public String listlikeofpost(int idpub) {
+		 this.setIdpubselected(idpub);
+		 
+		 this.setSelectedpub(this.getPost(idpub));
+		 return "/DetailPost.xhtml?faces-redirect=true";
+		 
+		 
+	 }
+
 
 	
-/*
+
 	
 	 //Ajouter publication : http://localhost:8000/SpringMVC/servlet/addPublication
 	@PostMapping("/addPublication")
 	@ResponseBody	
+	public Publication addPublication(@RequestBody Publication p) {
 	
-	public Publication addPublication(@RequestBody Publication p, @RequestParam("src_pub") MultipartFile multipartFile ) {
-		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-		String uploadDir = "event-photos/" + p.getPubContent()   ;
-		 p = new Publication(pubContent,date_pub,fileName,parent) ;
-	     FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 		return ps.addPublication(p);
 		
 		
 	}
-	*/
+	
 	//http://localhost:8080/SpringMVC/servlet/deletePublication/{id}
 		@DeleteMapping("/deletePublication/{id}")
 		@ResponseBody
@@ -212,6 +210,7 @@ public class PublicationController {
 	   }
 		
 	
+	
 	//http://localhost:8000/SpringMVC/servlet/Post/posts-commented-by-user/{idU}
 	@GetMapping("/Post/posts-commented-by-user/{idU}")
 	@ResponseBody
@@ -245,7 +244,7 @@ public class PublicationController {
 		 return ps.advancedSearsh(m) ;
 	 }
     
-/*
+
 	//http://localhost:8000/SpringMVC/servlet/Post/search-by-admin?pattern=...
 	@GetMapping("/Post/search-by-admin")
 	@ResponseBody
@@ -253,7 +252,7 @@ public class PublicationController {
 		return ps.searchPublications(pattern) ;
 	}
 	
-*/
+
 
 
 
@@ -289,6 +288,7 @@ private LocalDateTime date_pub ;
 private String  titre_pub ;
 private String  src_pub;
 private Parent parent = new Parent() ;
+private String idpub ;
 
 
 
@@ -430,47 +430,113 @@ public void setPattern(String pattern) {
 
 
 
-public String advanced(String m){ 
+public Publication advanced(String m ){ 
 	
 	System.err.println("seaaaaaaaaaaaaaaaarchhhhhhhhhhh !!!!!!!!!!!!");
-//	 return ps.advancedSearsh(m) ;
-	System.err.println(ps.advancedSearsh(m).getIdpub());
+	System.err.println(ps.advancedSearsh(m));	
+	System.err.println(m);
+
 	
-	 return "null";
+
+	return ps.advancedSearsh(m) ;
+	
+	
 	 
 	 
 }
 
 
 
-public String postSearch(String m){
+
+  public String postSearch(String m)
+  {
 	System.err.println("seaaaaaaaaaaaaaaaarchhhhhhhhhhh !!!!!!!!!!!!");
-	List<Publication> ll ; 
-	
     System.err.println(ps.searchPublications(m));
 	System.err.println("seaaaaaaaaaaaaaaaarchhhhhhhhhhh");
+	return m;
 
-    return "null" ; 
-	
+    
+ }
+
+public int getpostcount() {
+	return ps.CountPublications() ;
 }
 
-/*	
-@PostMapping("/users/save")
-public RedirectView saveUser(Publication user,
-        @RequestParam("image") MultipartFile multipartFile) throws IOException {
-     
-    String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-    user.setSrc_pub(fileName);
-     
-    Publication savedpub = pr.save(user);
+public String  redirec () 
+{
+	FacesContext context = FacesContext.getCurrentInstance() ; 
+	 Map reMap = context.getExternalContext().getRequestParameterMap();
+	 idpub = (String) reMap.get("id");
+	 System.err.println("puuuuuuuuuuuuuuuub");
+	 return "/search.xhtml?faces-redirect=true";
+}
 
-    String uploadDir = "user-photos/" + savedpub.getIdpub() ;
 
-    FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-     
-    return new RedirectView("/users", true);
-}*/
-		
+
+
+public String getIdpub() {
+	return idpub;
+}
+
+
+
+
+public void setIdpub(String idpub) {
+	this.idpub = idpub;
+}
+
+
+
+public Publication getMostLikedPostt() throws Exception {
+	return ps.mostLikedPublication() ;
+}
+
+
+public Publication getMostCommentedPostt() throws Exception {
+	return ps.mostCommentedPublication() ;
+}
+
+
+public String show(Publication p ) throws Exception {
+	this.setDate_pub(p.getDate_pub());
+	this.setPubContent(p.getPubContent());
+	this.setSrc_pub(p.getSrc_pub());
+	this.setIdpubselected(p.getIdpub());
+	this.setParent(p.getParent());
+
+	FacesContext context = FacesContext.getCurrentInstance() ; 
+	Map requMap = context.getExternalContext().getRequestParameterMap() ; 
+	idpub = (String) requMap.get("idpub") ; 
+	System.err.println(idpub);
+	return "/Detail.xhtml?faces-redirect=true";
+
+}
+public String back ( )throws Exception {
+	
+	FacesContext context = FacesContext.getCurrentInstance() ; 
+	Map requMap = context.getExternalContext().getRequestParameterMap() ; 
+	idpub = (String) requMap.get("idpub") ; 
+	System.err.println(idpub);
+	return "/post.xhtml?faces-redirect=true";
+
+}
+
+
+public String showw(Publication p ) throws Exception {
+	this.setDate_pub(p.getDate_pub());
+	this.setPubContent(p.getPubContent());
+	this.setSrc_pub(p.getSrc_pub());
+	this.setIdpubselected(p.getIdpub());
+	this.setParent(p.getParent());
+
+	FacesContext context = FacesContext.getCurrentInstance() ; 
+	Map requMap = context.getExternalContext().getRequestParameterMap() ; 
+	idpub = (String) requMap.get("idpub") ; 
+	System.err.println(idpub);
+	return "/post.xhtml?faces-redirect=true";
+
+}
+
 	
 
 	}
