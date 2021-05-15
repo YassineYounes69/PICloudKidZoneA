@@ -20,29 +20,22 @@
 
     <meta name="keywords" content="au theme template" />
     <link
-		href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap;"
+		href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap"
 		rel="stylesheet" />
-	<link rel="stylesheet" href="assets/css/tailwind.output.css"/>
-	
+	<link rel="stylesheet" href="assets/css/tailwind.output.css" />
 
-	<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"/>
+	<script
+		src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+		defer=""/>
 
-	<h:outputScript name="assets/js/init-alpine.js"></h:outputScript>
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" ></script>
-    <script src="assets/js/init-alpine.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-    <script src="assets/js/charts-lines.js" ></script>
-    <script src="assets/js/charts-pie.js" ></script>
-    <script src="assets/js/charts-bars.js" ></script>
+	<script src="assets/js/init-alpine.js"></script>
 
     
     <!-- Title Page-->
 
     <title>Dashboard</title>
     <!-- Fontfaces CSS-->
-        <link href="assets/css/tailwind.css" rel="stylesheet" media="all" />
+    <link href="assets/css/theme.css" rel="stylesheet" media="all" />
     
     <link href="assets/css/font-face.css" rel="stylesheet" media="all" />
     <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all" />
@@ -60,11 +53,16 @@
     <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all" />
     <!-- Main CSS-->
     <link href="assets/css/theme.css" rel="stylesheet" media="all" />
-    </head>
+</head>
 
 <body class="animsition">
 
+
+        
+        <!-- PAGE CONTAINER-->
+
         <div class="page-container">
+            <!-- HEADER DESKTOP-->
             <header class="header-desktop">
 
                 <div class="section__content section__content--p30">
@@ -74,19 +72,19 @@
                         <div class="header-wrap">
                           
                           <ul>
-                  
-							          <h:form>
-						<label for="ws" class="sr-only"></label>
-							<h:inputText type="text"    class="au-input au-input--xl" 
-							 value="#{PublicationController.pattern}"></h:inputText>
-							<h:commandLink data-ripple="" ajax="true" 	class="au-btn--submit" value="__OK"
+                          
+                          <h:form>
+						<label for="ws" class="sr-only">Search in blog</label>
+							<h:inputText type="text" value="#{PublicationController.pattern}"></h:inputText>
+							<h:commandLink data-ripple="" ajax="true" 	class="au-btn--submit"
 							
-								action="#{PublicationController.searchdash()}">
+								action="#{PublicationController.search()}">
 								<i class="ti-search" ></i>
 								<span class="sr-only">Search</span>
 								<f:param name="id" value="1"></f:param>
 							</h:commandLink>
 						</h:form>
+						
 						
                             </ul>
                                   
@@ -460,7 +458,7 @@
 
 									
 												<ui:repeat
-													value="#{PublicationController.getPublications()}"
+													value="#{PublicationController.liste}"
 													var="Publication">
 									
 									<tr class="text-gray-700 dark:text-gray-400">
@@ -542,7 +540,6 @@
 					
 		
 				<hr></hr>
-			
 								<h4>Most Liked/Commented Posts </h4>
 					
 					<div class="w-full overflow-hidden rounded-lg shadow-xs">
@@ -608,12 +605,7 @@
 										
 									
 
-					</ui:repeat></tr></tbody>
-					
-					
-					</table>
-					
-					</div>
+					</ui:repeat></tr></tbody></table></div>
 					</div>
 				</div>
 			</div></div></div></div></div></div>

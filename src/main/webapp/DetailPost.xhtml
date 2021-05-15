@@ -205,12 +205,12 @@
 
             <h:panelGrid >
                 <h:outputLabel for="txt1" value="pattern" />
-                <p:inputText id="txt1" value="#{PublicationController.pattern}" required="true" label="pattern" >
+                <p:inputText id="txt1" value="#{PublicationController.pattern}" required="true" label="pattern">
                     <f:validateLength minimum="2"/>
                 </p:inputText>
                 <p:message for="txt1"/>
                 <h:outputText value="#{PublicationController.advanced(pattern)}"/>
-                <h:outputText value="#{PublicationController.getTitre_pub()}"/>
+                                <h:outputText value="#{PublicationController.getTitre_pub()}"/>
                 
                 
 

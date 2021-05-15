@@ -36,6 +36,7 @@ public interface IPublicationService {
 	public Publication mostCommentedPublication() throws Exception;
 	public Publication advancedSearsh(String motif) ;
 	long addorupdatepost(Publication pp);
+	List<Publication> searchP(String pattern);
 
 
 

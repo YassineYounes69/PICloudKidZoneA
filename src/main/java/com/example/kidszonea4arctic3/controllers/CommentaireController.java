@@ -158,9 +158,22 @@ public class CommentaireController {
 	public void addCommentt( Commentaire c, long idp) throws Exception   
 	{ 
 		
-		System.err.println("3eussssssssssseummaaaaaaaaaaaaaaaaa !!!!!!!!!!!!!! comments");
+		System.err.println("3eusssssssssssleummaaaaaaaaaaaaaaaaa !!!!!!!!!!!!!! comments");
+		System.out.println("hajaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		c.setPublication(ps.getPublicationById(idp));		
 		cs.addC(c) ;
+		
+
+ 
+	}
+	
+	public void addCo( Commentaire c, long idp) throws Exception   
+	{
+		
+		System.err.println("3eusssssssssssleummaaaaaaaaaaaaaaaaa !!!!!!!!!!!!!! comments");
+		System.out.println("hajaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		c.setPublication(ps.getPublicationById(idp));		
+		cs.addCommentaire(c, idp) ;
 		
 
  

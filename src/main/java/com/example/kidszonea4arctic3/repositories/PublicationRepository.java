@@ -29,7 +29,7 @@ public interface PublicationRepository extends CrudRepository<Publication, Long>
 	public List<Publication> getReportedPosts();
 	
 	
-	@Query("SELECT p FROM Publication p WHERE p.pubContent LIKE %?1%  order by p.date_pub desc")
+	@Query("SELECT p FROM Publication p WHERE p.pubContent LIKE %?1% OR p.titre_pub LIKE %?1% order by p.date_pub desc")
 	List<Publication> findPostsByTextContaining(String pattern);
 	
 ///////// Partie recherche avanceé//////////

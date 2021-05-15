@@ -1,11 +1,16 @@
 package com.example.kidszonea4arctic3.services;
 
 import java.io.File;
+
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +26,6 @@ import com.amazonaws.services.rekognition.model.ModerationLabel;
 import com.amazonaws.services.rekognition.model.TextDetection;
 import com.amazonaws.util.IOUtils;
 import com.example.kidszonea4arctic3.models.Commentaire;
-import com.example.kidszonea4arctic3.models.Employee;
 import com.example.kidszonea4arctic3.models.Likes;
 import com.example.kidszonea4arctic3.models.Parent;
 import com.example.kidszonea4arctic3.models.Publication;
@@ -34,12 +38,14 @@ import com.example.kidszonea4arctic3.repositories.IReportRepository;
 import com.example.kidszonea4arctic3.repositories.IUnhealthyWordRepository;
 import com.example.kidszonea4arctic3.repositories.ParentRepository;
 import com.example.kidszonea4arctic3.repositories.PublicationRepository;
-//import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.multipart.MultipartFile;
 
-import net.bytebuddy.implementation.bytecode.ByteCodeAppender.Size;
+
+
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.util.StringUtils ;
 
 @Service
 public class PublicationService implements IPublicationService {
@@ -61,6 +67,7 @@ public class PublicationService implements IPublicationService {
 	@Autowired
 	CommentaireRepo commentaireRepo ;
 	private static final Logger L = LogManager.getLogger(IPublicationService.class);
+
 
 
 	@Override
@@ -106,12 +113,134 @@ public class PublicationService implements IPublicationService {
 	@Override
 	public long addorupdatepost(Publication pp)
 	{
+		pp.setDate_pub(LocalDateTime.now());
+
 		PublicationRepository.save(pp);
 		return pp.getIdpub(); 
 		
 	}
+	/*
+	public String TypeFile(MultipartFile file) throws IOException {
+		String fileName = fileStorageServiceImpl.storeFile(file);
+		int length = fileName.length();
+		String typefile = fileName.substring(length - 3, length);
+		if (typefile.equals("png") || typefile.equals("peg") || typefile.equals("jpg")) {
+			return "Image";
+		} else {
+			return "Video";
+		}
+	}
+	
+
+	public String TypeFile(UploadedFile file) throws IOException {
+		if(file.getSize()==0){
+			return "Nofile";
+		}
+		else{
+		String fileName = fileStorageServiceImpl.UploadImages(file);
+		int length = fileName.length();
+		String typefile = fileName.substring(length - 3, length);
+		if (typefile.equals("png") || typefile.equals("peg") || typefile.equals("jpg")) {
+			return "Image";
+		} 
+		else {
+			return "Video";
+		}
+		}
+	}
+	public Publication AffecterImageVideoPub(Publication pub, MultipartFile file) throws IOException {
+		String fileName = fileStorageServiceImpl.storeFile(file);
+		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstants.DOWNLOAD_PATH)
+				.path(fileName).toUriString();
+		String typefile = TypeFile(file);
+		if (typefile.equals("Image")) {
+			pub.setImage(fileDownloadUri);
+		} else {
+			pub.setVideo(fileDownloadUri);
+		}
+		return pub;
+	}
+	
+	
+	public Publication UpdatePubWithImage(Publication pub, UploadedFile file) throws IOException, ParseException {
+		Publication PubWithImg = AffecterImageVideoPubs(pub, file);
+		String typefile = TypeFile(file);
+		PublicationRepository.save(PubWithImg);
+		
+		return PubWithImg ;
+
+	}
+	
+	public Publication AffecterImageVideoPubs(Publication pub, UploadedFile file) throws IOException {
+		String fileName = fileStorageServiceImpl.UploadImages(file);
+		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstants.DOWNLOAD_PATH)
+				.path(fileName).toUriString();
+		String typefile = TypeFile(file);
+		if (typefile.equals("Image")) {
+			pub.setImage(fileDownloadUri);
+		} else {
+			pub.setVideo(fileDownloadUri);
+		}
+		return pub;
+	}
+
+	
+	public Publication UpdatePubWithoutImage(Publication pub) throws IOException, ParseException {
+		pub.setDate_pub(LocalDateTime.now());
+
+		String typefile;
+		if(pub.getType_pub().image!=null){
+			 typefile = "Image";
+		}
+		else{
+			 typefile = "Video";
+		}
+
+		return PublicationRepository.save(pub);
+
+	}
+	
+*/
 
 	@Override
+	public String addPublicationMsg(Publication p) throws Exception {
+		boolean approved=true;
+		String msg="";
+		long id = 5 ; 
+		//p.setParent(currentParent());
+		Parent ppp = pr.findById(id).get() ;
+
+	//	Optional<Parent> current = pr.findById((long) 5) ; 
+
+		p.setParent(ppp);
+
+		p.setDate_pub(LocalDateTime.now());
+		for(UnhealthyWord uwd : iUnhealthyWordRepository.findAll())
+		{
+			if (p.getPubContent().toLowerCase().contains(uwd.getWord()))
+			{
+				approved=false;
+				msg+="Sorry, you can't post hate speech or bad words on Keedo.";
+				System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+				
+	
+			}
+			
+			
+		}
+			
+	
+		
+				PublicationRepository.save(p);
+				return ("post added successfully");
+			
+			
+		
+		
+	}
+
+	/*
+	 * @Override
 	public String addPublicationMsg(Publication p) throws Exception {
 		boolean approved=true;
 		String msg="";
@@ -158,6 +287,7 @@ public class PublicationService implements IPublicationService {
 		
 	}
 
+	 */
 
 	@Override
 	public String updatePublicationMsg(Publication p , long id) throws Exception {
@@ -326,9 +456,15 @@ public class PublicationService implements IPublicationService {
 
 	@Override
 	public List<Publication> searchPublications(String pattern) {
+		
 		return PublicationRepository.findPostsByTextContaining(pattern) ;
 	}
 
+	@Override
+	public List<Publication> searchP(String pattern) {
+		List<Publication> l = PublicationRepository.findPostsByTextContaining(pattern) ;
+		return l ;
+	}
 	@Override
 	public String sharePublication(long idP) throws Exception {
 		long id = 5 ; 
@@ -471,11 +607,69 @@ public class PublicationService implements IPublicationService {
     	return u;
     }
 
+/*
+	@Transactional
+	public long savePub(Publication p, UploadedFiles files) {
+		
+	
+		 p.setDate_pub(LocalDateTime.now());
 
-
+		for (UploadedFile f : files.getFiles()) {
+         	String newFileName = fileStorageServiceImpl.UploadImages(f);
+         	String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstants.DOWNLOAD_PATH).path(newFileName).toUriString();
+			p.setImage(fileDownloadUri);
+			PublicationRepository.save(p);
+		}
+		
+		 return p.getIdpub();
 
 	
+	}
+
 	
+	public Publication AddPub(Publication pub, UploadedFile file) throws IOException, ParseException {
+		Publication PubWithImg = AffecterImageVideoPubs(pub, file);
+		String typefile = TypeFile(file);
+		InputStream inputfile = file.getInputStream();
+		PublicationRepository.save(PubWithImg);
+			
+		
+		return PubWithImg ;
+
+	}
+	
+	
+	public long AddP(Publication pub, UploadedFile file) throws IOException, ParseException {
+		Publication PubWithImg = AffecterImageVideoPubs(pub, file);
+		String typefile = TypeFile(file);
+		InputStream inputfile = file.getInputStream();
+		PublicationRepository.save(PubWithImg);
+			
+		
+		 return pub.getIdpub();
+
+	}
+	*/
+	public void savePost(MultipartFile file , String content )
+	{
+		Publication p = new Publication() ;
+	    String filename = StringUtils.cleanPath(file.getOriginalFilename());
+	    if(filename.contains(".."))
+	    {
+	    	System.err.println("not .......");
+	    }
+	    try {
+			p.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+
+	    }
+	    catch (IOException e) {
+	    	e.printStackTrace();
+			// TODO: handle exception
+		}
+	    
+		p.setPubContent(content);
+		PublicationRepository.save(p) ;
+	}
 
 	
 	

@@ -1,10 +1,16 @@
 package com.example.kidszonea4arctic3.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
+import javax.swing.text.AbstractDocument.Content;
+import javax.transaction.Transactional;
 
 import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +25,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.kidszonea4arctic3.services.ICommentaireService;
 import com.example.kidszonea4arctic3.services.IPublicationService;
+import com.example.kidszonea4arctic3.services.PublicationService;
+import com.sun.el.parser.ParseException;
 import com.example.kidszonea4arctic3.models.Parent;
 import com.example.kidszonea4arctic3.models.Publication;
 import com.example.kidszonea4arctic3.models.TypePub;
+import com.example.kidszonea4arctic3.repositories.PublicationRepository;
+
+import org.primefaces.model.file.UploadedFile;
+import org.primefaces.model.file.UploadedFiles;
+
 
 @Scope(value = "session")
 @Controller(value = "PublicationController") // Name of the bean in Spring IoC
@@ -39,6 +53,10 @@ public class PublicationController {
 
 	@Autowired
 	ICommentaireService cs;
+	@Autowired
+	PublicationService pps ;
+	@Autowired
+	PublicationRepository pr ; 
 	
 	//@Transactional
 	//http://localhost:8000/SpringMVC/servlet/readAllPublication
@@ -299,15 +317,24 @@ public void addpostt()
 {
 	System.err.println("3eussssssssssseummaaaaaaaaaaaaaaaaa !!!!!!!!!!!!!!");
 	parent.setId(Long.valueOf(5));
+	
     ps.addorupdatepost(new Publication(parent ,type_pub, pubContent, date_pub, titre_pub, src_pub));
        
 
 }
 
-public void addpostmsg() throws Exception   
-{  	parent.setId(Long.valueOf(5));
-	  ps.addPublicationMsg(new Publication(parent ,type_pub, pubContent, date_pub, titre_pub, src_pub)) ;  
-} 
+
+ public void addPoop()  throws Exception
+
+    {  
+    parent.setId(Long.valueOf(5));
+	
+		ps.addPublicationMsg(new Publication(parent ,type_pub, pubContent, date_pub, titre_pub, src_pub));
+
+	}
+
+       
+
 
 public void updatePost () {
 	parent.setId(Long.valueOf(5));
@@ -537,6 +564,236 @@ public String showw(Publication p ) throws Exception {
 
 }
 
+List<Publication> liste ; 
+
+
+public List<Publication> getListe() {
+	return liste;
+}
+
+public void setListe(List<Publication> liste) {
+	this.liste = liste;
+}
+
+public String search()
+{
+	//parent.setId(Long.valueOf(5));
+	System.err.println("seaaaaaaaaaaaaaaaarchhhhhhhhhhh !!!!!!!!!!!!");
+    liste = ps.searchP(pattern) ; 
+	System.err.println(ps.searchPublications(pattern));
+	System.err.println("seaaaaaaaaaaaaaaaarchhhhhhhhhhh");
+	return "/resultsearch.xhtml?faces-redirect=true";
+
+  
+}
+
+public String searchdash()
+{
+	//parent.setId(Long.valueOf(5));
+	System.err.println("seaaaaaaaaaaaaaaaarchhhhhhhhhhh !!!!!!!!!!!!");
+    liste = ps.searchP(pattern) ; 
+	System.err.println(ps.searchPublications(pattern));
+	System.err.println("seaaaaaaaaaaaaaaaarchhhhhhhhhhh");
+	return "/searchresultdash.xhtml?faces-redirect=true";
+
+  
+}
+
+//private UploadedFile file;
+private String fileToUpdate;
+private String typeFile="Image";
+private Long idToUpdate;
+private String video;
+private String image;
+private String alert=null;
+
+
+
+
+
+public String getAlert() {
+	return alert;
+}
+
+public void setAlert(String alert) {
+	this.alert = alert;
+}
+
+public String getVideo() {
+	return video;
+}
+
+public void setVideo(String video) {
+	this.video = video;
+}
+
+public String getImage() {
+	return image;
+}
+
+public void setImage(String image) {
+	this.image = image;
+}
+/*
+public UploadedFile getFile() {
+	return file;
+}
+
+public void setFile(UploadedFile file) {
+	this.file = file;
+}*/
+
+public String getFileToUpdate() {
+	return fileToUpdate;
+}
+
+public void setFileToUpdate(String fileToUpdate) {
+	this.fileToUpdate = fileToUpdate;
+}
+
+public String getTypeFile() {
+	return typeFile;
+}
+
+public void setTypeFile(String typeFile) {
+	this.typeFile = typeFile;
+}
+
+
+
+
+public Long getIdToUpdate() {
+	return idToUpdate;
+}
+
+public void setIdToUpdate(Long idToUpdate) {
+	this.idToUpdate = idToUpdate;
+}
+/*
+public String addPublication() throws IOException, ParseException {
 	
+parent.setId(Long.valueOf(5));
+	
+    ps.addorupdatepost(new Publication(parent ,type_pub, pubContent, date_pub, titre_pub, src_pub));
+       
+
+	if(idToUpdate!=null && file.getSize()==0){
+		pps.UpdatePubWithoutImage(new Publication(parent,pubContent, date_pub, titre_pub ,image,video));
+		
+		HidePub();
+		idToUpdate=null;
+		alert="modifier";
+		 return "/post.xhtml?faces-redirect=true";
+	}
+	else if(idToUpdate!=null && file.getSize()!=0)
+	{
+		pps.UpdatePubWithImage(new Publication(parent,pubContent, date_pub, titre_pub ,image,video), file);
+		HidePub();
+		idToUpdate=null;
+		alert="modifier";
+		 return "/post.xhtml?faces-redirect=true";
+	}
+	
+	else{
+		pps.AddPub(new Publication(parent,pubContent, date_pub, titre_pub ,image,video), file);
+	HidePub();
+	alert="ajouter";
+	 return "/post.xhtml?faces-redirect=true";
+	}
+}*/
+	
+public void HidePub(){
+	
+	
+	//this.file=null;
+	this.date_pub=null;
+	this.image=null;
+	this.video=null;
+	this.pubContent=null;
+	this.titre_pub=null;
+	this.typeFile="Image";
+}
+
+private UploadedFiles files;
+public UploadedFile fle;
+
+
+public UploadedFile getFle() {
+	return fle;
+}
+
+public void setFle(UploadedFile fle) {
+	System.err.println(fle.getFileName());
+	this.fle = fle;
+}
+
+public UploadedFiles getFiles() {
+	return files;
+}
+
+public void setFiles(UploadedFiles files) {
+	System.err.println(files.getFiles().get(0).getFileName());
+
+	this.files = files;
+}
+
+private MultipartFile  file ; 
+
+
+public MultipartFile getFile() {
+	return file;
+}
+
+public void setFile(MultipartFile file) {
+	this.file = file;
+}
+
+public void addPub(String content , MultipartFile f ){
+	//Publication p = new Publication(content) ; 
+	System.err.println("1111111111111111111111111");
+
+	parent.setId(Long.valueOf(5));
+	System.err.println("222222222222222222222222");
+//	System.err.println("this is file name !!!! :"+f.getOriginalFilename());
+	System.err.println("333333333333333333");
+
+
+	pps.savePost(f, content);
+	System.err.println("4444444444444444");
+
+	
+	//pps.AddPub(new Publication(parent ,type_pub, pubContent, date_pub, titre_pub, src_pub), file) ;
+
+	//return "/post.xhtml?faces-redirect=true";
+}
+
+
+public static String uploadDirectory=System.getProperty("user.dir")+"/src/main/webapp/images/resources";
+@Autowired
+PublicationRepository repo ;
+public void add(Publication p  ,@RequestParam("img") MultipartFile f ){
+	System.err.println("1111111111111111111111111");
+	StringBuilder fileNames = new StringBuilder() ; 
+	String filename=p.getIdpub()+f.getOriginalFilename().substring(f.getOriginalFilename().length()) ;
+	Path fileNameAndPath = Paths.get(uploadDirectory,filename);
+	try
+	{
+		Files.write(fileNameAndPath, f.getBytes());
+	}
+catch (IOException e)
+	{
+	e.printStackTrace();
+	}
+	parent.setId(Long.valueOf(5));
+	p.setImage(filename);
+	System.err.println("222222222222222222222222");
+	System.err.println("333333333333333333");
+
+
+	repo.save(p) ;
+	System.err.println("4444444444444444");
+
+}
+
 
 	}

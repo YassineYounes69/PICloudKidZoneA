@@ -50,6 +50,10 @@ public class Publication implements Serializable{
 	 @Column(name="date_pub")
 	 private LocalDateTime date_pub ;
 	 
+	 @Column(name="image")
+	 private String image ;
+	 @Column(name="video")
+	 private String video ; 
 	 @Column(name="titre_pub")
 	 private String titre_pub ; 
 	 
@@ -324,6 +328,18 @@ public Publication()
 	
 	}
 	
+	public Publication(long idpub,Parent parent2, String pubContent2, LocalDateTime date_pub2,String titre_pub2 ){
+		super();
+		this.idpub = idpub;
+		this.pubContent = pubContent2;
+		this.date_pub = date_pub2;
+		
+		this.parent = parent2;
+		this.titre_pub=titre_pub2;
+	
+	}
+	
+	
 
 
 
@@ -377,12 +393,99 @@ public Publication()
 
 
 
+	public String getImage() {
+		return image;
+	}
+
+
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+
+
+	public String getVideo() {
+		return video;
+	}
+
+
+
+	public void setVideo(String video) {
+		this.video = video;
+	}
+
+
+
+	public Publication(long idpub, TypePub type_pub, String pubContent, LocalDateTime date_pub, String image,
+			String video, String titre_pub, int is_visible, int views, String src_pub, Employee employe, Parent parent,
+			List<Commentaire> comm, Set<Likes> likes, Set<Report> reports) {
+		super();
+		this.idpub = idpub;
+		this.type_pub = type_pub;
+		this.pubContent = pubContent;
+		this.date_pub = date_pub;
+		this.image = image;
+		this.video = video;
+		this.titre_pub = titre_pub;
+		this.is_visible = is_visible;
+		this.views = views;
+		this.src_pub = src_pub;
+		this.employe = employe;
+		this.parent = parent;
+		this.comm = comm;
+		this.likes = likes;
+		this.reports = reports;
+	}
 
 
 
 
 
 
+
+	public Publication( TypePub type_pub, String pubContent, LocalDateTime date_pub, String titre_pub,
+			 String src_pub, Parent parent , String image , String video) {
+		super();
+		this.type_pub = type_pub;
+		this.pubContent = pubContent;
+		this.date_pub = date_pub;
+		this.titre_pub = titre_pub;
+		this.src_pub = src_pub;
+		this.parent = parent;
+		this.image=image ; 
+		this.video=video;
+
+	}
+
+
+	public Publication(Long idToUpdate, Parent parent2,  String pubContent2, LocalDateTime date_pub2, String titre_pub2, String image2, String video2)
+	{
+		this.idpub=idToUpdate ;
+		this.parent=parent2;
+		this.pubContent=pubContent2;
+		this.date_pub=date_pub2;
+		this.titre_pub = titre_pub2;
+		this.image=image2 ; 
+		this.video=video2;
+
+		
+	}
+
+
+
+
+	public Publication( Parent parent2,  String pubContent2, LocalDateTime date_pub2, String titre_pub2, String image2, String video2)
+	{
+		this.parent=parent2;
+		this.pubContent=pubContent2;
+		this.date_pub=date_pub2;
+		this.titre_pub = titre_pub2;
+		this.image=image2 ; 
+		this.video=video2;
+
+		
+	}
 
 
 

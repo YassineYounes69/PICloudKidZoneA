@@ -45,10 +45,15 @@ public class LikesController {
 				} 
 				
 				
-				public String addL(long idP ) throws Exception   
+				
+				public void addL(long idP )    
 				{    
-					System.err.println("helooo likesss");
-					return(LikesServiceImpl.addLikes(idP));  
+					System.err.println("hellooo likesss");
+					try {
+						LikesServiceImpl.addLikes(idP);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 
 
 				} 
