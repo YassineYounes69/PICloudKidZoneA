@@ -22,8 +22,8 @@ public class ChildController {
     }
     @RequestMapping(value = "/Childadd/{fName}/{lName}/{age}/{childPic}", method = RequestMethod.GET)
     public Child addChild(@PathVariable String fName, @PathVariable String lName, @PathVariable int age, @PathVariable String childPic ){
-        Child Child = new Child(fName,lName,age,childPic);
-        return childRepository.save(Child);
+        Child child = new Child(fName,lName,age,childPic);
+        return childRepository.save(child);
     }
     @RequestMapping(value ="/ChildDelted/{id}", method = RequestMethod.GET)
     public String DeleteChildById(@PathVariable Long id){

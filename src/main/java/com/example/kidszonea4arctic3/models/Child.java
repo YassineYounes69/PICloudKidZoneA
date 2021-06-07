@@ -22,18 +22,23 @@ public class Child {
     public Child() {
     }
 
-    public Child(String fName, String lName, int age , String childPic) {
+    public Child(String fName, String lName, int age) {
+        this.fName = fName;
+        this.lName = lName;
+        this.age = age;
+    }
+
+    public Child(String fName, String lName, int age, String childPic) {
         this.fName = fName;
         this.lName = lName;
         this.age = age;
         this.childPic = childPic;
     }
 
-    public Child(String fName, String lName, int age, String childPic,Parent parent) {
+    public Child(String fName, String lName, int age, Parent parent) {
         this.fName = fName;
         this.lName = lName;
         this.age = age;
-        this.childPic = childPic;
         this.parent = parent;
     }
 
@@ -86,6 +91,17 @@ public class Child {
     }
 
     @Override
+    public String toString() {
+        return "Child{" +
+                "id=" + id +
+                ", fName='" + fName + '\'' +
+                ", lName='" + lName + '\'' +
+                ", age=" + age +
+
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -99,17 +115,4 @@ public class Child {
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
     }
-
-    @Override
-    public String toString() {
-        return "Child{" +
-                "id=" + id +
-                ", fName='" + fName + '\'' +
-                ", lName='" + lName + '\'' +
-                ", age=" + age +
-                ", childPic='" + childPic + '\'' +
-                ", parent=" + parent +
-                '}';
-    }
-
 }

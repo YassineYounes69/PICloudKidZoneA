@@ -1,104 +1,164 @@
 package com.example.kidszonea4arctic3.controllers;
 
-import com.example.kidszonea4arctic3.models.Child;
 import com.example.kidszonea4arctic3.models.Employee;
-import com.example.kidszonea4arctic3.models.Parent;
 import com.example.kidszonea4arctic3.repositories.EmployeeRepository;
 import com.example.kidszonea4arctic3.repositories.ParentRepository;
+import com.example.kidszonea4arctic3.services.EmployeeService;
+import com.example.kidszonea4arctic3.utilis.UserPDFExporter;
+import com.lowagie.text.DocumentException;
+import org.ocpsoft.rewrite.el.ELBeanName;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+import javax.faces.bean.SessionScoped;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+@SessionScoped
+@Controller(value = "employeeController")
+@ELBeanName(value = "employeeController")
 public class EmployeeController {
+    @Autowired
+    EmployeeService employeeService;
+
+    private Employee employee = new Employee();
+    private Employee newEmployee = new Employee();
+    private Employee editEmployee = new Employee();
+    private String error = "";
+
+    @Autowired
     private final EmployeeRepository employeeRepository;
 
-    public EmployeeController(EmployeeRepository employeeRepository) {
+    @Autowired
+    private final SessionController sessionController;
+
+    public EmployeeController(EmployeeRepository employeeRepository, SessionController sessionController) {
         this.employeeRepository = employeeRepository;
+        this.sessionController = sessionController;
     }
 
-    @RequestMapping(value = "/Employees", method = RequestMethod.GET)
-    public Iterable<Employee> getEmployees(){
-        return employeeRepository.findAll();
+    @RequestMapping("/Employees")
+    public String getEmployees(Model model){
+
+        model.addAttribute("Employees",employeeRepository.findAll());
+
+        return "Employees";
     }
 
-    @RequestMapping(value = "/Employeeadd/{email}/{pw}/{fName}/{lName}", method = RequestMethod.GET)
-    public Employee addEmployee(@PathVariable String email, @PathVariable String pw, @PathVariable String fName, @PathVariable String lName){
-        Employee employee = new Employee(email,pw,fName,lName);
-        return employeeRepository.save(employee);
+    public String addOwner(){
+        System.out.println("employee add method fired");
+        employee.setRole("Director");
+        employeeService.addEmployee(employee);
+        System.out.println(employee.toString());
+        sessionController.setEmployee(employee);
+        return "/pages/addChildCareCenter.xhtml?faces-redirect=true";
     }
 
-    @RequestMapping(value ="/EmployeeDelete/{id}", method = RequestMethod.GET)
-    public String deleteEmployeeById(@PathVariable Long id){
-        Employee employee = new Employee();
-        if (employeeRepository.findById(id).isPresent()) {
-            employee = employeeRepository.findById(id).get();
-            employeeRepository.delete(employee);
-            System.out.println("employee Deleted");
-            return "employee deleted";
-        }
-        else
-        {
-            System.out.println("employee not found");
-            return "employee not found";
-        }
+    public String editOwner(){
+        employeeService.addEmployee(sessionController.getEmployee());
+        return "/pages/childCareCenterDashboard.jsf?faces-redirect=true";
     }
-    @RequestMapping(value = "/EmployeeUpdateEmailById/{id}/{Email}", method = RequestMethod.GET)
-    public Employee updateEmailById(@PathVariable Long id, @PathVariable String Email){
-        Employee employee = new Employee();
-        if (employeeRepository.findById(id).isPresent()){
-            employee = employeeRepository.findById(id).get();
-            employee.setEmail(Email);
-            return employeeRepository.save(employee);
-        }
-        else
-        {
-            return employee;
-        }
+    public String addEmploye(){
+        System.out.println("employee add method fired");
+        newEmployee.setCcc(sessionController.getChildCareCenter());
+        employeeService.addEmployee(newEmployee);
+        System.out.println(newEmployee.toString());
+        sessionController.addEmploye(newEmployee);
+        newEmployee = new Employee();
+        return "/pages/childCareCenterDashboard.xhtml?faces-redirect=true";
     }
-    @RequestMapping(value = "/EmployeeUpdatePwById/{id}/{Email}", method = RequestMethod.GET)
-    public Employee updatePwById(@PathVariable Long id, @PathVariable String pw){
-        Employee employee = new Employee();
-        if (employeeRepository.findById(id).isPresent()){
-            employee = employeeRepository.findById(id).get();
-            employee.setPw(pw);
-            return employeeRepository.save(employee);
-        }
-        else
-        {
-            return employee;
-        }
+
+    public String editEmploye(Employee emp){
+        /*System.out.println("employee add method fired");
+        newEmployee.setCcc(sessionController.getChildCareCenter());
+        System.out.println(newEmployee.toString());
+        sessionController.addEmploye(newEmployee);*/
+        System.out.println("******* Edit employe  ************");
+        System.out.println(emp.toString());
+        employeeService.editEmployee(emp);
+        sessionController.logInEmp();
+
+        return "/pages/childCareCenterDashboard.xhtml?faces-redirect=true";
     }
-    @RequestMapping(value = "/EmployeeUpdateFNameById/{id}/{fName}", method = RequestMethod.GET)
-    public Employee updatefNameById(@PathVariable Long id, @PathVariable String fName){
-        Employee employee = new Employee();
-        if (employeeRepository.findById(id).isPresent()){
-            employee = employeeRepository.findById(id).get();
-            employee.setfName(fName);
-            return employeeRepository.save(employee);
-        }
-        else
-        {
-            return employee;
-        }
+
+    public void deleteEmployeById(Employee employee){
+        System.out.println("***** Deleting employe *****");
+        employeeService.deleteEmployeeById(employee);
+        ArrayList<Employee> list = sessionController.getEmployeeArrayList();
+        list.remove(employee);
+        //sessionController.setEmployeeArrayList(list);
+        sessionController.logInEmp();
     }
-    @RequestMapping(value = "/EmployeeUpdateLNameById/{id}/{lName}", method = RequestMethod.GET)
-    public Employee updateLNameById(@PathVariable Long id, @PathVariable String lName){
-        Employee employee = new Employee();
-        if (employeeRepository.findById(id).isPresent()){
-            employee = employeeRepository.findById(id).get();
-            employee.setlName(lName);
-            return employeeRepository.save(employee);
-        }
-        else
-        {
-            return employee;
-        }
+
+    public void setEditEmp(Employee e){
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa  "+e);
+        editEmployee = sessionController.getEmployeeArrayList().get(sessionController.getEmployeeArrayList().indexOf(e));
     }
 
 
+    @GetMapping("/users/export/pdf")
+    public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
 
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=employees_list_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        ArrayList<Employee> listUsers = sessionController.getEmployeeArrayList();
+
+        UserPDFExporter exporter = new UserPDFExporter(listUsers,sessionController.getChildCareCenter().getName());
+        exporter.export(response);
+
+    }
+    public String checkAuthetication(){
+        System.out.println( "zzzzzzz "+sessionController.getEmployee().toString());
+        if(sessionController.getEmployee().getRole()==null||!(sessionController.getEmployee().getRole().equals("Director"))){
+            System.out.println("u heeeeeeeeeeeeeeeeeeere !!!!");
+            return "/pages/childCareCenterRegister.xhtml?faces-redirect=true";
+        }
+        else {
+            System.out.println("u elsssssssssssssssseeee");
+            return null;
+        }
+    }
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public Employee getNewEmployee() {
+        return newEmployee;
+    }
+
+    public void setNewEmployee(Employee newEmployee) {
+        this.newEmployee = newEmployee;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public Employee getEditEmployee() {
+        return editEmployee;
+    }
+
+    public void setEditEmployee(Employee editEmployee) {
+        this.editEmployee = editEmployee;
+    }
 }

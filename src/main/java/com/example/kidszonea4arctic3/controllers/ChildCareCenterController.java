@@ -1,118 +1,82 @@
 package com.example.kidszonea4arctic3.controllers;
 
-import com.example.kidszonea4arctic3.models.Child;
 import com.example.kidszonea4arctic3.models.ChildCareCenter;
-import com.example.kidszonea4arctic3.models.Parent;
+import com.example.kidszonea4arctic3.models.Employee;
 import com.example.kidszonea4arctic3.repositories.ChildCareCenterRepository;
+import com.example.kidszonea4arctic3.repositories.EmployeeRepository;
+import com.example.kidszonea4arctic3.services.ChildCareCenterService;
+import org.ocpsoft.rewrite.el.ELBeanName;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
+import javax.faces.bean.SessionScoped;
 
-@RestController
+@SessionScoped
+@Controller(value = "childCareCenterController")
+@ELBeanName(value = "childCareCenterController")
 public class ChildCareCenterController {
+    private ChildCareCenter childCareCenter = new ChildCareCenter();
 
+    @Autowired
+    private final ChildCareCenterService childCareCenterService;
+
+    @Autowired
     private final ChildCareCenterRepository cccRepository;
 
-    public ChildCareCenterController(ChildCareCenterRepository cccRepository) {
+    @Autowired
+    private final EmployeeRepository employeeRepository;
 
+    @Autowired
+    private final SessionController sessionController;
+
+    public ChildCareCenterController(ChildCareCenterService childCareCenterService, ChildCareCenterRepository cccRepository, SessionController sessionController, EmployeeRepository employeeRepository) {
+        this.childCareCenterService = childCareCenterService;
         this.cccRepository = cccRepository;
+        this.sessionController = sessionController;
+        this.employeeRepository = employeeRepository;
     }
 
-    @RequestMapping(value = "/CCCs", method = RequestMethod.GET)
-    public Iterable<ChildCareCenter> getCccs(){
-        return cccRepository.findAll();
-    }
-    @RequestMapping(value = "/CCCadd/{adr}/{cccPNumber}/{cost}/{descr}/{logo}", method = RequestMethod.GET)
-    public ChildCareCenter addCCCs(@PathVariable String adr, @PathVariable int cccPNumber, @PathVariable float cost, @PathVariable String descr, @PathVariable String logo ){
-        ChildCareCenter ChildCareCenter = new ChildCareCenter(descr,logo,cccPNumber,adr,cost);
-        return cccRepository.save(ChildCareCenter);
-    }
-    @RequestMapping(value ="/CCCdelete/{id}", method = RequestMethod.GET)
-    public String deleteCCCById(@PathVariable Long id){
-        ChildCareCenter childCareCenter = new ChildCareCenter();
-        if (cccRepository.findById(id).isPresent()) {
-            childCareCenter = cccRepository.findById(id).get();
-            cccRepository.delete(childCareCenter);
-            System.out.println("Child Care Center Deleted");
-            return "Child Care Center deleted";
-        }
-        else
-        {
-            System.out.println("Child Care Center not found");
-            return "Child Care Center not found";
-        }
-    }
-    @RequestMapping(value = "/ChildCareCenterUpdateAdrById/{id}/{adr}", method = RequestMethod.GET)
-    public ChildCareCenter updateAdrById(@PathVariable Long id,@PathVariable String adr){
-        ChildCareCenter childCareCenter = new ChildCareCenter();
-        if (cccRepository.findById(id).isPresent()){
-            childCareCenter = cccRepository.findById(id).get();
-            childCareCenter.setAdr(adr);
-            return cccRepository.save(childCareCenter);
-        }
-        else
-        {
-            return childCareCenter;
-        }
+    @RequestMapping("/CCCs")
+    public String getCccs(Model model){
+
+        model.addAttribute("CCCs",cccRepository.findAll());
+
+        return "CCCs";
     }
 
-    @RequestMapping(value = "/ChildCareCenterUpdateNbrById/{id}/{cccPNumber}", method = RequestMethod.GET)
-    public ChildCareCenter updateNbrById(@PathVariable Long id,@PathVariable int cccPNumber){
-        ChildCareCenter childCareCenter = new ChildCareCenter();
-        if (cccRepository.findById(id).isPresent()){
-            childCareCenter = cccRepository.findById(id).get();
-            childCareCenter.setCccPNumber(cccPNumber);
-            return cccRepository.save(childCareCenter);
-        }
-        else
-        {
-            return childCareCenter;
-        }
+    public String addChildCareCenter(){
+        System.out.println("ccc add method fired");
+
+        Employee employee = sessionController.getEmployee();
+        System.out.println("Got employee : "+employee);
+
+        childCareCenterService.addChildCareCenter(childCareCenter);
+        System.out.println(childCareCenter.toString());
+        employeeRepository.updateEmployeeCcc(employee.getId(),childCareCenter);
+        sessionController.setChildCareCenter(childCareCenter);
+        //childCareCenterDashboard
+        return "/pages/childCareCenterDashboard.xhtml?faces-redirect=true";
+
     }
 
-    @RequestMapping(value = "/ChildCareCenterUpdateCostById/{id}/{cost}", method = RequestMethod.GET)
-    public ChildCareCenter updateCostById(@PathVariable Long id,@PathVariable float cost){
-        ChildCareCenter childCareCenter = new ChildCareCenter();
-        if (cccRepository.findById(id).isPresent()){
-            childCareCenter = cccRepository.findById(id).get();
-            childCareCenter.setCost(cost);
-            return cccRepository.save(childCareCenter);
-        }
-        else
-        {
-            return childCareCenter;
-        }
+    public String edit(){
+        System.out.println("ccc edit method fired");
+
+
+        childCareCenterService.addChildCareCenter(sessionController.getChildCareCenter());
+        //sessionController.setChildCareCenter(childCareCenter);
+        //childCareCenterDashboard
+        return "/pages/childCareCenterDashboard.xhtml?faces-redirect=true";
+
     }
 
-    @RequestMapping(value = "/ChildCareCenterUpdateDescById/{id}/{descr}", method = RequestMethod.GET)
-    public ChildCareCenter updateDescById(@PathVariable Long id,@PathVariable String descr){
-        ChildCareCenter childCareCenter = new ChildCareCenter();
-        if (cccRepository.findById(id).isPresent()){
-            childCareCenter = cccRepository.findById(id).get();
-            childCareCenter.setDescr(descr);
-            return cccRepository.save(childCareCenter);
-        }
-        else
-        {
-            return childCareCenter;
-        }
+    public ChildCareCenter getChildCareCenter() {
+        return childCareCenter;
     }
-    @RequestMapping(value = "/ChildCareCenterUpdateLogoById/{id}/{logo}", method = RequestMethod.GET)
-    public ChildCareCenter updateLogoById(@PathVariable Long id,@PathVariable String logo){
-        ChildCareCenter childCareCenter = new ChildCareCenter();
-        if (cccRepository.findById(id).isPresent()){
-            childCareCenter = cccRepository.findById(id).get();
-            childCareCenter.setLogo(logo);
-            return cccRepository.save(childCareCenter);
-        }
-        else
-        {
-            return childCareCenter;
-        }
+
+    public void setChildCareCenter(ChildCareCenter childCareCenter) {
+        this.childCareCenter = childCareCenter;
     }
 }
