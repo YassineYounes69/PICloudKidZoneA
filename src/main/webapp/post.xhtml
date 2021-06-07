@@ -291,12 +291,12 @@
 
 																																</h:link>
 																																<li><h:form>
-																																		<ins>
+																																	
 
 																																			<h:commandButton value="+"
-																																				type="submit"
+																																		
 																																				action="#{LikesController.addL(Publication.getIdpub())}"></h:commandButton>
-																																		</ins>
+																																	
 																																	</h:form></li>
 
 
@@ -429,17 +429,19 @@
 																																</h:outputLabel>
 																															</p>
 
-																															<span data-toggle="tooltip"> <ins>
-																																	<h:form>
-																																		<h:column>
-																																			<f:facet name="delete">
-																																				<h:outputText value="Action" />
-																																			</f:facet>
-																																		</h:column>
-
-
-																																	</h:form>
-																																</ins>
+																															<span data-toggle="tooltip"> 
+																																<h:form>
+																																	<h:column>
+																																		<f:facet name="delete">
+																																			<h:outputText value="Action" />
+																																		</f:facet>
+																																		<h:commandButton data-toggle="tooltip"
+																																			style="margin-left: 520px;"
+																																			value="X" styleClass=""
+																																			action="#{CommentaireController.deleteCommentt(Commentaire.id)}" />
+																																	</h:column>
+																																			</h:form>
+																																			
 																															</span>
 
 																														</div>
@@ -493,7 +495,7 @@
 																															<ul>
 																																<li><h:commandButton
 																																		value="add comment" type="submit"
-																																		action="#{CommentaireController.addCo(CommentaireController.commentTo,Publication.getIdpub())}"></h:commandButton>
+																																		action="#{CommentaireController.addCo(CommentaireController.commentTo,Publication.idpub)}"></h:commandButton>
 																																</li>
 																															</ul>
 																														</h:form>
@@ -581,19 +583,7 @@
 																																		value="#{LikesController.getpostlikecount(Publication.idpub)}">
 																																	</h:outputLabel>
 
-																																</h:link>
-																																<li><h:form>
-																																		<ins>
-
-																																			<h:commandButton value="Like"
-																																				type="submit"
-																																				action="#{LikesController.addL(Publication.getIdpub())}"></h:commandButton>
-																																		</ins>
-																																	</h:form></li>
-
-
-																															</ins>
-																													</span></li>
+																															</h:link></ins></span></li>
 
 
 
@@ -710,7 +700,8 @@
 																																			value="#{Publication.parent.fName}"></h:outputLabel>
 																																	</a>
 																																</h5>
-																																<span><h:outputLabel
+																																<span>
+																																<h:outputLabel
 																																		value="#{Commentaire.date_com}">
 																																	</h:outputLabel></span> <a class="we-reply" href="#"
 																																	title="Reply"> </a>
@@ -721,17 +712,19 @@
 																																</h:outputLabel>
 																															</p>
 
-																															<span data-toggle="tooltip"> <ins>
-																																	<h:form>
-																																		<h:column>
-																																			<f:facet name="delete">
-																																				<h:outputText value="Action" />
-																																			</f:facet>
-																																		</h:column>
-
-
-																																	</h:form>
-																																</ins>
+																															<span data-toggle="tooltip"> 
+																																<h:form>
+																																	<h:column>
+																																		<f:facet name="delete">
+																																			<h:outputText value="Action" />
+																																		</f:facet>
+																																		<h:commandButton data-toggle="tooltip"
+																																			style="margin-left: 520px;"
+																																			value="X"
+																																			action="#{CommentaireController.deleteCommentt(Commentaire.id)}" />
+																																	</h:column>
+																																			</h:form>
+																																			
 																															</span>
 
 																														</div>

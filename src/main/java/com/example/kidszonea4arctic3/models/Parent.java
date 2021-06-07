@@ -3,6 +3,7 @@ package com.example.kidszonea4arctic3.models;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -37,6 +38,34 @@ public class Parent {
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
 	private Set<Publication> posts;
+	
+	 @OneToMany(mappedBy="parent")
+	    private Set<Meeting>meetings=new HashSet<>(); //parent meetings
+		
+		
+		  @JsonManagedReference
+			//@JsonIgnore
+		    @OneToMany(mappedBy="parent")
+		    private Set<History>history=new HashSet<>(); //parent meetings
+	   
+	   
+
+		public Set<History> getHistory() {
+				return history;
+			}
+
+
+			public void setHistory(Set<History> history) {
+				this.history = history;
+			}
+
+
+		@JsonManagedReference
+		@JsonIgnore
+	    @OneToMany(mappedBy="parent")
+	    private Set<Feedback>feedbacks=new HashSet<>(); //parent feedbacks
+
+
 	
 
 	
@@ -279,6 +308,49 @@ public class Parent {
 		return result;
 	}
 
+
+	public Set<Meeting> getMeetings() {
+		return meetings;
+	}
+
+
+	public void setMeetings(Set<Meeting> meetings) {
+		this.meetings = meetings;
+	}
+
+
+	public Set<Feedback> getFeedbacks() {
+		return feedbacks;
+	}
+
+
+	public void setFeedbacks(Set<Feedback> feedbacks) {
+		this.feedbacks = feedbacks;
+	}
+
+
+	public Parent(Long id, String email, String pw, String fName, String lName, int pTel, boolean accStatus,
+			String parentPic, Set<Child> children, Set<Report> reports, Set<Child> kids, Set<Publication> posts,
+			Set<Meeting> meetings, Set<History> history, Set<Feedback> feedbacks) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.pw = pw;
+		this.fName = fName;
+		this.lName = lName;
+		this.pTel = pTel;
+		this.accStatus = accStatus;
+		this.parentPic = parentPic;
+		this.children = children;
+		this.reports = reports;
+		this.kids = kids;
+		this.posts = posts;
+		this.meetings = meetings;
+		this.history = history;
+		this.feedbacks = feedbacks;
+	}
+
+    
 
 
     

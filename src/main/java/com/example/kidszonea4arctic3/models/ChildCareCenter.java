@@ -1,6 +1,9 @@
 package com.example.kidszonea4arctic3.models;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +26,17 @@ public class ChildCareCenter {
     @JoinColumn(name = "ccc_id" )
     private Set<Employee> employees = new HashSet<>();
 
+	@JsonManagedReference
+    @OneToMany(mappedBy="childCareCenter")
+    private Set<Feedback>feedbacks=new HashSet<>(); //parent feedbacks
+
+    public Set<Feedback> getFeedbacks() {
+		return feedbacks;
+	}
+
+	public void setFeedbacks(Set<Feedback> feedbacks) {
+		this.feedbacks = feedbacks;
+	}
     public ChildCareCenter() {
     }
 

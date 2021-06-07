@@ -579,7 +579,7 @@ public String search()
 {
 	//parent.setId(Long.valueOf(5));
 	System.err.println("seaaaaaaaaaaaaaaaarchhhhhhhhhhh !!!!!!!!!!!!");
-    liste = ps.searchP(pattern) ; 
+    liste = ps.searchP(pattern) ;
 	System.err.println(ps.searchPublications(pattern));
 	System.err.println("seaaaaaaaaaaaaaaaarchhhhhhhhhhh");
 	return "/resultsearch.xhtml?faces-redirect=true";
@@ -748,6 +748,7 @@ public void setFile(MultipartFile file) {
 	this.file = file;
 }
 
+/*
 public void addPub(String content , MultipartFile f ){
 	//Publication p = new Publication(content) ; 
 	System.err.println("1111111111111111111111111");
@@ -766,8 +767,8 @@ public void addPub(String content , MultipartFile f ){
 
 	//return "/post.xhtml?faces-redirect=true";
 }
-
-
+*/
+/*
 public static String uploadDirectory=System.getProperty("user.dir")+"/src/main/webapp/images/resources";
 @Autowired
 PublicationRepository repo ;
@@ -794,6 +795,6 @@ catch (IOException e)
 	System.err.println("4444444444444444");
 
 }
-
+*/
 
 	}

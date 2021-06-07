@@ -650,6 +650,7 @@ public class PublicationService implements IPublicationService {
 
 	}
 	*/
+	/*
 	public void savePost(MultipartFile file , String content )
 	{
 		Publication p = new Publication() ;
@@ -672,5 +673,5 @@ public class PublicationService implements IPublicationService {
 	}
 
 	
-	
+	*/
 	}

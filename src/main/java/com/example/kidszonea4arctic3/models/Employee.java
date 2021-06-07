@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table( name = "employee")
@@ -42,6 +43,31 @@ public class Employee {
         CommunityManager, //This type of user can manage posts
         Doctor, //This type of user can manage his appointments with templates.templates
     }
+  //@JsonManagedReference
+    // @OneToMany(mappedBy="employee",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+     @OneToMany(mappedBy="employee")
+     private Set<Meeting>meetings=new HashSet<>(); //employee meetings
+ 	  
+      @JsonManagedReference
+      @OneToMany(mappedBy="employee")
+      private Set<History>history=new HashSet<>(); //employee meetings
+     
+
+     public Set<History> getHistory() {
+ 		return history;
+ 	}
+
+ 	public void setHistory(Set<History> history) {
+ 		this.history = history;
+ 	}
+
+ 	public Set<Meeting> getMeetings() {
+ 		return meetings;
+ 	}
+
+ 	public void setMeetings(Set<Meeting> meetings) {
+ 		this.meetings = meetings;
+ 	}
 
     public Employee() {
     }

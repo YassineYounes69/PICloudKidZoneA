@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	    xmlns:b="http://bootsfaces.net/ui"
+	
+	xmlns:sec="http://www.springframework.org/security/tags">
+	
+	 
+<ui:composition template="/template/template.xhtml">
+	<ui:define name="ccc">	
+	
+	
+	<center>  
+	<div class="product card">
+    <h:form>
+    
+                <p:inputText  value="#{feedbackcontroller.mot}" size="100" placeholder="Rechercher" >
+				<p:commandButton  value="Rechercher" action="#{feedbackcontroller.SearchFeedback(mot)}" icon="pi pi-search"/>
+				</p:inputText>
+				
+        <p:dataScroller value="#{feedbackcontroller.getFeeds()}" var="f" chunkSize="10" mode="inline" 
+                        scrollHeight="500">
+            <f:facet name="header">
+                Scroll Down to Load More Feedbacks
+            </f:facet>
+            
+          
+
+            <div class="product">
+                <div class="product-list-item p-p-5">
+                     <p:graphicImage value="/images/men.jpg" height="200px" width="200px" />
+                    <div class="product-list-detail">
+                        <div class="outputstyletext"><b>Parent Name: </b></div> 
+                        <div class="outputstyleresult">#{f.parent.fName}</div>
+                        <div class="outputstyletext"><b>Parent Email:</b></div> 
+                        <div class="outputstyleresult">#{f.parent.email}</div>
+                        
+                        
+                        <i class="pi pi-comment"/><b>Feedback: </b>
+                        <div class="outputstyleresult">" #{f.feedback} "</div>
+                    </div>
+                    <div class="product-list-action">
+                    
+                    
+                      <div class="outputstyletext"><b>KidZone Cost:</b></div>
+                      <h:outputText  value="$#{f.childCareCenter.cost}" style="color: green">
+                            <f:convertNumber currencySymbol="$" type="currency"/>
+                        </h:outputText>
+                         <div class="outputstyletext"><b>KidZone Adresse: </b></div>
+                         <div class="outputstyleresult">#{f.childCareCenter.adr}</div>
+                    </div>
+                </div>
+            </div>
+        </p:dataScroller>
+        <div>
+    	<p:commandLink
+	              value="Create Feedback Now"
+	              ajax="false"
+	              action="CreateFeedback.xhtml?faces-redirect = true"/>
+	              </div>
+	              <div>
+	              	<p:commandLink
+	              value="See Your Meetings"
+	              ajax="false"
+	              action="MeetingParent.xhtml?faces-redirect = true"/>
+	              </div>
+    </h:form>
+</div>
+</center>	
+
+			
+	</ui:define>
+</ui:composition>
+</html>

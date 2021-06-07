@@ -96,6 +96,11 @@
    <artifactId>primefaces</artifactId>
     <version>10.0.0</version>
    </dependency>
+     <!-- hamza -->
+         <dependency>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-starter-mail</artifactId>
+         </dependency>
 <dependency>
 <groupId>org.projectlombok</groupId>
 <artifactId>lombok</artifactId>
@@ -106,6 +111,7 @@
 <artifactId>tomcat-embed-jasper</artifactId>
 </dependency>
 <dependency>
+
 <groupId>org.ocpsoft.rewrite</groupId>
 <artifactId>rewrite-servlet</artifactId>
 <version>3.4.1.Final</version>
