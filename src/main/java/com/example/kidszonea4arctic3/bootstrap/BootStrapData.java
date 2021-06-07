@@ -1,5 +1,12 @@
 package com.example.kidszonea4arctic3.bootstrap;
 
+
+import com.example.kidszonea4arctic3.models.Parent;
+import com.example.kidszonea4arctic3.repositories.ChildRepository;
+import com.example.kidszonea4arctic3.repositories.ParentRepository;
+
+import com.example.kidszonea4arctic3.services.ParentService;
+
 import com.example.kidszonea4arctic3.models.ChildCareCenter;
 import com.example.kidszonea4arctic3.models.Parent;
 import com.example.kidszonea4arctic3.repositories.ChildCareCenterRepository;
@@ -10,6 +17,7 @@ import com.example.kidszonea4arctic3.services.CccSpecification;
 import com.example.kidszonea4arctic3.services.EmailServiceImpl;
 import com.example.kidszonea4arctic3.services.ParentService;
 import com.example.kidszonea4arctic3.services.SearchCriteria;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -23,15 +31,20 @@ public class BootStrapData implements CommandLineRunner {
     private final ParentRepository parentRepository;
     private final ChildRepository childRepository;
     private final ParentService parentService;
+
+    Parent parent;
+   
+
     private final EmailServiceImpl emailService;
     private final ChildCareCenterRepository cccRepo;
-    Parent parent;
+
     public BootStrapData(ParentRepository parentRepository, ChildRepository childRepository, ParentService parentService, EmailServiceImpl emailService, ChildCareCenterRepository cccRepo) {
         this.parentRepository = parentRepository;
         this.childRepository = childRepository;
         this.parentService = parentService;
         this.emailService = emailService;
         this.cccRepo = cccRepo;
+
     }
 
     @Override
@@ -64,11 +77,13 @@ public class BootStrapData implements CommandLineRunner {
 
         System.out.println("started bootstrap");
 
+
         /*CccSpecification spec = new CccSpecification(new SearchCriteria("cost","<","300"));
 
         List<ChildCareCenter> results = cccRepo.findAll(spec);
 
         System.out.println(results.toString());*/
+
 
         // System.out.println(parent1.toString());
        // System.out.println(child1.toString());

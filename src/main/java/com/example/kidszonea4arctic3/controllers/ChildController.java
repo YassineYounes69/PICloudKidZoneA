@@ -6,12 +6,11 @@ import com.example.kidszonea4arctic3.services.ChildService;
 import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.faces.bean.RequestScoped;
-import java.util.List;
+import org.springframework.web.bind.annotation.RestController;
 
 @Controller(value = "childController")
 @ELBeanName(value = "childController")
@@ -38,6 +37,16 @@ public class ChildController {
         this.sessionController = sessionController;
     }
 
+
+    @RequestMapping(value = "/childrenlist", method = RequestMethod.GET)
+    public Iterable<Child> getchildren(){
+        return childRepository.findAll();
+    }
+    @RequestMapping(value = "/Childadd/{fName}/{lName}/{age}/{childPic}", method = RequestMethod.GET)
+    public Child addChild(@PathVariable String fName, @PathVariable String lName, @PathVariable int age, @PathVariable String childPic ){
+        Child child = new Child(fName,lName,age,childPic);
+        return childRepository.save(child);
+    }
     public Child getChild() {
         return child;
     }
@@ -58,6 +67,7 @@ public class ChildController {
     public List<Child> getchildren(){
         return childRepository.findAll();
     }
+
 
     @RequestMapping(value ="/ChildDelted/{id}", method = RequestMethod.GET)
     public String DeleteChildById(@PathVariable Long id){
@@ -113,6 +123,20 @@ public class ChildController {
             return child;
         }
     }
+
+    @RequestMapping(value = "/ChildUpdateChildPicById/{id}/{childPic}", method = RequestMethod.GET)
+    public Child updateChildPicById(@PathVariable Long id, @PathVariable String childPic){
+        Child child = new Child();
+        if (childRepository.findById(id).isPresent()){
+            child = childRepository.findById(id).get();
+            child.setChildPic(childPic);
+            return childRepository.save(child);
+        }
+        else
+        {
+            return child;
+        }
+
 
     public void addChild(){
         System.out.println("adding child");

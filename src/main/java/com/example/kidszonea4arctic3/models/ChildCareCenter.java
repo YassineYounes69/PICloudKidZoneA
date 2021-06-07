@@ -12,7 +12,9 @@ public class ChildCareCenter {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String mail;
     private String descr; //CCC description
+    private String name; //name description
     private String logo; //logo of the CCC, to be implemented in the future releases
     private Date creationDate;
     private int cccPNumber; //Childcare Center phone number
@@ -28,13 +30,30 @@ public class ChildCareCenter {
     public ChildCareCenter() {
     }
 
-    public ChildCareCenter(String desc, String logo, int cccPNumber, String adr, float cost, Set<Employee> employees) {
+    public ChildCareCenter(String desc,String name, String logo, int cccPNumber, String adr, float cost, Set<Employee> employees) {
         this.descr = desc;
         this.logo = logo;
+        this.name = name;
         this.cccPNumber = cccPNumber;
         this.adr = adr;
         this.cost = cost;
         this.employees = employees;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public Long getId() {
@@ -101,6 +120,7 @@ public class ChildCareCenter {
         this.employees = employees;
     }
 
+
     public String getName() {
         return name;
     }
@@ -117,15 +137,23 @@ public class ChildCareCenter {
         this.mail = mail;
     }
 
+
     @Override
     public String toString() {
         return "ChildCareCenter{" +
                 "id=" + id +
+
+                ", mail='" + mail + '\'' +
+                ", descr='" + descr + '\'' +
+                ", name='" + name + '\'' +
+                ", cost=" + cost +
+
                 ", descr='" + descr + '\'' +
                 ", cccPNumber=" + cccPNumber +
                 ", cost=" + cost +
                 ", name='" + name + '\'' +
                 ", mail='" + mail + '\'' +
+
                 '}';
     }
 }

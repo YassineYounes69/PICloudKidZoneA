@@ -23,6 +23,7 @@ public interface ParentRepository extends CrudRepository<Parent, Long> {
     @Query("update Parent p set p.fName=:fName where p.id=:id ")
     public void updateParentFullName(@Param("id")Long id,@Param("fName") String fName);
 
+
     @Transactional
     @Modifying
     @Query("update Parent p set p.lName=:lName where p.id=:id ")
@@ -45,5 +46,6 @@ public interface ParentRepository extends CrudRepository<Parent, Long> {
 
     @Query("SELECT p FROM Parent p where p.email=:email")
     public Parent getParentByEmail(@Param("email") String email);
+
 
 }
