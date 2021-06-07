@@ -22,6 +22,12 @@ public class KidsZoneA4arctic3Application {
 
     public static void main(String[] args) {
     	System.out.print("Test amal");
+    	System.out.println("Using:- ");
+    	System.out.println("- MYSQL_DB_HOST = " + System.getenv("MYSQL_DB_HOST"));
+    	System.out.println("- MYSQL_DB_PORT = " + System.getenv("MYSQL_DB_PORT"));
+    	System.out.println("- MYSQL_DB_NAME = " + System.getenv("MYSQL_DB_NAME"));
+    	System.out.println("- MYSQL_DB_USER = " + System.getenv("MYSQL_DB_USER"));
+    	System.out.println("- MYSQL_DB_PASS = " + System.getenv("MYSQL_DB_PASS"));
         SpringApplication.run(KidsZoneA4arctic3Application.class, args);
     }
     
