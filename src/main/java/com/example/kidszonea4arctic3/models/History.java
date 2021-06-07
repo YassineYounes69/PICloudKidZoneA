@@ -25,6 +25,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import ch.qos.logback.classic.pattern.DateConverter;
 
@@ -58,12 +59,14 @@ public class History implements Serializable{
     private Type type;
 	
 	@JsonBackReference(value="parent")
-	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
-	@JoinColumn(name="parent")
+	@ManyToOne
+    //@JsonIgnore                                  
+    @JoinColumn(name="parent")
 	private Parent parent;
 	
-	@JsonBackReference(value="employee")
-	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
+	@JsonBackReference(value="employee")    
+	@ManyToOne
+	//@JsonIgnore
 	@JoinColumn(name="employee")
 	private Employee employee;
     
@@ -182,14 +185,17 @@ public class History implements Serializable{
 		this.parent = parent;
 		this.employee = employee;
 	}
-	
 
 	@Override
 	public String toString() {
-		return "Meeting [id=" + id + ", reason=" + reason + ", date=" + date + ", state=" + state + ", type=" + type
+		return "History [id=" + id + ", reason=" + reason + ", date=" + date + ", state=" + state + ", type=" + type
 				+ ", parent=" + parent + ", employee=" + employee + "]";
 	}
+	
 
+
+
+	
 
 
     

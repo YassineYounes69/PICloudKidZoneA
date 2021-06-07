@@ -38,4 +38,8 @@ public class Retour<T> {
 		return "Retour [stringValue=" + stringValue + ", objectValue=" + objectValue + "]";
 	}
 
+
+	
+	
+
 }

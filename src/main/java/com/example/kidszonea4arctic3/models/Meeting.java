@@ -10,6 +10,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,6 +29,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import ch.qos.logback.classic.pattern.DateConverter;
 
@@ -60,18 +63,33 @@ public class Meeting implements Serializable{
     private Type type;
 	
 	@JsonBackReference(value="parent")
-	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
+    @ManyToOne
+	//@JsonIgnore                                  
 	@JoinColumn(name="parent")
 	private Parent parent;
 	
-	@JsonBackReference(value="employee")
-	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
+	@JsonBackReference(value="employee")    
+	@ManyToOne
+	//@JsonIgnore
 	@JoinColumn(name="employee")
 	private Employee employee;
 	
 
     
- 
+
+	public enum Type {
+    	ReunionAllParents,  //all parents
+    	ReunionSingelParents, //This type one parent
+
+    }
+
+
+	public Meeting(long id, boolean state, Parent parent) {
+		super();
+		this.id = id;
+		this.state = state;
+		this.parent = parent;
+	}
 
 	public long getId() {
 		return id;
@@ -102,12 +120,6 @@ public class Meeting implements Serializable{
 	}
 
 
-
-	public enum Type {
-    	ReunionAllParents,  //all parents
-    	ReunionSingelParents, //This type one parent
-
-    }
 
 
 
@@ -162,7 +174,9 @@ public class Meeting implements Serializable{
 		this.type = type;
 	}
 
-	public Meeting(long id, String reason, Date  date, boolean state, Type type, Parent parent, Employee employee) {
+
+
+	public Meeting(long id, String reason, Date date, boolean state, Type type, Parent parent, Employee employee) {
 		super();
 		this.id = id;
 		this.reason = reason;
@@ -189,6 +203,49 @@ public class Meeting implements Serializable{
 		return "Meeting [id=" + id + ", reason=" + reason + ", date=" + date + ", state=" + state + ", type=" + type
 				+ ", parent=" + parent + ", employee=" + employee + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((reason == null) ? 0 : reason.hashCode());
+		result = prime * result + (state ? 1231 : 1237);
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Meeting other = (Meeting) obj;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (id != other.id)
+			return false;
+		if (reason == null) {
+			if (other.reason != null)
+				return false;
+		} else if (!reason.equals(other.reason))
+			return false;
+		if (state != other.state)
+			return false;
+		if (type != other.type)
+			return false;
+		return true;
+	}
+
+
+	
 
 
 

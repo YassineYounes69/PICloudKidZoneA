@@ -33,5 +33,9 @@ public class UnhealthyWord {
 	public String toString() {
 		return "UnhealthyWord [id=" + id + ", word=" + word + "]";
 	}
+
+
+	
+	
     
 }

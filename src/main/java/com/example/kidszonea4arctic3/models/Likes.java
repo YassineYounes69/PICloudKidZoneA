@@ -72,6 +72,13 @@ public class Likes implements Serializable {
 		this.publication = publication;
 		this.parent = parent;
 	}
+	
+	@Override
+	public String toString() {
+		return "Likes [id_likes=" + id_likes + ", likeDate=" + likeDate + ", employe=" + employe + ", publication="
+				+ publication + ", parent=" + parent + "]";
+	}
+	
 
     
 }

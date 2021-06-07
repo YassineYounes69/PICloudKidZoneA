@@ -10,6 +10,14 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+
+import org.ocpsoft.rewrite.annotation.Join;
+import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +25,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +50,10 @@ import com.example.kidszonea4arctic3.repositories.MeetingRepository;
 import com.example.kidszonea4arctic3.repositories.ParentRepository;
 import com.example.kidszonea4arctic3.services.FeedbackService;
 
-@RestController
+@ViewScoped
+@Controller(value = "feedbackcontroller") // Name of the bean in Spring IoC
+@ELBeanName(value = "feedbackcontroller") // Name of the bean used by JSF
+@Join(path = "/", to = "/Feedback.jsf")
 public class FeedbackController {
 
 	
@@ -60,6 +72,171 @@ public class FeedbackController {
 			this.parentRepository = parentRepository;
 			this.childCareCenterRepository = childCareCenterRepository;
 		}
+		
+		private long id;
+		private long idparent;
+		private long idkidzone;
+		
+		private ChildCareCenter childCareCenter; 
+		private Parent parent;
+		private String feed;
+		
+		private List<Feedback> feedbacks;
+
+		
+		 public long getId() {
+			return id;
+		}
+
+
+		public void setId(long id) {
+			this.id = id;
+		}
+
+
+		public ChildCareCenter getChildCareCenter() {
+			return childCareCenter;
+		}
+
+
+		public void setChildCareCenter(ChildCareCenter childCareCenter) {
+			this.childCareCenter = childCareCenter;
+		}
+
+
+		public Parent getParent() {
+			return parent;
+		}
+
+
+		public void setParent(Parent parent) {
+			this.parent = parent;
+		}
+
+
+		public String getFeed() {
+			return feed;
+		}
+
+
+		public void setFeed(String feed) {
+			this.feed = feed;
+		}
+
+
+		public long getIdkidzone() {
+			return idkidzone;
+		}
+
+
+		public void setIdkidzone(long idkidzone) {
+			this.idkidzone = idkidzone;
+		}
+
+
+		public long getIdparent() {
+			return idparent;
+		}
+
+
+		public void setIdparent(long idparent) {
+			this.idparent = idparent;
+		}
+		
+	
+		private List<ChildCareCenter> ccc;
+
+		public List<Feedback> getFeedbackstolist() {
+			if (null == feedbacks) {
+				feedbacks = new ArrayList<>();
+			}
+			return feedbacks;
+		}
+		
+		public List<Feedback> getFeedbacks() {
+			return feedbacks;
+		}
+
+		
+		public void setFeedbacks(List<Feedback> feedbacks) {
+			this.feedbacks = feedbacks;
+		}
+		
+		public List<ChildCareCenter> getCcc() {
+			if (null == ccc) {
+				ccc = new ArrayList<>();
+			}
+			return ccc;
+		}
+		
+		public void setCcc(List<ChildCareCenter> ccc) {
+			this.ccc = ccc;
+		}
+
+
+		@PostConstruct
+		public void getAllFeedback() { 
+			if (!this.getFeedbackstolist().isEmpty()) {
+				this.getFeedbackstolist().clear();
+				this.getCcc().clear();
+			}
+			System.out.println(" >>>>>>>>>>>>> " + fs);
+			this.getFeedbackstolist().addAll(fs.getAllFeedbacks());
+			this.getCcc().addAll(fs.getAllChildCareCenter());
+
+		}
+		
+		 @GetMapping("/getFeedbacksParent")  
+			@ResponseBody
+			public List<Feedback> getFeedbackParent() throws Exception   
+			{  
+			 System.err.println("*********"+fs.getParentFeedbacks());
+
+				return fs.getParentFeedbacks() ; 
+			}
+			
+		
+		 public long getCountFeedbackByParentId(Long id){
+				 this.idparent = 193 ; 
+
+			return fs.getCountFeedbackByParentId(this.idparent);
+			}
+		 
+		 public String getNameParentId(Long id){
+			 this.idparent = 193 ; 
+
+			 return fs.getNameParentId(this.idparent);
+		 }
+		 
+		public void addFeedback() throws Exception{		 
+			
+			 System.err.println("*********"+this.idparent);
+			 
+			   this.idparent = 193 ; 
+				
+				
+				
+				this.parent = fs.getParentById(this.idparent);
+			    this.childCareCenter=fs.getChildCareCenterById(this.idkidzone);
+			    
+	           System.err.println("*********"+this.childCareCenter.getDescr());
+			   System.err.println("*********"+this.feed);
+				fs.addFeedback(new Feedback(feed,parent,childCareCenter));
+				getFeedbackParent();
+				FacesMessage message = new FacesMessage( "Feedback Added !" );
+			      FacesContext.getCurrentInstance().addMessage( null, message );
+				
+		    }
+		
+	      public void deleteFeedback(Feedback feed) { 
+			
+			fs.doDeleteFeedback(feed);
+			
+
+			getAllFeedback();
+
+		}
+		 
 		
 		@GetMapping("/allFeedbacks")
 		 @ResponseBody
@@ -243,5 +420,45 @@ public class FeedbackController {
 
 			return fs.nbrFeedbackByParent(id);  
 			}*/
+			
+			private String mot ;
+			public String getMot() {
+				return mot;
+			}
+
+
+			public void setMot(String mot) {
+				this.mot = mot;
+			}
+
+
+			@GetMapping("/search/{mot}")
+			 @ResponseBody
+			public List<Feedback> SearchFeedback(@PathVariable String mot) {
+			System.out.print("feeeeeeeeedback");
+
+					return fs.SearchFeedback(mot);
+				}
+
+			@GetMapping("/allsearch")
+			 @ResponseBody
+			public List<Feedback> getFeeds() {
+				
+				 
+					if (mot == null){
+					feedbacks = fs.getAllFeedbacks();
+					}
+					
+			
+					
+					else {
+						feedbacks=fs.SearchFeedback(mot);
+					}
+					
+					return feedbacks;
+			}
+
+			
+			
 	 
 }

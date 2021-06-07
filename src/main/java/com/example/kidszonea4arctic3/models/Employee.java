@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Employee {
@@ -43,11 +44,24 @@ public class Employee {
     }
     
     //@JsonManagedReference
-    @OneToMany(mappedBy="employee",cascade = CascadeType.PERSIST)
+   // @OneToMany(mappedBy="employee",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="employee")
     private Set<Meeting>meetings=new HashSet<>(); //employee meetings
+	  
+     @JsonManagedReference
+     @OneToMany(mappedBy="employee")
+     private Set<History>history=new HashSet<>(); //employee meetings
     
 
-    public Set<Meeting> getMeetings() {
+    public Set<History> getHistory() {
+		return history;
+	}
+
+	public void setHistory(Set<History> history) {
+		this.history = history;
+	}
+
+	public Set<Meeting> getMeetings() {
 		return meetings;
 	}
 
@@ -205,6 +219,21 @@ public class Employee {
     public void setAvailability(boolean availability) {
         this.availability = availability;
     }
+
+	@Override
+	public String toString() {
+		return "Employee [fName=" + fName + "]";
+	}
+
+
+	
+
+
+	
+
+
+    
+    
 
 
     

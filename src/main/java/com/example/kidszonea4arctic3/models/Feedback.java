@@ -2,6 +2,8 @@ package com.example.kidszonea4arctic3.models;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,8 +14,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Feedback implements Serializable{
@@ -31,19 +35,32 @@ private static final long serialVersionUID = 1L;
 	
 	
 	@JsonBackReference(value="parent")
-	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
+	@ManyToOne
 	@JoinColumn(name="parent")
 	private Parent parent;
 	
 	@JsonBackReference(value="childCareCenter")
-	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
+	@ManyToOne
 	@JoinColumn(name="childCareCenter")
 	private ChildCareCenter childCareCenter;
+	
+	
+	@JsonManagedReference
+    @OneToMany(mappedBy="feedback")
+    private Set<BookMark>bookarks=new HashSet<>(); //parent feedbacks
 
 	
 	
 	
 	
+
+	public Set<BookMark> getBookarks() {
+		return bookarks;
+	}
+
+	public void setBookarks(Set<BookMark> bookarks) {
+		this.bookarks = bookarks;
+	}
 
 	public Feedback(String feedback, Parent parent, ChildCareCenter childCareCenter) {
 		super();
@@ -100,6 +117,15 @@ private static final long serialVersionUID = 1L;
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "Feedback [id=" + id + ", feedback=" + feedback + ", parent=" + parent + ", childCareCenter="
+				+ childCareCenter + "]";
+	}
+
     
   
 

@@ -12,6 +12,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.example.kidszonea4arctic3.models.Feedback;
+import com.example.kidszonea4arctic3.models.Meeting;
 public interface FeedbackRepository extends CrudRepository<Feedback, Long>,PagingAndSortingRepository<Feedback, Long>{
 	
 	
@@ -39,8 +40,28 @@ public interface FeedbackRepository extends CrudRepository<Feedback, Long>,Pagin
 	public List<?>CountFeedbackByParent();
 	
 	
+	@Query("SELECT f FROM Feedback f WHERE f.childCareCenter.id =:id")
+	public List<Feedback>getFeedbackByChildCareCenterId(@Param("id")Long id);
+	
+	@Query("SELECT f FROM Feedback f WHERE f.parent.id =:id")
+	public List<Feedback>getFeedbackByParentId(@Param("id")Long id);
+	
+
+	
+
+	@Query("SELECT count(*) FROM Feedback f WHERE f.parent.id =:id")
+	public long getCountFeedbackByParentId(@Param("id")Long id);
+	
+	@Query("SELECT f.parent.fName FROM Feedback f WHERE f.parent.id =:id")
+	public String getNameParentId(@Param("id")Long id);
 	/*@Query("SELECT count(*),c.parent.firstName,c.parent.lastName FROM Comment c,User u where (c.parent.id=u.id) group by c.parent.id ")  
     public List<?> NbrFeedbackByChildCareCenter ();*/
+	
+	
+	
+	@Query(value="SELECT f from Feedback f where f.parent.fName like %:mot% or f.parent.lName like %:mot%")
+	public List<Feedback> searchFeedback(@Param("mot") String mot);
+
 }
 
 

@@ -25,6 +25,7 @@ public class MailController{
     
     @Autowired
     public MeetingRepository meetingRepository;
+    
     @ResponseBody
     @RequestMapping("/sendSimpleEmail/{id}")
     public String sendSimpleEmail(@PathVariable ("id") long id) throws Exception {
@@ -32,6 +33,22 @@ public class MailController{
         // Create a Simple MailMessage.
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(meetingController.getEmailParentByChild(id));
+        message.setSubject("Meeting Alone");
+        message.setText("you have meeting to confirme you must enter to the application to confirme the meeting");
+ 
+        // Send Message!
+        this.emailSender.send(message);
+ 
+        return "Email Sent!";
+    }
+    
+    @ResponseBody
+    @RequestMapping("/sendSimpleEmailParent/{id}")
+    public String sendSimpleEmailParent(@PathVariable ("id") long id) throws Exception {
+ 
+        // Create a Simple MailMessage.
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(meetingController.getEmailParentById(id));
         message.setSubject("Meeting Alone");
         message.setText("you have meeting to confirme you must enter to the application to confirme the meeting");
  

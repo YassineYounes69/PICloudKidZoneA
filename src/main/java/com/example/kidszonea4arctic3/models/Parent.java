@@ -3,6 +3,7 @@ package com.example.kidszonea4arctic3.models;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -37,20 +38,69 @@ public class Parent {
 	private Set<Publication> posts;
 	
 	  //@JsonManagedReference
-    @OneToMany(mappedBy="parent",cascade = CascadeType.PERSIST)
+   // @OneToMany(mappedBy="parent",cascade = CascadeType.PERSIST)
+	@JsonIgnore
+   // @OneToMany(mappedBy="parent",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="parent")
     private Set<Meeting>meetings=new HashSet<>(); //parent meetings
+	
+	
+	  @JsonManagedReference
+		//@JsonIgnore
+	    @OneToMany(mappedBy="parent")
+	    private Set<History>history=new HashSet<>(); //parent meetings
    
-    
-    //@JsonManagedReference
-    @OneToMany(mappedBy="parent",cascade = CascadeType.PERSIST)
+   
+
+	public Set<History> getHistory() {
+			return history;
+		}
+
+
+		public void setHistory(Set<History> history) {
+			this.history = history;
+		}
+
+
+	@JsonManagedReference
+	@JsonIgnore
+    @OneToMany(mappedBy="parent")
     private Set<Feedback>feedbacks=new HashSet<>(); //parent feedbacks
 	
+	@JsonManagedReference
+	@JsonIgnore
+    @OneToMany(mappedBy="parent")
+    private Set<BookMark>bookmarks=new HashSet<>(); //parent Bookmark
+	
+	
 
-    public Parent() {
+    public Set<BookMark> getBookmarks() {
+		return bookmarks;
+	}
+
+
+	public void setBookmarks(Set<BookMark> bookmarks) {
+		this.bookmarks = bookmarks;
+	}
+
+
+	public Parent() {
     }
 
     
-    public Parent(String email, String pw, String fName, String lName, int pTel, boolean accStatus) {
+    public Parent(String email, String pw, String fName, String lName, int pTel, boolean accStatus, String parentPic) {
+		super();
+		this.email = email;
+		this.pw = pw;
+		this.fName = fName;
+		this.lName = lName;
+		this.pTel = pTel;
+		this.accStatus = accStatus;
+		this.parentPic = parentPic;
+	}
+
+
+	public Parent(String email, String pw, String fName, String lName, int pTel, boolean accStatus) {
         this.email = email;
         this.pw = pw;
         this.fName = fName;
@@ -72,7 +122,7 @@ public class Parent {
 
 
     public Parent(Long id, String email, String pw, String fName, String lName, int pTel, boolean accStatus,
-			String parentPic, Set<Child> children, Set<Report> reports, Set<Child> kids, Set<Publication> posts) {
+			String parentPic, Set<Report> reports, Set<Child> kids, Set<Publication> posts) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -82,7 +132,6 @@ public class Parent {
 		this.pTel = pTel;
 		this.accStatus = accStatus;
 		this.parentPic = parentPic;
-		this.children = children;
 		this.reports = reports;
 		this.kids = kids;
 		this.posts = posts;
@@ -183,14 +232,7 @@ public class Parent {
         this.parentPic = parentPic;
     }
 
-    public Set<Child> getChildren() {
-        return children;
-    }
-
-    public void setChildren(Set<Child> children) {
-        this.children = children;
-    }
-
+ 
 
     
 
@@ -218,91 +260,22 @@ public class Parent {
 	}
 
 
+	
+
+
+
+
+	
+
+
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Parent other = (Parent) obj;
-		if (accStatus != other.accStatus)
-			return false;
-		if (children == null) {
-			if (other.children != null)
-				return false;
-		} else if (!children.equals(other.children))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (fName == null) {
-			if (other.fName != null)
-				return false;
-		} else if (!fName.equals(other.fName))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (kids == null) {
-			if (other.kids != null)
-				return false;
-		} else if (!kids.equals(other.kids))
-			return false;
-		if (lName == null) {
-			if (other.lName != null)
-				return false;
-		} else if (!lName.equals(other.lName))
-			return false;
-		
-		if (pTel != other.pTel)
-			return false;
-		if (parentPic == null) {
-			if (other.parentPic != null)
-				return false;
-		} else if (!parentPic.equals(other.parentPic))
-			return false;
-		if (posts == null) {
-			if (other.posts != null)
-				return false;
-		} else if (!posts.equals(other.posts))
-			return false;
-		if (pw == null) {
-			if (other.pw != null)
-				return false;
-		} else if (!pw.equals(other.pw))
-			return false;
-		if (reports == null) {
-			if (other.reports != null)
-				return false;
-		} else if (!reports.equals(other.reports))
-			return false;
-		return true;
+	public String toString() {
+		return "Parent [fName=" + fName + "]";
 	}
 
-    @Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (accStatus ? 1231 : 1237);
-		result = prime * result + ((children == null) ? 0 : children.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((fName == null) ? 0 : fName.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((kids == null) ? 0 : kids.hashCode());
-		result = prime * result + ((lName == null) ? 0 : lName.hashCode());
-		result = prime * result + pTel;
-		result = prime * result + ((parentPic == null) ? 0 : parentPic.hashCode());
-		result = prime * result + ((posts == null) ? 0 : posts.hashCode());
-		result = prime * result + ((pw == null) ? 0 : pw.hashCode());
-		result = prime * result + ((reports == null) ? 0 : reports.hashCode());
-		return result;
-	}
+
+
+  
 
 
 

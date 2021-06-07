@@ -21,8 +21,20 @@ public class Child {
 
     public Child() {
     }
+    
+    
 
-    public Child(String fName, String lName, int age) {
+    public Child(String fName, String lName, int age, String childPic) {
+		super();
+		this.fName = fName;
+		this.lName = lName;
+		this.age = age;
+		this.childPic = childPic;
+	}
+
+
+
+	public Child(String fName, String lName, int age) {
         this.fName = fName;
         this.lName = lName;
         this.age = age;
@@ -83,21 +95,13 @@ public class Child {
         this.parent = parent;
     }
 
+	
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
 
-        Child child = (Child) o;
 
-        return id != null ? id.equals(child.id) : child.id == null;
-    }
 
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
+
+  
     
     
 }
