@@ -1,11 +1,7 @@
 package com.example.kidszonea4arctic3.controllers;
 
-import java.net.URI;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -13,25 +9,9 @@ import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.transaction.Transactional;
-
-import org.hibernate.query.criteria.internal.expression.function.CurrentDateFunction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jooq.JooqTest;
-import org.springframework.context.annotation.Scope;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,15 +19,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.kidszonea4arctic3.models.Child;
 import com.example.kidszonea4arctic3.models.Employee;
-import com.example.kidszonea4arctic3.models.History;
 import com.example.kidszonea4arctic3.models.Meeting;
 import com.example.kidszonea4arctic3.models.Meeting.Type;
 import com.example.kidszonea4arctic3.models.Parent;
@@ -57,12 +32,10 @@ import com.example.kidszonea4arctic3.repositories.HistoryRepository;
 import com.example.kidszonea4arctic3.repositories.MeetingRepository;
 import com.example.kidszonea4arctic3.repositories.ParentRepository;
 import com.example.kidszonea4arctic3.services.MeetingService;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 
 import org.ocpsoft.rewrite.el.ELBeanName;
-import org.ocpsoft.rewrite.annotation.Join;
 
 
 @RequestScoped 
