@@ -19,21 +19,19 @@ public class Employee {
     private String fName; //first name
     private String lName; //Last name
     private String role;
-    private int eTel;   //Parent Phone Number
-    @ManyToOne
-    private ChildCareCenter ccc; //the childcare center that the employee works at
 
-    private boolean availability; //specific attribute to Doctor role
+    private int eTel;   //Parent Phone Number
+
 
 
     public Employee() {
     }
 
 
+    @ManyToOne
+    private ChildCareCenter ccc; //the childcare center that the employee works at
 
-
-
-
+    private boolean availability; //specific attribute to Doctor role
 
 
     public Employee(String email, String pw, String fName, String lName, String role, boolean availability, ChildCareCenter ccc,int eTel) {
@@ -52,6 +50,17 @@ public class Employee {
     }
 
     public void setCcc(ChildCareCenter ccc) {
+
+
+
+
+    public Employee(String email, String pw, String fName, String lName, String role, boolean availability, ChildCareCenter ccc) {
+        this.email = email;
+        this.pw = pw;
+        this.fName = fName;
+        this.lName = lName;
+        this.role = role;
+        this.availability = availability;
         this.ccc = ccc;
     }
 

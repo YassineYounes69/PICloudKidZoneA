@@ -20,6 +20,8 @@ public class ChildCareCenter {
     private int cccPNumber; //Childcare Center phone number
     private String adr; //CCC address
     private float cost; //CCC services cost
+    private String name;
+    private String mail;
 
     @OneToMany
     @JoinColumn(name = "ccc_id" )
@@ -119,14 +121,39 @@ public class ChildCareCenter {
     }
 
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+
     @Override
     public String toString() {
         return "ChildCareCenter{" +
                 "id=" + id +
+
                 ", mail='" + mail + '\'' +
                 ", descr='" + descr + '\'' +
                 ", name='" + name + '\'' +
                 ", cost=" + cost +
+
+                ", descr='" + descr + '\'' +
+                ", cccPNumber=" + cccPNumber +
+                ", cost=" + cost +
+                ", name='" + name + '\'' +
+                ", mail='" + mail + '\'' +
+
                 '}';
     }
 }

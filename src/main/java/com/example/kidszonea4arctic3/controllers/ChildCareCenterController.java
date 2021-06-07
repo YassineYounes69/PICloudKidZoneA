@@ -1,15 +1,25 @@
 package com.example.kidszonea4arctic3.controllers;
 
+
 import com.example.kidszonea4arctic3.models.ChildCareCenter;
 import com.example.kidszonea4arctic3.models.Employee;
 import com.example.kidszonea4arctic3.repositories.ChildCareCenterRepository;
 import com.example.kidszonea4arctic3.repositories.EmployeeRepository;
 import com.example.kidszonea4arctic3.services.ChildCareCenterService;
 import org.ocpsoft.rewrite.el.ELBeanName;
+
+import com.example.kidszonea4arctic3.models.Child;
+import com.example.kidszonea4arctic3.models.ChildCareCenter;
+import com.example.kidszonea4arctic3.repositories.ChildCareCenterRepository;
+import com.example.kidszonea4arctic3.services.CccSpecification;
+import com.example.kidszonea4arctic3.services.SearchCriteria;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.annotation.SessionScope;
+
 
 import javax.faces.bean.SessionScoped;
 
@@ -25,6 +35,12 @@ public class ChildCareCenterController {
     @Autowired
     private final ChildCareCenterRepository cccRepository;
 
+
+    List<String> roles;
+
+    
+
+
     @Autowired
     private final EmployeeRepository employeeRepository;
 
@@ -38,13 +54,27 @@ public class ChildCareCenterController {
         this.employeeRepository = employeeRepository;
     }
 
-    @RequestMapping("/CCCs")
-    public String getCccs(Model model){
-
-        model.addAttribute("CCCs",cccRepository.findAll());
-
-        return "CCCs";
+    public ChildCareCenterController() {
+        roles = new ArrayList<>();
+        roles.add("Director");
+        roles.add("ERResponsible");
+        roles.add("CommunityManager");
+        roles.add("Doctor");
     }
+
+
+    public List<ChildCareCenter> getCccs(){
+        return cccRepository.findAll();
+    }
+
+    public List<ChildCareCenter> searchWithCost(String key,String operation,Object value){
+        CccSpecification spec = new CccSpecification(new SearchCriteria(key,operation,value));
+
+        List<ChildCareCenter> results = cccRepository.findAll(spec);
+        System.out.println(results.toString());
+        return results;
+    }
+
 
     public String addChildCareCenter(){
         System.out.println("ccc add method fired");
@@ -79,4 +109,5 @@ public class ChildCareCenterController {
     public void setChildCareCenter(ChildCareCenter childCareCenter) {
         this.childCareCenter = childCareCenter;
     }
+
 }
