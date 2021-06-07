@@ -37,6 +37,11 @@
                 <b:commandLink onclick="$('.formValidationModalClass').modal('show')"><h4>Login</h4></b:commandLink>
             </b:form>
             </b:navLink>
+            <b:navLink>
+                <b:form>
+                    <b:commandLink onclick="$('.resetModal').modal('show')"><h4>Reset Password</h4></b:commandLink>
+                </b:form>
+            </b:navLink>
         </b:navbarLinks>
     </b:navBar>
     </c:if>
@@ -55,7 +60,9 @@
         <b:modal title="Login" styleClass="formValidationModalClass"
                  closable="false"
                  closeOnEscape="true">
-        <h:form styleClass="form-signin" prependId="false">
+        <h:form styleClass="form-signin" prependId="false" id="loginForm">
+            <b:growl id="loginFailedGrowl" ></b:growl>
+
             <h2 class="form-signin-heading">Please sign in</h2>
             <b:inputText id="email" placeholder="Email address" value="#{sessionController.login}">
                 <f:facet name="prepend">
@@ -70,17 +77,39 @@
             <b:commandButton look="primary btn-block" value="Sign In" icon="log-in" size="lg" action="#{sessionController.logIn}"/>
         </h:form>
         </b:modal>
+        <b:modal title="Login" styleClass="resetModal"
+                 closable="false"
+                 closeOnEscape="true">
+            <h:form styleClass="form-signin" prependId="false" id="pwResetForm">
+
+
+                <h2 class="form-signin-heading">Please enter your email</h2>
+                <b:inputText id="emailReset" placeholder="Email address" value="#{sessionController.login}">
+                    <f:facet name="prepend">
+                        <b:icon name="glyphicon-ok" />
+                    </f:facet>
+                </b:inputText>
+                <b:commandButton look="primary btn-block" value="Sign In" icon="log-in" size="lg" action="#{parentController.resetPassword(sessionController.login)}"/>
+            </h:form>
+        </b:modal>
     </b:container>
     <b:inputText id="pwd1" value="#{sessionController.parent.pw}" label="Password:" />
     <b:container>
         <p:sidebar widgetVar="sidebar1" baseZIndex="10000">
             <h3>User Menu</h3>
+
             <b:form>
                 <b:commandLink action="#{parentController.loadParent(sessionController.parent.id)}"><h4>Manage Account</h4></b:commandLink>
             </b:form>
-            <b:form>
-                <b:commandLink action="#{sessionController.logOut}"><h4>Manage Children</h4></b:commandLink>
-            </b:form>
+            <b:panel title="Manage Children">
+                <b:form>
+                    <b:commandLink action="#{parentController.loadAddChildren}"><h4>Add a Child</h4></b:commandLink>
+                </b:form>
+                <b:form>
+                    <b:commandLink action="#{parentController.loadChildren}"><h4>Consult Children</h4></b:commandLink>
+                </b:form>
+            </b:panel>
+
             <b:form>
                 <b:commandLink action="#{sessionController.logOut}"><h4>Search for Childcare Centers</h4></b:commandLink>
             </b:form>

@@ -3,6 +3,7 @@ package com.example.kidszonea4arctic3.controllers;
 import com.example.kidszonea4arctic3.models.Parent;
 import com.example.kidszonea4arctic3.repositories.ParentRepository;
 import com.example.kidszonea4arctic3.services.ParentService;
+import net.bootsfaces.utils.FacesMessages;
 import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -72,12 +73,14 @@ public class SessionController {
         try {
         if (parentService.authenticate(login,pw)==null) {
             navigateTo="/index?faces-redirect=true";
-            FacesMessage facesMessage =
-
-                    new FacesMessage("Login Failed: please check your username/password and try again.");
-
-            FacesContext.getCurrentInstance().addMessage("form:btn",facesMessage);
-        } else {
+            FacesMessages.error("loginForm:loginFailedGrowl","Login Failed: please check your username/password and try again.","login error");
+            //FacesContext.getCurrentInstance().addMessage("form:btn",facesMessage);
+        }
+        else if (!(parentService.authenticate(login,pw).isAccStatus())) {
+            System.out.println("Compte non Actif");
+            FacesMessages.error("loginForm:loginFailedGrowl","Login Failed: Account non activated.","login error");
+            }
+        else {
             navigateTo = "/index?faces-redirect=true";
             this.setStatus(true);
             parent=parentService.authenticate(login, pw);

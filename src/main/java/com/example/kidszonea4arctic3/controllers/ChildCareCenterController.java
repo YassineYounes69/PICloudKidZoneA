@@ -1,6 +1,10 @@
 package com.example.kidszonea4arctic3.controllers;
 
+import com.example.kidszonea4arctic3.models.Child;
+import com.example.kidszonea4arctic3.models.ChildCareCenter;
 import com.example.kidszonea4arctic3.repositories.ChildCareCenterRepository;
+import com.example.kidszonea4arctic3.services.CccSpecification;
+import com.example.kidszonea4arctic3.services.SearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,11 +38,17 @@ public class ChildCareCenterController {
         roles.add("Doctor");
     }
 
-    @RequestMapping("/CCCs")
-    public String getCccs(Model model){
 
-        model.addAttribute("CCCs",cccRepository.findAll());
-
-        return "CCCs";
+    public List<ChildCareCenter> getCccs(){
+        return cccRepository.findAll();
     }
+
+    public List<ChildCareCenter> searchWithCost(String key,String operation,Object value){
+        CccSpecification spec = new CccSpecification(new SearchCriteria(key,operation,value));
+
+        List<ChildCareCenter> results = cccRepository.findAll(spec);
+        System.out.println(results.toString());
+        return results;
+    }
+
 }

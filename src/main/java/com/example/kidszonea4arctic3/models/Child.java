@@ -11,8 +11,11 @@ public class Child {
 
     private String fName;   //child first name
     private String lName;   //child last name
+    private String gender;
     private int age;    //child's age
-    private String childPic;    //Child's picture, to be implemented in future releases
+
+    @ManyToOne
+    private ChildCareCenter ccc;
 
     @ManyToOne
     private Parent parent;  //child's parent on our platform
@@ -22,17 +25,12 @@ public class Child {
     public Child() {
     }
 
+
+
     public Child(String fName, String lName, int age) {
         this.fName = fName;
         this.lName = lName;
         this.age = age;
-    }
-
-    public Child(String fName, String lName, int age, String childPic) {
-        this.fName = fName;
-        this.lName = lName;
-        this.age = age;
-        this.childPic = childPic;
     }
 
     public Child(String fName, String lName, int age, Parent parent) {
@@ -40,6 +38,14 @@ public class Child {
         this.lName = lName;
         this.age = age;
         this.parent = parent;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public Long getId() {
@@ -74,13 +80,7 @@ public class Child {
         this.age = age;
     }
 
-    public String getChildPic() {
-        return childPic;
-    }
 
-    public void setChildPic(String childPic) {
-        this.childPic = childPic;
-    }
 
     public Parent getParent() {
         return parent;
