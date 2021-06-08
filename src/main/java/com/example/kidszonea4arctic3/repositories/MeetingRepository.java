@@ -11,9 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import com.example.kidszonea4arctic3.models.Child;
 import com.example.kidszonea4arctic3.models.Meeting;
-import com.example.kidszonea4arctic3.models.Parent;
 
 public interface MeetingRepository extends CrudRepository<Meeting, Long>{
 

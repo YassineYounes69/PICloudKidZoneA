@@ -2,17 +2,13 @@ package com.example.kidszonea4arctic3.repositories;
 
 import java.util.List;
 
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
-import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.repository.JpaRepository;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.example.kidszonea4arctic3.models.Feedback;
-import com.example.kidszonea4arctic3.models.Meeting;
 public interface FeedbackRepository extends CrudRepository<Feedback, Long>,PagingAndSortingRepository<Feedback, Long>{
 	
 	
