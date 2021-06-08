@@ -3111,3 +3111,10 @@ Identify and stop the process that's listening on port 8024 or configure this ap
 2021-06-08 04:51:55.879  INFO 11516 --- [main] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
 2021-06-08 04:51:56.037  INFO 11516 --- [main] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
 2021-06-08 04:51:56.066  INFO 11516 --- [main] c.e.k.KidsZoneA4arctic3Application       : Started KidsZoneA4arctic3Application in 8.367 seconds (JVM running for 9.205)
+2021-06-08 12:01:38.233  WARN 11516 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=6h53m13s89ms231µs400ns).
+2021-06-08 12:01:57.664  WARN 13564 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=6h53m13s88ms674�s600ns).
+2021-06-08 14:17:47.497  INFO 11516 --- [RMI TCP Connection(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2021-06-08 14:17:49.211  INFO 11516 --- [RMI TCP Connection(2)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-06-08 14:17:49.285  INFO 11516 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-06-08 14:17:49.285  INFO 11516 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-06-08 14:17:50.259  INFO 11516 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
