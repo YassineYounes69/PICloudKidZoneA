@@ -63,16 +63,16 @@
             </b:inputText>
             <h:message for="Telephone" styleClass="error"></h:message><br></br>
             <div class="p-col">
-            <p:password id="password1" placeholder="Password" match="password2" type="password" value="#{parentController.parent.pw}" required="true"/>
+                <p:password id="password1" placeholder="Password" match="password2" type="password" value="#{parentController.parent.pw}" required="true"/>
             </div>
             <h:message for="password1" styleClass="error"></h:message><br></br>
             <div class="p-col">
-            <p:password id="password2" placeholder="Password" type="password" required="true" />
+                <p:password id="password2" placeholder="Password" type="password" required="true" />
             </div>
 
             <h:message for="password2" styleClass="error"></h:message><br></br>
 
-            <b:commandButton look="primary btn-block" value="Register" icon="log-in" size="lg" action="amodal" />
+            <b:commandButton look="primary btn-block" value="Register" icon="log-in" size="lg" action="#{parentController.addParent}" />
 
         </h:form>
 

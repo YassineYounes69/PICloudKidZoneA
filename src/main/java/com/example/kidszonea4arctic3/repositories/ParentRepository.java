@@ -22,4 +22,30 @@ public interface ParentRepository extends CrudRepository<Parent, Long> {
     @Modifying
     @Query("update Parent p set p.fName=:fName where p.id=:id ")
     public void updateParentFullName(@Param("id")Long id,@Param("fName") String fName);
+
+
+    @Transactional
+    @Modifying
+    @Query("update Parent p set p.lName=:lName where p.id=:id ")
+    public void updateParentLName(Long id, String lName);
+
+    @Transactional
+    @Modifying
+    @Query("update Parent p set p.email=:email where p.id=:id ")
+    public void updateParentEmail(Long id, String email);
+
+    @Transactional
+    @Modifying
+    @Query("update Parent p set p.pTel=:pTel where p.id=:id ")
+    void updateParentPTel(Long id, int pTel);
+
+    @Transactional
+    @Modifying
+    @Query("update Parent p set p.pw=:pw where p.id=:id ")
+    void updateParentPw(Long id, String pw);
+
+    @Query("SELECT p FROM Parent p where p.email=:email")
+    public Parent getParentByEmail(@Param("email") String email);
+
+
 }

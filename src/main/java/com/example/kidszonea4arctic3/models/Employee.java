@@ -1,10 +1,13 @@
 package com.example.kidszonea4arctic3.models;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@DynamicUpdate
 public class Employee {
 
     @Id
@@ -17,9 +20,13 @@ public class Employee {
     private String lName; //Last name
     private String role;
 
+    private int eTel;   //Parent Phone Number
+
+
 
     public Employee() {
     }
+
 
     @ManyToOne
     private ChildCareCenter ccc; //the childcare center that the employee works at
@@ -27,6 +34,22 @@ public class Employee {
     private boolean availability; //specific attribute to Doctor role
 
 
+    public Employee(String email, String pw, String fName, String lName, String role, boolean availability, ChildCareCenter ccc,int eTel) {
+        this.email = email;
+        this.pw = pw;
+        this.fName = fName;
+        this.lName = lName;
+        this.role = role;
+        this.availability = availability;
+        this.ccc = ccc;
+        this.eTel= eTel;
+    }
+
+    public ChildCareCenter getCcc() {
+        return ccc;
+    }
+
+    public void setCcc(ChildCareCenter ccc) {
 
 
 
@@ -39,6 +62,14 @@ public class Employee {
         this.role = role;
         this.availability = availability;
         this.ccc = ccc;
+    }
+
+    public int geteTel() {
+        return eTel;
+    }
+
+    public void seteTel(int eTel) {
+        this.eTel = eTel;
     }
 
     public Long getId() {
@@ -95,5 +126,17 @@ public class Employee {
 
     public void setAvailability(boolean availability) {
         this.availability = availability;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", fName='" + fName + '\'' +
+                ", lName='" + lName + '\'' +
+                ", role='" + role + '\'' +
+                ", eTel=" + eTel +
+                '}';
     }
 }
