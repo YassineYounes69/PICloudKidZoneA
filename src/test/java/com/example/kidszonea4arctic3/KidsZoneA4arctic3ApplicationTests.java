@@ -20,12 +20,12 @@ import java.util.List;
 
 @SpringBootTest
 class KidsZoneA4arctic3ApplicationTests {
-	IPublicationService ps ;
+/*	IPublicationService ps ;
 
     @Test
     void contextLoads() {
     	
-    }
+    }*/
 
     
     
