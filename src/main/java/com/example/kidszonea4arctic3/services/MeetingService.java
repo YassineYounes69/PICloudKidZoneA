@@ -1,7 +1,6 @@
 package com.example.kidszonea4arctic3.services;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,7 +10,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.kidszonea4arctic3.models.Child;
 import com.example.kidszonea4arctic3.models.Employee;
 import com.example.kidszonea4arctic3.models.History;
 import com.example.kidszonea4arctic3.models.Meeting;
