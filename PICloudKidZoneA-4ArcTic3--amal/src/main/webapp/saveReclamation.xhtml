@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="/template/template.xhtml">
+	<ui:param name="page_name" value="liste Reclamation" />
+	<ui:define name="title">Choisir une fonctionnalité : </ui:define>
+	<br />
+	<ui:define name="content">
+		<!-- BEGIN : content -->
+		
+	
+			<h:panelGroup columns="2">
+				<h1>Save Reclamation</h1>
+				<h:form>
+					<table>
+						<tr>
+							<td><h:outputText value="Title"></h:outputText></td>
+							<td><h:inputText value="#{reclamationController.r.title}"
+									class="form-control mb-4 "></h:inputText></td>
+						</tr>
+						
+						<tr>
+							<td><h:outputText value="Content"></h:outputText></td>
+							<td><h:inputText value="#{reclamationController.r.content}"
+									class="form-control mb-4 "></h:inputText></td>
+						</tr>
+						
+
+						<tr>
+							<td><h:outputText value="Category"></h:outputText></td>
+							<td><h:selectOneMenu value="#{reclamationController.r.category}"
+									class="form-control mb-4">
+									<f:selectItem itemLabel="Choose Category" itemValue="#{null}" />
+									<f:selectItems value="#{reclamationController.categories}" />
+								</h:selectOneMenu></td>
+						</tr>
+
+
+
+
+
+
+						<tr>
+							<td colspan="2"><h:commandButton value="Save Reclamation"
+									action="#{reclamationController.addReclamation()}"
+									class="btn btn-primary mb-5" /> <h:commandButton
+									value="Reset Reclamation" action="#{reclamationController.resetReclamation()}"
+									class="btn btn-primary mx-2 mb-5" /></td>
+
+						</tr>
+					</table>
+				</h:form>
+			</h:panelGroup>
+
+		
+	
+
+
+
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,946 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html"
+												xmlns:f="http://java.sun.com/jsf/core"
+												xmlns:ui="http://java.sun.com/jsf/facelets"
+												xmlns:p="http://primefaces.org/ui"
+												xmlns:c="http://java.sun.com/jsp/jstl/core"
+												xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+												xmlns:jsf="http://xmlns.jcp.org/jsf"
+												template="/template/template.xhtml" encoding="UTF-8">
+												<!-- xmlns:jsf="http://xmlns.jcp.org/jsf"
+ -->
+												<ui:param name="page_name" value="Accueil" />
+												<ui:define name="content">
+													<!-- BEGIN : TP1 JSF Introduction Login -->
+
+
+													<meta http-equiv="Content-Type"
+														content="text/html; charset=utf-8" />
+
+													<meta name="viewport"
+														content="width=device-width, initial-scale=1.0" />
+
+													<meta name="description" content="" />
+
+													<meta name="keywords" content="" />
+
+													<link rel="icon" href="images/fav.png" type="image/png"
+														sizes="16x16" />
+
+													<link rel="stylesheet" href="assets/css/main.min.css" />
+													<link rel="stylesheet" href="assets/css/style.css" />
+													<link rel="stylesheet" href="assets/css/color.css" />
+													<link rel="stylesheet" href="assets/css/responsive.css" />
+													<link rel="stylesheet" href="assets/css/strip.css" />
+
+													<!--<div class="se-pre-con"></div>-->
+
+													<script type="text/javascript" charset="UTF-8"
+														src="https://maps.googleapis.com/maps-api-v3/api/js/44/12/intl/fr_ALL/common.js"></script>
+													<script type="text/javascript" charset="UTF-8"
+														src="https://maps.googleapis.com/maps-api-v3/api/js/44/12/intl/fr_ALL/util.js"></script>
+													<script type="text/javascript" charset="UTF-8"
+														src="https://maps.googleapis.com/maps/api/js/AuthenticationService.Authenticate?1shttp%3A%2F%2Fwww.cruto.com%2Fresources%2Fcode-generators%2Fcode-converters%2Fhtml-to-xhtml.asp&amp;4sAIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI&amp;callback=_xdc_._q7j5h9&amp;key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI&amp;token=32412"></script>
+													<script type="text/javascript" charset="UTF-8"
+														src="https://maps.googleapis.com/maps-api-v3/api/js/44/12/intl/fr_ALL/stats.js"></script>
+													<meta http-equiv="Content-Type"
+														content="text/html; charset=utf-8" />
+
+													<meta name="viewport"
+														content="width=device-width, initial-scale=1.0" />
+
+													<meta name="description" content="" />
+
+													<meta name="keywords" content="" />
+
+													<link rel="icon" href="images/fav.png" type="image/png"
+														sizes="16x16" />
+
+													<!--<div class="se-pre-con"></div>-->
+													<div class="theme-layout">
+
+
+														<div class="responsive-header">
+
+															<div class="mh-head first Sticky"></div>
+															<!-- PublicationController.advanced(pattern)-->
+															<div class="mh-head second">
+																<form class="mh-form">
+																	<h:inputText placeholder="search"></h:inputText>
+																	<a href="#/" class="fa fa-search" />
+																</form>
+															</div>
+															<nav id="menu" class="res-menu"></nav>
+
+														</div>
+
+
+														<div class="topbar stick">
+
+
+
+															<div class="top-area">
+
+																<div class="top-search">
+
+																	<h:form>
+																		<label for="ws" class="sr-only">Search in blog</label>
+																		<h:inputText type="text"
+																			value="#{PublicationController.pattern}"></h:inputText>
+																		<h:commandLink data-ripple="" ajax="true" class="btn"
+																			action="#{PublicationController.search()}">
+																			<i class="ti-search"></i>
+																			<span class="sr-only">Search</span>
+																			<f:param name="id" value="1"></f:param>
+																		</h:commandLink>
+																	</h:form>
+
+																</div>
+
+
+																<div class="user-img">
+																	<img src="images/resources/admin.jpg" alt="" /> <span
+																		class="status f-online" />
+
+
+																</div>
+																<span class="ti-menu main-menu" data-ripple="" />
+															</div>
+														</div>
+														<!-- topbar -->
+
+														<!-- left sidebar menu -->
+
+														<section>
+
+															<div class="gap2 gray-bg">
+
+																<div class="container-fluid">
+
+																	<div class="row">
+
+																		<div class="col-lg-12">
+
+																			<div class="row merged20" id="page-contents">
+
+																				<div class="col-lg-3">
+																					<aside class="sidebar static left">
+
+																						<div class="widget">
+
+																							<h4 class="widget-title">Shortcuts</h4>
+
+																							<ul class="naves">
+
+																								<li><i class="ti-clipboard" /> <a
+																									href="http://localhost:8024/SpringMVC/ChildCareCenterFeedback.jsf" title="">FeedBacks</a></li>
+
+
+
+
+
+																								<li><i class="ti-image" /> <a
+																									href="timeline-photos.html" title="">images</a></li>
+
+																								<li><i class="ti-video-camera" /> <a
+																									href="timeline-videos.html" title="">videos</a></li>
+
+
+																								<li><i class="ti-bell" /> <a
+																									href="notifications.html" title="">Notifications</a></li>
+
+
+																								<li><i class="ti-power-off" /> <a
+																									href="landing.html" title="">Logout</a></li>
+																							</ul>
+																						</div>
+																						<!-- Shortcuts -->
+
+
+
+																					</aside>
+																				</div>
+																				<!-- sidebar -->
+
+																				<div class="col-lg-6">
+
+																					<div class="central-meta">
+
+																						<div class="new-postbox">
+																							<figure>
+																								<img src="images/resources/admin2.jpg" alt="" />
+																							</figure>
+
+																							<div class="newpst-input">
+																								<form method="post">
+																									<h:form>
+																										<h:inputTextarea
+																											value="#{PublicationController.pubContent}"></h:inputTextarea>
+																											<h:inputTextarea
+																											value="#{PublicationController.titre_pub}"></h:inputTextarea>
+																											
+
+
+																										<div class="attachments">
+
+																											<ul>
+
+
+																												<h:outputLabel
+																													value="#{PublicationController.date_pub}"></h:outputLabel>
+																												<li
+																													value="#{PublicationController.type_pub}==1"><i
+																													class="fa fa-image" /> <label
+																													class="fileContainer"> <input
+																														type="file"
+																														value="#{PublicationController.src_pub}" />
+																												</label></li>
+
+																												<li><i class="fa fa-video-camera" /> <label
+																													class="fileContainer"> <input
+																														type="file"
+																														value="#{PublicationController.src_pub}" />
+																												</label></li>
+
+																												<hr></hr>
+																												<li><h:commandButton type="submit"
+																														value="Post"
+																														action="#{PublicationController.addpostt()}"></h:commandButton>
+																												</li>
+
+																											</ul>
+																										</div>
+																									</h:form>
+																								</form>
+																							</div>
+																						</div>
+																					</div>
+																					<!-- add post new box -->
+
+																					<div class="loadMore">
+
+
+
+
+
+
+																						<div class="central-meta item">
+
+																							<ui:repeat
+																								value="#{PublicationController.getPublications()}"
+																								var="Publication">
+
+																								<div class="user-post">
+
+																									<div class="friend-info">
+																										<figure>
+																											<img
+																												src="images/resources/friend-avatar10.jpg"
+																												alt="" />
+																										</figure>
+
+																										<div class="friend-name">
+																											<ins>
+																												<a href="time-line.html" title=""> <h:outputLabel
+																														value="#{Publication.parent.fName}"></h:outputLabel>
+																												</a>
+																											</ins>
+
+																											<span>published: <time
+																													class="published" datetime="2015-11-01">
+																													<h:outputLabel
+																														value="#{Publication.date_pub}" />
+																												</time>
+																											</span>
+
+																										</div>
+
+																										<div class="post-meta">
+																											<img src="images/resources/banner3.jpg" alt="" />
+
+
+																											<div class="we-video-info">
+
+																												<ul>
+
+
+																													<li><span class="comment"
+																														data-toggle="tooltip" title="Comments">
+																															<i class="fa fa-comments-o" /> <ins>
+																																<h:link href="/SpringMVC/DetailPost.jsf"
+																																	class="comment" data-toggle="tooltip"
+																																	title="Comments"
+																																	action="#{PublicationController.listcomentofpost(Publication.idpub)}">
+																																	<h:outputLabel
+																																		value="#{CommentaireController.getpostcommentscount(Publication.idpub)}">
+																																	</h:outputLabel>
+
+																																</h:link>
+																															</ins>
+																													</span></li>
+
+																													<li><span class="like"
+																														data-toggle="tooltip" title="like">
+																															<i class="ti-heart" /> <ins>
+																																<h:link href="/SpringMVC/DetailPost.jsf"
+																																	class="heart" data-toggle="tooltip"
+																																	title="likes"
+																																	action="#{PublicationController.listlikeofpost(Publication.idpub)}">
+																																	<h:outputLabel
+																																		value="#{LikesController.getpostlikecount(Publication.idpub)}">
+																																	</h:outputLabel>
+
+																																</h:link>
+																																<li><h:form>
+																																	
+
+																																			<h:commandButton value="+"
+																																		
+																																				action="#{LikesController.addL(Publication.getIdpub())}"></h:commandButton>
+																																	
+																																	</h:form></li>
+
+
+																															</ins>
+																													</span></li>
+
+
+
+
+																													<li class="social-media">
+
+																														<div class="menu">
+
+																															<div class="btn trigger">
+																																<i class="fa fa-share-alt" />
+																															</div>
+
+																															<div class="rotater">
+
+																																<div class="btn btn-icon">
+																																	<h:outputLink
+																																		value="https://www.facebook.com"
+																																		title="">
+																																		<i class="fa fa-facebook" />
+																																	</h:outputLink>
+																																</div>
+																															</div>
+
+
+
+																															<div class="rotater">
+
+																																<div class="btn btn-icon">
+																																	<h:outputLink
+																																		value="https://www.instagram.com"
+																																		title="">
+																																		<i class="fa fa-instagram" />
+																																	</h:outputLink>
+																																</div>
+																															</div>
+
+
+
+
+																														</div>
+
+																													</li>
+																													<li><span data-toggle="tooltip">
+																															<ins>
+																																<h:form>
+																																	<h:column>
+																																		<f:facet name="delete">
+																																			<h:outputText value="Action" />
+																																		</f:facet>
+																																		<h:commandButton data-toggle="tooltip"
+																																			class="fa fa-trash-o"
+																																			style="margin-left: 250px;"
+																																			value="Delete"
+																																			action="#{PublicationController.deletePost(Publication.idpub)}" />
+																																	</h:column>
+
+																																	<h:column>
+																																		<f:facet name="delete">
+																																			<h:outputText value="Action" />
+																																		</f:facet>
+																																		<h:commandButton data-toggle="tooltip"
+																																			style="margin-left:250px;"
+																																			value="Update"
+																																			action="#{PublicationController.show(Publication)}" />
+																																	</h:column>
+
+																																</h:form>
+																															</ins>
+																													</span></li>
+																												</ul>
+																											</div>
+
+																											<div class="description">
+
+																												<h:outputLabel
+																													value="#{Publication.titre_pub}"></h:outputLabel>
+																												<hr></hr>
+
+																												<p>
+																													<h:outputLabel
+																														value="#{Publication.pubContent}"></h:outputLabel>
+
+																												</p>
+																											</div>
+																										</div>
+																									</div>
+
+																									<div class="coment-area">
+
+																										<ul class="we-comet">
+
+
+
+																											<li><ui:repeat var="Commentaire"
+																													value="#{CommentaireController.getCommentsByPost(Publication.idpub)}">
+
+																													<div>
+
+																														<div class="comet-avatar">
+																															<img src="images/resources/comet-1.jpg"
+																																alt="" />
+																														</div>
+
+
+
+
+																														<div class="we-comment">
+
+																															<div class="coment-head">
+
+																																<h5>
+																																	<a href="time-line.html" title="">
+																																		<h:outputLabel
+																																			value="#{Publication.parent.fName}"></h:outputLabel>
+																																	</a>
+																																</h5>
+																																<span><h:outputLabel
+																																		value="#{Commentaire.date_com}">
+																																	</h:outputLabel></span> <a class="we-reply" href="#"
+																																	title="Reply"> </a>
+																															</div>
+																															<p>
+																																<h:outputLabel
+																																	value="#{Commentaire.commentContent}">
+																																</h:outputLabel>
+																															</p>
+
+																															<span data-toggle="tooltip"> 
+																																<h:form>
+																																	<h:column>
+																																		<f:facet name="delete">
+																																			<h:outputText value="Action" />
+																																		</f:facet>
+																																		<h:commandButton data-toggle="tooltip"
+																																			style="margin-left: 520px;"
+																																			value="X" styleClass=""
+																																			action="#{CommentaireController.deleteCommentt(Commentaire.id)}" />
+																																	</h:column>
+																																			</h:form>
+																																			
+																															</span>
+
+																														</div>
+
+																													</div>
+																													<hr></hr>
+																												</ui:repeat>
+
+																												<ul>
+
+
+																													<li></li>
+																												</ul></li>
+
+																											<li></li>
+
+																											<li><a href="#" title=""
+																												class="showmore underline">more comments</a></li>
+
+																											<!-- add comment !  -->
+
+																											<li class="post-comment">
+																												<div class="post-comt-box">
+																													<form method="post">
+																														<h:form>
+
+																															<h:inputText
+																																value="#{CommentaireController.commentTo.commentContent}"
+																																placeholder="Post your comment"></h:inputText>
+
+
+																															<div class="add-smiles">
+																																<span class="em em-expressionless"
+																																	title="add icon" />
+																															</div>
+
+																															<div class="smiles-bunch">
+																																<i class="em em---1" /> <i
+																																	class="em em-smiley" /> <i
+																																	class="em em-anguished" /> <i
+																																	class="em em-laughing" /> <i
+																																	class="em em-angry" /> <i
+																																	class="em em-astonished" /> <i
+																																	class="em em-blush" /> <i
+																																	class="em em-disappointed" /> <i
+																																	class="em em-worried" /> <i
+																																	class="em em-kissing_heart" /> <i
+																																	class="em em-rage" /> <i
+																																	class="em em-stuck_out_tongue" />
+																															</div>
+																															<ul>
+																																<li><h:commandButton
+																																		value="add comment" type="submit"
+																																		action="#{CommentaireController.addCo(CommentaireController.commentTo,Publication.idpub)}"></h:commandButton>
+																																</li>
+																															</ul>
+																														</h:form>
+																													</form>
+																												</div>
+																											</li>
+																										</ul>
+																									</div>
+																								</div>
+																							</ui:repeat>
+
+																						</div>
+
+
+
+
+
+
+																						<!-- thenya  -->
+
+																						<div class="central-meta item">
+
+																							<ui:repeat
+																								value="#{PublicationController.getPublications()}"
+																								var="Publication">
+
+																								<div class="user-post">
+
+																									<div class="friend-info">
+																										<figure>
+																											<img
+																												src="images/resources/friend-avatar10.jpg"
+																												alt="" />
+																										</figure>
+
+																										<div class="friend-name">
+																											<ins>
+																												<a href="time-line.html" title=""> <h:outputLabel
+																														value="#{Publication.parent.fName}"></h:outputLabel>
+																												</a>
+																											</ins>
+
+																											<span>published: <time
+																													class="published" datetime="2015-11-01">
+																													<h:outputLabel
+																														value="#{Publication.date_pub}" />
+																												</time>
+																											</span>
+
+																										</div>
+
+																										<div class="post-meta">
+																											<iframe
+																												src="https://player.vimeo.com/video/15232052"
+																												height="315" />
+
+																											<div class="we-video-info">
+
+																												<ul>
+
+
+																													<li><span class="comment"
+																														data-toggle="tooltip" title="Comments">
+																															<i class="fa fa-comments-o" /> <ins>
+																																<h:link href="/SpringMVC/DetailPost.jsf"
+																																	class="comment" data-toggle="tooltip"
+																																	title="Comments"
+																																	action="#{PublicationController.listcomentofpost(Publication.idpub)}">
+																																	<h:outputLabel
+																																		value="#{CommentaireController.getpostcommentscount(Publication.idpub)}">
+																																	</h:outputLabel>
+
+																																</h:link>
+																															</ins>
+																													</span></li>
+
+																													<li><span class="like"
+																														data-toggle="tooltip" title="like">
+																															<i class="ti-heart" /> <ins>
+																																<h:link href="/SpringMVC/DetailPost.jsf"
+																																	class="heart" data-toggle="tooltip"
+																																	title="likes"
+																																	action="#{PublicationController.listlikeofpost(Publication.idpub)}">
+																																	<h:outputLabel
+																																		value="#{LikesController.getpostlikecount(Publication.idpub)}">
+																																	</h:outputLabel>
+
+																															</h:link></ins></span></li>
+
+
+
+
+																													<li class="social-media">
+
+																														<div class="menu">
+
+																															<div class="btn trigger">
+																																<i class="fa fa-share-alt" />
+																															</div>
+
+																															<div class="rotater">
+
+																																<div class="btn btn-icon">
+																																	<h:outputLink
+																																		value="https://www.facebook.com"
+																																		title="">
+																																		<i class="fa fa-facebook" />
+																																	</h:outputLink>
+																																</div>
+																															</div>
+
+
+
+																															<div class="rotater">
+
+																																<div class="btn btn-icon">
+																																	<h:outputLink
+																																		value="https://www.instagram.com"
+																																		title="">
+																																		<i class="fa fa-instagram" />
+																																	</h:outputLink>
+																																</div>
+																															</div>
+
+
+
+
+																														</div>
+
+																													</li>
+																													<li><span data-toggle="tooltip">
+																															<ins>
+																																<h:form>
+																																	<h:column>
+																																		<f:facet name="delete">
+																																			<h:outputText value="Action" />
+																																		</f:facet>
+																																		<h:commandButton data-toggle="tooltip"
+																																			class="fa fa-trash-o"
+																																			style="margin-left: 320px;"
+																																			value="Delete"
+																																			action="#{PublicationController.deletePost(Publication.idpub)}" />
+																																	</h:column>
+
+																																	<h:column>
+																																		<f:facet name="delete">
+																																			<h:outputText value="Action" />
+																																		</f:facet>
+																																		<h:commandButton data-toggle="tooltip"
+																																			style="margin-left:320px;"
+																																			value="Update"
+																																			action="#{PublicationController.show(Publication)}" />
+																																	</h:column>
+
+																																</h:form>
+																															</ins>
+																													</span></li>
+																												</ul>
+																											</div>
+
+																											<div class="description">
+
+																												<h:outputLabel
+																													value="#{Publication.titre_pub}"></h:outputLabel>
+																												<hr></hr>
+
+																												<p>
+																													<h:outputLabel
+																														value="#{Publication.pubContent}"></h:outputLabel>
+
+																												</p>
+																											</div>
+																										</div>
+																									</div>
+
+																									<div class="coment-area">
+
+																										<ul class="we-comet">
+
+
+
+																											<li><ui:repeat var="Commentaire"
+																													value="#{CommentaireController.getCommentsByPost(Publication.idpub)}">
+
+																													<div>
+
+																														<div class="comet-avatar">
+																															<img src="images/resources/comet-1.jpg"
+																																alt="" />
+																														</div>
+
+
+
+
+																														<div class="we-comment">
+
+																															<div class="coment-head">
+
+																																<h5>
+																																	<a href="time-line.html" title="">
+																																		<h:outputLabel
+																																			value="#{Publication.parent.fName}"></h:outputLabel>
+																																	</a>
+																																</h5>
+																																<span>
+																																<h:outputLabel
+																																		value="#{Commentaire.date_com}">
+																																	</h:outputLabel></span> <a class="we-reply" href="#"
+																																	title="Reply"> </a>
+																															</div>
+																															<p>
+																																<h:outputLabel
+																																	value="#{Commentaire.commentContent}">
+																																</h:outputLabel>
+																															</p>
+
+																															<span data-toggle="tooltip"> 
+																																<h:form>
+																																	<h:column>
+																																		<f:facet name="delete">
+																																			<h:outputText value="Action" />
+																																		</f:facet>
+																																		<h:commandButton data-toggle="tooltip"
+																																			style="margin-left: 520px;"
+																																			value="X"
+																																			action="#{CommentaireController.deleteCommentt(Commentaire.id)}" />
+																																	</h:column>
+																																			</h:form>
+																																			
+																															</span>
+
+																														</div>
+
+																													</div>
+																													<hr></hr>
+																												</ui:repeat>
+
+																												<ul>
+
+
+																													<li></li>
+																												</ul></li>
+
+																											<li></li>
+
+																											<li><a href="#" title=""
+																												class="showmore underline">more comments</a></li>
+
+																											<!-- add comment !  -->
+
+																											<li class="post-comment">
+																												<div class="post-comt-box">
+																													<form method="post">
+																														<h:form>
+
+																															<h:inputText
+																																value="#{CommentaireController.commentTo.commentContent}"
+																																placeholder="Post your comment"></h:inputText>
+
+
+																															<div class="add-smiles">
+																																<span class="em em-expressionless"
+																																	title="add icon" />
+																															</div>
+
+																															<div class="smiles-bunch">
+																																<i class="em em---1" /> <i
+																																	class="em em-smiley" /> <i
+																																	class="em em-anguished" /> <i
+																																	class="em em-laughing" /> <i
+																																	class="em em-angry" /> <i
+																																	class="em em-astonished" /> <i
+																																	class="em em-blush" /> <i
+																																	class="em em-disappointed" /> <i
+																																	class="em em-worried" /> <i
+																																	class="em em-kissing_heart" /> <i
+																																	class="em em-rage" /> <i
+																																	class="em em-stuck_out_tongue" />
+																															</div>
+																															<ul>
+																																<li><h:commandButton
+																																		value="add comment" type="submit"
+																																		action="#{CommentaireController.addCommentt(CommentaireController.commentTo,Publication.getIdpub())}"></h:commandButton>
+																																</li>
+																															</ul>
+																														</h:form>
+																													</form>
+																												</div>
+																											</li>
+																										</ul>
+																									</div>
+																								</div>
+																							</ui:repeat>
+
+																						</div>
+
+
+
+
+
+
+
+
+
+																					</div>
+																				</div>
+																				<!-- centerl meta -->
+
+																				<div class="col-lg-3">
+																					<aside class="sidebar static right">
+
+																						<div class="widget">
+
+																							<h4 class="widget-title">Your page</h4>
+
+																							<div class="your-page">
+																								<figure>
+																									<a href="#" title=""><img
+																										src="images/resources/friend-avatar9.jpg"
+																										alt="" /></a>
+																								</figure>
+
+
+
+																								<div class="page-likes">
+
+																									<ul class="nav nav-tabs likes-btn">
+
+																										<li class="nav-item"><a class="active"
+																											href="#link1" data-toggle="tab">Posts</a></li>
+
+																										<li class="nav-item"><a class=""
+																											href="#link2" data-toggle="tab">Likes</a></li>
+																									</ul>
+																									<!-- Tab panes -->
+
+																									<div class="tab-content">
+
+																										<div class="tab-pane active fade show "
+																											id="link1">
+																											<span> <i class="ti-eye" /> <h:outputLabel
+																													value="#{PublicationController.getpostcount()}">
+																												</h:outputLabel>
+
+																											</span>
+
+
+																										</div>
+
+
+																										<div class="tab-pane fade" id="link2">
+																											<span> <i class=" ti-heart" /> <h:outputLabel
+																													value="#{LikesController.getlikecount()}">
+																												</h:outputLabel>
+																											</span>
+																										</div>
+
+
+
+
+																									</div>
+
+
+
+
+
+
+																								</div>
+																							</div>
+																						</div>
+																						<!-- page like widget -->
+
+
+
+																					</aside>
+																				</div>
+																				<!-- sidebar -->
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</section>
+
+
+													</div>
+
+													<div class="side-panel">
+
+														<h4 class="panel-title">General Setting</h4>
+														<form method="post">
+
+															<div class="setting-row">
+																<span>use night mode</span> <input type="checkbox"
+																	id="nightmode1" /> <label for="nightmode1"
+																	data-on-label="ON" data-off-label="OFF" />
+															</div>
+
+															<div class="setting-row">
+																<span>Notifications</span> <input type="checkbox"
+																	id="switch22" /> <label for="switch22"
+																	data-on-label="ON" data-off-label="OFF" />
+															</div>
+
+
+
+															<div class="setting-row">
+																<span>My profile</span> <input type="checkbox"
+																	id="switch44" /> <label for="switch44"
+																	data-on-label="ON" data-off-label="OFF" />
+															</div>
+
+														</form>
+
+													</div>
+													<!-- side panel -->
+
+
+													<script src="assets/js/main.min.js"></script>
+
+													<script src="assets/js/script.js"></script>
+
+													<script src="assets/js/map-init.js"></script>
+													<script src="assets/js/world.js"></script>
+													<script src="assets/js/echarts.min.js"></script>
+													<script src="assets/js/strip.pgd.min.jsk"></script>
+
+													<script src="assets/js/userincr.js"></script>
+
+
+
+
+
+													<script
+														src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>
+
+
+
+
+
+
+
+												</ui:define>
+											</ui:composition>
+
+
+											<!-- thenya  -->
+
