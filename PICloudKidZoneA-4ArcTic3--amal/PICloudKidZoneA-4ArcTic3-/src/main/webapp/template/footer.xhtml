@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+   <h:panelGroup>
+    <!-- footer -->
+    <h:head>
+
+    <link href="template/css/bootstrap.css" type="text/css"
+		rel="stylesheet" media="all" />
+	<link href="template/css/gallery.css" type="text/css" rel="stylesheet"
+		media="all" />
+	<link href="template/css/testimonials.css" type="text/css"
+		rel="stylesheet" media="all" />
+	<link href="template/css/style.css" type="text/css" rel="stylesheet"
+		media="all" />
+	<link href="template/css/font-awesome.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="keywords" content="Alphabet Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+	SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    
+     <script src="template/js/jquery-2.2.3.min.js"></script>
+    <!-- //js -->
+    <!-- script for password match -->
+    <script>
+        window.onload = function () {
+            document.getElementById("password1").onchange = validatePassword;
+            document.getElementById("password2").onchange = validatePassword;
+        }
+
+        function validatePassword() {
+            var pass2 = document.getElementById("password2").value;
+            var pass1 = document.getElementById("password1").value;
+            if (pass1 != pass2)
+                document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+            else
+                document.getElementById("password2").setCustomValidity('');
+            //empty string means no validation error
+        }
+    </script>
+    <!-- script for password match -->
+    <!-- Banner  Responsiveslides -->
+    <script src="template/js/responsiveslides.min.js"></script>
+    <script>
+        // You can also use"$(window).load(function() {"
+        $(function () {
+            // Slideshow 4
+            $("#slider3").responsiveSlides({
+                auto: true,
+                pager: true,
+                nav: false,
+                speed: 500,
+                namespace: "callbacks",
+                before: function () {
+                    $('.events').append("<li>before event fired.</li>");
+                },
+                after: function () {
+                    $('.events').append("<li>after event fired.</li>");
+                }
+            });
+
+        });
+    </script>
+    <!-- //Banner  Responsiveslides -->
+    <!-- gallery -->
+    <script src="template/js/jquery.picEyes.js"></script>
+    <script>
+        $(function () {
+            //picturesEyes($('.demo li'));
+            $('.demo li').picEyes();
+        });
+    </script>
+    <!-- //gallery -->
+    <!-- stats -->
+    <script src="template/js/counter.js"></script>
+    <!-- //stats -->
+    <!-- start-smooth-scrolling -->
+    <script src="template/js/move-top.js"></script>
+    <script src="template/js/easing.js"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 1000);
+            });
+        });
+    </script>
+    <!-- //end-smooth-scrolling -->
+    <!-- smooth-scrolling-of-move-up -->
+    <script>
+        $(document).ready(function () {
+            /*
+            var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear' 
+            };
+            */
+            $().UItoTop({
+                easingType: 'easeOutQuart'
+            });
+
+        });
+    </script>
+    <script src="template/js/SmoothScroll.min.js"></script>
+    <!-- //smooth-scrolling-of-move-up -->
+    <!-- Bootstrap core JavaScript
+================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="template/js/bootstrap.js"></script>
+    
+    
+ 
+</h:head>
+<h:body>
+ 
+<div class="map p-2">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.9503398796587!2d-73.9940307!3d40.719109700000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a27e2f24131%3A0x64ffc98d24069f02!2sCANADA!5e0!3m2!1sen!2sin!4v1441710758555" allowfullscreen="" />
+    </div>
+       <!-- footer -->
+    <footer class="footer py-md-5 pt-md-3 pb-sm-5">
+        
+<div class="container-fluid">
+            
+<div class="row p-sm-4 px-3 py-5">
+                
+<div class="col-lg-4 col-md-6 footer-top mt-md-0 mt-sm-5">
+                    
+<h2>
+                        <a class="navbar-brand" href="index.html">
+                            Al<span>p</span>h<span>a</span>b<span>e</span>t
+                        </a>
+                    </h2>
+                    
+<p class="my-3 text-white">The future of childcare is now, be the first to boost!
+your business to 
+new heights </p>
+                    
+<p class="text-white">
+                       Welcome to kidzone platform
+                    </p>
+                </div>
+                
+<div class="col-lg-2  col-md-6 mt-md-0 mt-5">
+                    
+<div class=".footerv2-w3ls">
+                        
+<h3 class="mb-3 w3f_title">Navigation</h3>
+                        
+<hr />
+                        
+<ul class="list-w3pvtits">
+                            
+<li>
+                                <a href="index.html">
+                                    Home
+                                </a>
+                            </li>
+                            
+<li class="my-2">
+                                <a href="#about" class="scroll">
+                                    About Us
+                                </a>
+                            </li>
+                            
+<li class="my-2">
+                                <a href="#portfolio" class="scroll">
+                                    Gallery
+                                </a>
+                            </li>
+                            
+<li class="mb-2">
+                                <a href="#services" class="scroll">
+                                    Services
+                                </a>
+                            </li>
+                            
+<li>
+                                <a href="#contact" class="scroll">
+                                    Contact Us
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+<div class="col-lg-3 col-md-6 mt-lg-0 mt-5">
+                    
+<div class="footerv2-w3ls">
+                        
+<h3 class="mb-3 w3f_title">Links</h3>
+                        
+<hr />
+                        
+<ul class="list-w3pvtits">
+                            
+<li>
+                                <a href="index.html">
+                                    Overview
+                                </a>
+                            </li>
+                            
+<li class="my-2">
+                                <a href="#posts" class="scroll">
+                                    Latest posts
+                                </a>
+                            </li>
+                            
+<li class="my-2">
+                                <a href="#stat" class="scroll">
+                                    Facts
+                                </a>
+                            </li>
+                            
+<li class="mb-2">
+                                <a href="#contact" class="scroll">
+                                    Find us
+                                </a>
+                            </li>
+                            
+<li>
+                                <a href="index.html">
+                                    Privacy Policy
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+<div class="col-lg-3 col-md-6 mt-lg-0 mt-5">
+                    
+<div class="footerv2-w3ls">
+                        
+<h3 class="mb-3 w3f_title">Contact Us</h3>
+                        
+<hr />
+                        
+<div class="fv3-contact">
+                            
+<p>
+                                <a href="mailto:example@email.com">kidzonepicloud@gmail.com</a>
+                            </p>
+                        </div>
+                        
+<div class="fv3-contact my-2">
+                            
+<p>+216 51728712</p>
+                        </div>
+                        
+<div class="fv3-contact">
+                            
+<p>+90 Esprit El ghazella
+                                <br />Hay Nour  Street State 3478</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //footer bottom -->
+    </footer>
+    
+<div class="cpy-right">
+        
+<div class="container-fluid">
+            
+<div class="row">
+                
+<div class="col-lg-6">
+                    
+<div class="wthree-social">
+                        
+<ul>
+                            
+<li>
+                              	<h:outputLink value="https://www.facebook.com" >
+                                    <span class="fa fa-facebook-f icon_facebook" />
+                                </h:outputLink>
+                            </li>
+                            
+<li>
+                              	<h:outputLink value="https://www.twitter.com" >
+                                    <span class="fa fa-twitter icon_twitter" />
+                                </h:outputLink>
+                            </li>
+                            
+
+                            
+<li>
+                              	<h:outputLink value="https://www.gmail.com" >
+                                    <span class="fa fa-google-plus icon_g_plus" />
+                                </h:outputLink>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+<div class="col-lg-6 text-lg-right mt-lg-0 mt-4">
+                    
+<p>Alphabet. All rights reserved | Design by
+                        <a href="http://w3layouts.com"> Kidzone Team.</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </h:body>
+    <!-- //footer -->
+    </h:panelGroup>
+    </ui:composition>

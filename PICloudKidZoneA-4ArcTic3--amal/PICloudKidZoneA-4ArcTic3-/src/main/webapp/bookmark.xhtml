@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+<ui:composition template="/template/template.xhtml">
+	<ui:define name="bookmark">
+		  
+	<div class="product card">
+    <h:form>
+    
+				
+        <p:dataScroller value="#{bookmarkcontroller.feedbacks}" var="f" chunkSize="10" mode="inline" 
+                        scrollHeight="500">
+            <f:facet name="header">
+                Scroll Down to Load More Feedbacks
+            </f:facet>
+            
+          
+
+            <div class="product">
+                <div class="product-list-item p-p-5">
+                     <p:graphicImage value="/images/messi.jpg" height="200px" width="200px" />
+                    <div class="product-list-detail">
+                        <div class="product-name"><b>Parent Name:</b>#{f.parent.fName}</div>
+                        <div class="product-description"><b>Parent Email:</b> #{f.parent.email}</div>
+                        <i class="pi pi-tag product-category-icon"/><span
+                            class="product-category"><b>Feedback:</b> #{f.feedback}</span>
+                    </div>
+                    <div class="product-list-action">
+                      <h:outputText value="KidZone Cost: $#{f.childCareCenter.cost}" styleClass="product-price">
+                            <f:convertNumber currencySymbol="$" type="currency"/>
+                        </h:outputText>
+                         <div class="product-description"><b>KidZone Adresse: </b>#{f.childCareCenter.adr}</div>
+                         
+                 <p:inputText  value="#{bookmarkcontroller.desc}">
+				</p:inputText>
+				
+                 <p:commandButton type="button" icon="pi pi-bookmark" styleClass="rounded-button ui-button-secondary" 
+                 action="#{bookmarkcontroller.addbookmark()}" />
+                         
+                    </div>
+                </div>
+            </div>
+        </p:dataScroller>
+    </h:form>
+</div>
+
+			
+	</ui:define>
+</ui:composition>
+</html>
