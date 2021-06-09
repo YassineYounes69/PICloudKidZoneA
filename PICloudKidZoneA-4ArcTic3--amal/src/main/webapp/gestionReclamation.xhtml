@@ -1,0 +1,123 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="/template/template.xhtml">
+	<ui:param name="page_name" value="liste Reclamation" />
+	<ui:define name="title">Choisir une fonctionnalité : </ui:define>
+	<br />
+	<ui:define name="contente">
+		<!-- BEGIN : content -->
+
+
+
+
+		<h:link outcome="saveReclamation" value="Add reclamation"></h:link>
+
+
+
+		<h1>List Reclamation</h1>
+		<h:panelGroup columns="2">
+			<h:form>
+			<div class="d-flex flex-row my-3">
+
+			 <h:outputText value="Search by content" class="mx-3"></h:outputText>
+				<h:inputText class="form-control" type="text" id="input"
+					value="#{reclamationController.msg}">
+					<f:ajax event="keyup" execute="input" render="reclam"></f:ajax>
+				</h:inputText>
+				</div>
+			</h:form>
+
+
+		</h:panelGroup>
+
+		<h:panelGroup columns="2" id="reclam">
+			<h:form>
+				<h:dataTable value="#{reclamationController.list}" var="reclamation"
+					border="1" class="table table-striped table-responsive-md">
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Title" />
+						</f:facet>
+						<h:outputText value="#{reclamation.title}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Category" />
+						</f:facet>
+						<h:outputText value="#{reclamation.category}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Content" />
+						</f:facet>
+						<h:outputText value="#{reclamation.content}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Parent full name" />
+						</f:facet>
+						<h:outputText
+							value="#{reclamation.parent.fName} #{reclamation.parent.lName}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Parent Phone" />
+						</f:facet>
+						<h:outputText value="#{reclamation.parent.pTel}" />
+					</h:column>
+
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Action" />
+						</f:facet>
+
+						<h:commandButton
+							action="#{reclamationController.removeReclamation(reclamation.id)}"
+							class="btn btn-danger" value="Delete" />
+
+
+
+						<h:commandButton
+							action="#{reclamationController.updateReclamation(reclamation)}"
+							class="btn btn-warning mx-2" value="Update" />
+
+
+
+
+
+
+					</h:column>
+
+
+				</h:dataTable>
+			</h:form>
+		</h:panelGroup>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</ui:define>
+</ui:composition>

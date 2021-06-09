@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+<ui:composition template="/template/template.xhtml">
+
+<style type="text/css">
+    .ui-panelgrid.showcase-text-align-center .ui-grid-responsive .ui-panelgrid-cell {
+        text-align: center;
+    }
+
+    .customPanelGrid .ui-panelgrid-content {
+        align-items: center;
+    }
+</style>
+
+
+	<ui:define name="CreateMeeting">
+	
+		<h:form id="meetForm">
+			<p:panel header="Meeting Info" id="meetInfoPnl">
+				
+				
+				<div class="card">
+    <p:panelGrid columns="4" layout="flex"
+                 columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
+                 contentStyleClass="ui-fluid">
+              
+        <p:outputLabel for="textB1" value="Reason Meeting:"/>
+        <p:inputText id="textB1" size="40"
+						value="#{meetingcontroller.reason}" required="true"
+						requiredMessage="Please enter reason "/>
+						
+		<b:alert id="date1" for="date1" errorClass="erreur" />								
+	    <p:outputLabel for="dateB" value="Date:"/>
+        <p:datePicker id="dateB" showIcon="true" style="width:auto" 
+         value="#{meetingcontroller.date}" showTime="true"/>
+
+
+        <b:selectOneMenu id="selectOneB" value="#{meetingcontroller.type}" label="Type Meeting">
+        <f:selectItem itemLabel="Select Type:" itemValue="#{null}" />
+    	<f:selectItems value="#{meetingcontroller.types}"/>
+        </b:selectOneMenu>
+
+        <b:selectOneMenu id="parent" value="#{meetingcontroller.idparent}" label="Parent">
+        <f:selectItem itemLabel="Select Parent" itemValue="#{null}" />
+    	<f:selectItems value="#{meetingcontroller.parente}" var="Parent" 
+						itemLabel="#{Parent.getfName()}" itemValue="#{Parent.getId()}"/>
+        </b:selectOneMenu>
+        
+        		  <h:messages globalOnly="true" infoClass="info" />
+					<p:commandButton action="#{meetingcontroller.addMeet()}" value="Add Meeting"/>                       
+             <p:commandButton value="UpdateMeeting" action="#{meetingcontroller.updateMeeting()}"/> 
+        
+    </p:panelGrid>
+</div>
+			</p:panel>
+			</h:form>
+			
+		    <h:form id="meetList">
+			<p:panel header="Meeting List" id="meetlist">
+				<p:dataTable id="table" var="meet"
+					value="#{meetingcontroller.meetings}">
+					<p:column>
+						<f:facet name="header">Meet Reason</f:facet>
+						<h:outputText value="#{meet.reason}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">Date</f:facet>
+						<h:outputText value="#{meet.date}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">State </f:facet>
+						<h:outputText value="#{meet.state == true ? 'Confirmed' : 'Waiting'}">
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">Type </f:facet>
+						<h:outputText value="#{meet.type}">
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">Parent </f:facet>
+						<h:outputText value="#{meet.parent.fName}" />
+					</p:column>
+				   
+					
+					<p:column>
+					<p:commandButton action="#{meetingcontroller.deleteMeeting(meet)}" value="Delete Meeting" immediate="true"/>
+					</p:column>
+					
+					<p:column>
+					<p:commandButton action="#{meetingcontroller.displayMeeting(meet)}" value="Display Meeting" immediate="true"/>
+			        </p:column>
+					
+				</p:dataTable>
+				
+						<p:commandButton
+	              value="See All Feedbacks"
+	              ajax="false"
+	              action="ChildCareCenterFeedback.xhtml?faces-redirect = true"/>
+				
+			</p:panel>
+			
+			</h:form>
+	</ui:define>
+</ui:composition>
+</html>

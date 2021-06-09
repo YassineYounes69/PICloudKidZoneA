@@ -1,0 +1,235 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="/template/template.xhtml">
+	<ui:param name="page_name" value="Accueil" />
+	<ui:define name="title">Choisir une fonctionnalité : </ui:define>
+	<br />
+	<ui:define name="content">
+		<!-- BEGIN : content -->
+		<h:panelGroup columns="2">
+			<h:form>
+				<c:if test="#{eventController.showForm}">
+					<h:commandButton value="Hide Form"
+						action="#{eventController.hideFormMeth()}" class="btn btn-dark" />
+
+				</c:if>
+
+				<c:if test="#{not eventController.showForm}">
+
+					<h:commandButton action="#{eventController.showFormMeth()}"
+						class="btn btn-light" value="Show Form" />
+				</c:if>
+
+			</h:form>
+		</h:panelGroup>
+		<c:if test="#{eventController.showForm}">
+			<h:panelGroup columns="2">
+				<h1>Save Event</h1>
+				<h:form>
+					<table>
+						<tr>
+							<td><h:outputText value="Name"></h:outputText></td>
+							<td><h:inputText value="#{eventController.e.name}"
+									class="form-control mb-4 "></h:inputText></td>
+						</tr>
+
+						
+
+						<tr>
+							<td><h:outputText value="Date_event(yyyy-MM-dd)"></h:outputText></td>
+							<td><h:inputText value="#{eventController.e.date_event}"
+									class="form-control mb-4">
+									<f:convertDateTime pattern="yyyy-MM-dd" />
+								</h:inputText></td>
+						</tr>
+						<tr>
+							<td><h:outputText value="Description"></h:outputText></td>
+							<td><h:inputText value="#{eventController.e.description}"
+									class="form-control mb-4 "></h:inputText></td>
+						</tr>
+						<tr>
+							<td><h:outputText value="NB participant"></h:outputText></td>
+							<td><h:inputText
+									value="#{eventController.e.nb_participants}"
+									class="form-control mb-4 "></h:inputText></td>
+						</tr>
+
+						<tr>
+							<td><h:outputText value="Category"></h:outputText></td>
+							<td><h:selectOneMenu value="#{eventController.e.category}"
+									class="form-control mb-4">
+									<f:selectItem itemLabel="Choose Category" itemValue="#{null}" />
+									<f:selectItems value="#{eventController.categories}" />
+								</h:selectOneMenu></td>
+						</tr>
+
+
+
+
+
+
+						<tr>
+							<td colspan="2"><h:commandButton value="Save Event"
+									action="#{eventController.addEvent()}"
+									class="btn btn-primary mb-5" /> <h:commandButton
+									value="Reset Event" action="#{eventController.resetEvent()}"
+									class="btn btn-primary mx-2 mb-5" /></td>
+
+						</tr>
+					</table>
+				</h:form>
+			</h:panelGroup>
+
+		</c:if>
+
+
+
+
+
+		<h1>List Event</h1>
+		<hr />
+		<h:panelGroup columns="2">
+			<h:form>
+				<h3>Search By Category :</h3>
+
+				<h:outputText value="Category"></h:outputText>
+				<h:selectOneMenu value="#{eventController.searchCat}"
+					class="form-control mb-4 col-4">
+					<f:selectItem itemLabel="Choose Category" itemValue="#{null}" />
+					<f:selectItems value="#{eventController.categories}" />
+				</h:selectOneMenu>
+				<h:commandButton value="Search"
+					action="#{eventController.searchEvent()}" class="btn btn-primary" />
+
+				<h:commandButton value="Sort By rate"
+					action="#{eventController.sortByRate()}"
+					class="btn btn-secondary mx-2" />
+
+				<h:commandButton value="ShowAll"
+					action="#{eventController.showAll()}" class="btn btn-info mx-2" />
+
+				<h:commandButton value="ShowStatistics"
+					action="#{eventController.showStatistics()}"
+					class="btn btn-info mx-2" />
+
+			</h:form>
+		</h:panelGroup>
+
+		<hr />
+		<h:panelGroup columns="2">
+			<h:form>
+				<h:dataTable value="#{eventController.list}" var="event" border="1"
+					class="table table-striped table-responsive-md">
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Name" />
+						</f:facet>
+						<h:outputText value="#{event.name}" />
+					</h:column>
+
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Image" />
+						</f:facet>
+						<h:graphicImage library="images" name="#{event.image}"
+							height="100" width="100" />
+					</h:column>
+
+
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Description" />
+						</f:facet>
+						<h:outputText value="#{event.description}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Category" />
+						</f:facet>
+						<h:outputText value="#{event.category}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Date event" />
+						</f:facet>
+						<h:outputText value="#{event.date_event}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Nb participant" />
+						</f:facet>
+						<h:outputText value="#{event.nb_participants}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Total Rates" />
+						</f:facet>
+						<h:outputText value="#{event.totalRates}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Action" />
+						</f:facet>
+
+
+
+
+
+						<div class="d-flex flex-row">
+							<h:commandButton
+								action="#{eventController.removeEvent(event.id)}"
+								class="btn btn-danger" value="Delete" />
+
+							<h:commandButton action="#{eventController.updateEvent(event)}"
+								class="btn btn-warning mx-2" value="Update" />
+
+						</div>
+					
+
+					</h:column>
+
+
+				</h:dataTable>
+			</h:form>
+		</h:panelGroup>
+
+
+
+		<h:panelGroup columns="2" rendered="#{eventController.showStat}">
+			<h5>Education :</h5>
+			<h:outputText value="#{eventController.education} %"></h:outputText>
+			<h5>Competition :</h5>
+			<h:outputText value="#{eventController.competition} %"></h:outputText>
+			<h5>Divertissant :</h5>
+			<h:outputText value="#{eventController.divertissant} %"></h:outputText>
+			<h5>Autre :</h5>
+			<h:outputText value="#{eventController.autre} %"></h:outputText>
+		</h:panelGroup>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</ui:define>
+</ui:composition>

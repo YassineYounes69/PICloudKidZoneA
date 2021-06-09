@@ -1,0 +1,263 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/template.xhtml" encoding="UTF-8">
+	<!-- xmlns:jsf="http://xmlns.jcp.org/jsf"
+ -->
+	<ui:param name="page_name" value="Accueil" />
+	<ui:define name="detail">
+		<!-- BEGIN : TP1 JSF Introduction Login -->
+
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<meta name="description" content="" />
+
+		<meta name="keywords" content="" />
+
+		<link rel="icon" href="images/fav.png" type="image/png" sizes="16x16" />
+
+		<link rel="stylesheet" href="assets/css/main.min.css" />
+		<link rel="stylesheet" href="assets/css/style.css" />
+		<link rel="stylesheet" href="assets/css/color.css" />
+		<link rel="stylesheet" href="assets/css/responsive.css" />
+		<link rel="stylesheet" href="assets/css/strip.css" />
+
+		<!--<div class="se-pre-con"></div>-->
+
+		<script type="text/javascript" charset="UTF-8"
+			src="https://maps.googleapis.com/maps-api-v3/api/js/44/12/intl/fr_ALL/common.js"></script>
+		<script type="text/javascript" charset="UTF-8"
+			src="https://maps.googleapis.com/maps-api-v3/api/js/44/12/intl/fr_ALL/util.js"></script>
+		<script type="text/javascript" charset="UTF-8"
+			src="https://maps.googleapis.com/maps/api/js/AuthenticationService.Authenticate?1shttp%3A%2F%2Fwww.cruto.com%2Fresources%2Fcode-generators%2Fcode-converters%2Fhtml-to-xhtml.asp&amp;4sAIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI&amp;callback=_xdc_._q7j5h9&amp;key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI&amp;token=32412"></script>
+		<script type="text/javascript" charset="UTF-8"
+			src="https://maps.googleapis.com/maps-api-v3/api/js/44/12/intl/fr_ALL/stats.js"></script>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<meta name="description" content="" />
+
+		<meta name="keywords" content="" />
+
+		<link rel="icon" href="images/fav.png" type="image/png" sizes="16x16" />
+
+		<!--<div class="se-pre-con"></div>-->
+		
+			
+			
+			
+
+<div class="central-meta item">
+
+												<ui:repeat
+													value="#{PublicationController.liste}"
+													var="Publication">
+
+													<div class="user-post">
+
+														<div class="friend-info">
+															<figure>
+																<img src="images/resources/friend-avatar10.jpg" alt="" />
+															</figure>
+
+															<div class="friend-name">
+																<ins>
+																	<a href="time-line.html" title=""> <h:outputLabel
+																			value="#{Publication.parent.fName}"></h:outputLabel>
+																	</a>
+																</ins>
+
+																<span>published: <time class="published"
+																		datetime="2015-11-01">
+																		<h:outputLabel value="#{Publication.date_pub}" />
+																	</time>
+																</span>
+
+															</div>
+
+															<div class="post-meta">
+																<img src="images/resources/g2.jpg" alt="" />
+
+
+																<div class="we-video-info">
+
+																	<ul>
+
+
+																		<li><span class="comment" data-toggle="tooltip"
+																			title="Comments"> <i class="fa fa-comments-o" />
+																				<ins>
+																					<h:link href="/SpringMVC/DetailPost.jsf"
+																						class="comment" data-toggle="tooltip"
+																						title="Comments"
+																						action="#{PublicationController.listcomentofpost(Publication.idpub)}">
+																						<h:outputLabel
+																							value="#{CommentaireController.getpostcommentscount(Publication.idpub)}">
+																						</h:outputLabel>
+
+																					</h:link>
+																				</ins>
+																		</span></li>
+
+																		<li><span class="like" data-toggle="tooltip"
+																			title="like"> <i class="ti-heart" /> <ins>
+																					<h:link href="/SpringMVC/DetailPost.jsf"
+																						class="heart" data-toggle="tooltip" title="likes"
+																						action="#{PublicationController.listlikeofpost(Publication.idpub)}">
+																						<h:outputLabel
+																							value="#{LikesController.getpostlikecount(Publication.idpub)}">
+																						</h:outputLabel>
+
+																					</h:link>
+																						<li>
+																		 <h:form >
+																		 <ins>
+																		 
+																				<h:commandLink value="Like" type="submit"
+																					action="#{LikesController.addL(Publication.getIdpub())}"></h:commandLink>
+																		</ins>
+																		</h:form>
+																		
+																		</li>
+																					
+
+																				</ins>
+																		</span></li>
+																		
+																	
+
+
+																		<li class="social-media">
+
+																			<div class="menu">
+
+																				<div class="btn trigger">
+																					<i class="fa fa-share-alt" />
+																				</div>
+
+																				<div class="rotater">
+
+																					<div class="btn btn-icon">
+																						<h:outputLink value="https://www.facebook.com"
+																							title="">
+																							<i class="fa fa-facebook" />
+																						</h:outputLink>
+																					</div>
+																				</div>
+
+
+
+																				<div class="rotater">
+
+																					<div class="btn btn-icon">
+																						<h:outputLink value="https://www.instagram.com"
+																							title="">
+																							<i class="fa fa-instagram" />
+																						</h:outputLink>
+																					</div>
+																				</div>
+
+
+
+
+																			</div>
+
+																		</li>
+																		<li><span data-toggle="tooltip"> <ins>
+																					<h:form>
+																						<h:column>
+																							<f:facet name="delete">
+																								<h:outputText value="Action" />
+																							</f:facet>
+																							<h:commandButton data-toggle="tooltip"
+																								class="fa fa-trash-o"
+																								style="margin-left: 320px;" value="Delete"
+																								action="#{PublicationController.deletePost(Publication.idpub)}" />
+																						</h:column>
+
+																						<h:column>
+																							<f:facet name="delete">
+																								<h:outputText value="Action" />
+																							</f:facet>
+																							<h:commandButton data-toggle="tooltip"
+																								style="margin-left:320px;" value="Update"
+																								action="#{PublicationController.show(Publication)}" 
+																								 />
+																						</h:column>
+
+																					</h:form>
+																				</ins>
+																		</span></li>
+																	</ul>
+																</div>
+
+																<div class="description">
+
+																	<h:outputLabel value="#{Publication.titre_pub}"></h:outputLabel>
+																	<hr></hr>
+
+																	<p>
+																		<h:outputLabel value="#{Publication.pubContent}"></h:outputLabel>
+
+																	</p>
+																</div>
+															</div>
+														</div>
+
+														<div class="coment-area">
+
+															<ul class="we-comet">
+
+
+																
+
+																
+															</ul>
+														</div>
+													</div>
+												</ui:repeat>
+
+											</div>
+
+
+											<!-- thenya  -->
+
+
+
+
+	
+		<!-- side panel -->
+
+
+		<script src="assets/js/main.min.js"></script>
+
+		<script src="assets/js/script.js"></script>
+
+		<script src="assets/js/map-init.js"></script>
+		<script src="assets/js/world.js"></script>
+		<script src="assets/js/echarts.min.js"></script>
+		<script src="assets/js/strip.pgd.min.jsk"></script>
+
+		<script src="assets/js/echarts.min.js"></script>
+		<script src="assets/js/userincr.js"></script>
+
+
+
+
+
+		<script
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>
+
+
+
+
+
+
+
+	</ui:define>
+</ui:composition>
